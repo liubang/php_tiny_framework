@@ -45,12 +45,12 @@ class Router
      */
     public function dispatch()
     {
-        if (count($this->uri) % 2 === 0) {
-            header("HTTP/1.1 404 Not Found");
-            die();
-        }
         $req = explode('/', $this->uri);
         $args = array();
+        if (count($args) % 2 === 0) {
+            header("HTTP/1.1 404 Not Found");
+            die('404 Not Found');
+        }
         $module = count($req) > 0 ? strtolower(array_shift($req)) : Linger::C('DEFAULT_MODULE');
         $controller = (count($req) > 0 ? ucfirst(array_shift($req)) : Linger::C('DEFAULT_CONTROLLER')) . 'Controller';
         $action = (count($req) > 0 ? lcfirst(array_shift($req)) : Linger::C('DEFAULT_ACTION'));
