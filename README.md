@@ -4,6 +4,43 @@
 ##简介
 这就是一个简单的php框架.用来教学用,帮助大家深入理解php框架的原理.
 
+##文件结构
+```
+├── app
+│   ├── Bootstrap.php
+│   ├── conf
+│   │   └── config.php
+│   └── module
+│       └── home
+│           ├── controller
+│           │   └── IndexController.class.php
+│           └── view
+│               ├── index.html
+│               └── list.html
+├── Linger
+│   ├── Core
+│   │   ├── App.php
+│   │   ├── Controller.php
+│   │   ├── Hook.php
+│   │   ├── Request.php
+│   │   ├── Router.php
+│   │   └── View.php
+│   ├── Driver
+│   │   ├── Cache
+│   │   │   ├── CacheDriver.php
+│   │   │   ├── Memcached.php
+│   │   │   └── Redis.php
+│   │   └── Db
+│   │       ├── DbDriver.php
+│   │       ├── MySql.php
+│   │       └── Oracle.php
+│   ├── Libs
+│   └── Linger.php
+├── public
+│   └── index.php
+└── README.md
+```
+
 ##使用方法
 
 类似于ThinkPHP, 配置好虚拟站点,单一入口.
