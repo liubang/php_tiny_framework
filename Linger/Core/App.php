@@ -21,6 +21,13 @@ class App
         $this->router = new Router();
     }
 
+    /**
+     * 程序执行bootstrap
+     *
+     * 在app的目录下如果定义了app\Bootstrap类,则会在程序分配路由前执行bootstrap中的
+     * 所有_init开头的方法.
+     * @return $this
+     */
     public function bootstrap()
     {
         if (file_exists(APP_ROOT . '/' . APP_NAME . '/Bootstrap.php')) {
@@ -36,6 +43,9 @@ class App
         return $this;
     }
 
+    /**
+     * 运行程序
+     */
     public function run()
     {
         $this->router->parseUri()->dispatch();

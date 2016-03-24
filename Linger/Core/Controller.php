@@ -12,7 +12,6 @@
 
 namespace Linger\Core;
 
-
 class Controller
 {
 

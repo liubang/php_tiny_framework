@@ -24,6 +24,11 @@ class Router
         $this->roules = Linger::C('ROUTE');
     }
 
+    /**
+     * 解析路由
+     * 会优先解析在config文件中自定义的路由
+     * @return $this
+     */
     public function parseUri()
     {
         $this->uri = trim(str_replace('index.php', '', $_SERVER['REQUEST_URI']), '/');
@@ -35,6 +40,9 @@ class Router
         return $this;
     }
 
+    /**
+     * 分发路由
+     */
     public function dispatch()
     {
         if (count($this->uri) % 2 === 0) {
