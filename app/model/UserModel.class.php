@@ -4,25 +4,26 @@
  | linger.iliubang.cn
  |------------------------------------------------------------------
  | @author    : liubang 
- | @date      : 16/3/24 下午6:54
+ | @date      : 16/3/25 上午12:56
  | @copyright : (c) iliubang.cn
  | @license   : MIT (http://opensource.org/licenses/MIT)
  |------------------------------------------------------------------
  */
 
-namespace app;
+namespace model;
 
-class Bootstrap
+class UserModel
 {
-    public function _initFromSite(\Linger\Core\App $app, \Linger\Core\Router $router)
+    public function __construct()
     {
 
     }
 
-    public function _initSession(\Linger\Core\App $app, \Linger\Core\Router $router)
+    public function getUserInfoById($userId)
     {
-        session_start();
+        return array(
+            'userId' => $userId,
+            'nickname' => 'liubang'
+        );
     }
-
-    //...
 }

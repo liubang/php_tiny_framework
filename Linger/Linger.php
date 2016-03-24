@@ -42,6 +42,8 @@ class Linger
         spl_autoload_register(function($class) {
             if (false !== stripos($class, 'Controller') && false === stripos($class, 'Linger\\Core')) {
                 $classPath = APP_ROOT . '/app/module/' . str_replace('\\', '/', $class) . '.class.php';
+            } else if (false !== stripos($class, 'Model') && false === stripos($class, 'Linger\\Core')) {
+                $classPath = APP_ROOT . '/app/' . str_replace('\\', '/', $class) . '.class.php';
             } else {
                 $classPath = APP_ROOT . '/' . str_replace('\\', '/', $class) . '.php';
             }

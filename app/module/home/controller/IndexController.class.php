@@ -12,11 +12,27 @@
 
 namespace home\controller;
 use Linger\Core\Controller;
+use model\UserModel;
 
 class IndexController extends Controller
 {
+    /**
+     * @var \model\UserModel
+     */
+    private $userModel = null;
+
+    public function _init()
+    {
+        parent::_init();
+        $this->userModel = new UserModel();
+    }
+
     public function indexAction()
     {
+        if (IS_GET) {
+            print_r($this->get());
+            print_r($this->userModel->getUserInfoById(1034285));
+        }
         //echo 'this is Home module index controller index action';
         //echo strtolower(preg_replace('/Controller/', '', trim(strrchr(__CLASS__, '\\'),  '\\')));
         $this->assign('aaa', 'hello world');

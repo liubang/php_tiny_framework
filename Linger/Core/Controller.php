@@ -17,13 +17,19 @@ class Controller
 
     protected $view = NULL;
 
+    protected $request = NULL;
+
     public function __construct()
     {
         if (method_exists($this, '_init')) {
             $this->_init();
         }
+    }
 
+    public function _init()
+    {
         $this->view = new View(APP_ROOT . '/' . APP_NAME . '/module/' . MODULE . '/view');
+        $this->request = Request::getInstance();
     }
 
     public function assign($name, $value)
@@ -45,5 +51,15 @@ class Controller
             $tmpl = strtolower(CURRTMPL) . '.html';
         }
         $this->view->render($tmpl);
+    }
+
+    public function get($key = '')
+    {
+        return $this->request->get($key);
+    }
+
+    public function post($key = '')
+    {
+        return $this->request->post($key);
     }
 }

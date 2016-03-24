@@ -47,7 +47,7 @@ class Router
     {
         $req = explode('/', $this->uri);
         $args = array();
-        if (count($args) % 2 === 0) {
+        if (count($req) % 2 === 0) {
             header("HTTP/1.1 404 Not Found");
             die('404 Not Found');
         }
@@ -65,7 +65,11 @@ class Router
         }
         $class =  MODULE . '\\controller\\' . CONTROLLER;
         $controllerObj = new $class();
-        $_GET = $args;
+        $requestObj = Request::getInstance();
+        $requestObj->setGet($args);
+        unset($_GET);
+        $requestObj->setPost($_POST);
+        unset($_POST);
         call_user_func_array(array($controllerObj, ACTION), array());
     }
 }

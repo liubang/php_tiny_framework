@@ -1,28 +1,35 @@
 <?php
 /*
  |------------------------------------------------------------------
- | linger.iliubang.cn
+ | 相应类,处理相应相关需求
  |------------------------------------------------------------------
  | @author    : liubang 
- | @date      : 16/3/24 下午6:54
+ | @date      : 16/3/25 上午12:31
  | @copyright : (c) iliubang.cn
  | @license   : MIT (http://opensource.org/licenses/MIT)
  |------------------------------------------------------------------
  */
 
-namespace app;
+namespace Linger\Core;
 
-class Bootstrap
+class Response
 {
-    public function _initFromSite(\Linger\Core\App $app, \Linger\Core\Router $router)
+    private static $ins = null;
+
+    private function __construct()
     {
 
     }
 
-    public function _initSession(\Linger\Core\App $app, \Linger\Core\Router $router)
+    public static function getInstance()
     {
-        session_start();
+        if (null === self::$ins) {
+            self::$ins = new self();
+        }
+        return self::$ins;
     }
 
-    //...
+
+
+
 }
