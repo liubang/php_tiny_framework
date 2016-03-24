@@ -6,10 +6,13 @@
 
 ##文件结构
 ```
+.
 ├── app
 │   ├── Bootstrap.php
 │   ├── conf
 │   │   └── config.php
+│   ├── model
+│   │   └── UserModel.class.php
 │   └── module
 │       └── home
 │           ├── controller
@@ -23,6 +26,7 @@
 │   │   ├── Controller.php
 │   │   ├── Hook.php
 │   │   ├── Request.php
+│   │   ├── Response.php
 │   │   ├── Router.php
 │   │   └── View.php
 │   ├── Driver
@@ -39,6 +43,7 @@
 ├── public
 │   └── index.php
 └── README.md
+
 ```
 
 ##使用方法
