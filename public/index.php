@@ -14,8 +14,5 @@ define('APP_ROOT', realpath(dirname(__FILE__) . '/../'));
 define('APP_NAME', 'app');
 
 require APP_ROOT . '/Linger/Linger.php';
-
 $app = Linger\Linger::getApp(APP_ROOT . '/app/conf/config.php');
 $app->bootstrap()->run();
-
-
