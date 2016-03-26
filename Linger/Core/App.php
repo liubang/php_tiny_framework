@@ -12,13 +12,51 @@
 
 namespace Linger\Core;
 
+use Linger\Linger;
+
 class App
 {
+    /**
+     * @var Router
+     */
     private $router = null;
 
-    public function __construct()
+    /**
+     * @var Config
+     */
+    private $config = null;
+
+    /**
+     * @var self
+     */
+    private static $ins = null;
+
+    private function __construct($config)
     {
+        spl_autoload_register(function($class) {
+            if (false !== stripos($class, 'Controller') && false === stripos($class, 'Linger\\Core')) {
+                $classPath = APP_ROOT . '/app/module/' . str_replace('\\', '/', $class) . '.class.php';
+            } else if (false !== stripos($class, 'Model') && false === stripos($class, 'Linger\\Core')) {
+                $classPath = APP_ROOT . '/app/' . str_replace('\\', '/', $class) . '.class.php';
+            } else {
+                $classPath = APP_ROOT . '/' . str_replace('\\', '/', $class) . '.php';
+            }
+            if (file_exists($classPath)) {
+                Linger::incFiles($classPath);
+            } else {
+                die($classPath . '文件不存在');
+            }
+        });
+        $this->config = new Config($config);
         $this->router = new Router();
+    }
+
+    public static function getInstance($config)
+    {
+        if (null === self::$ins) {
+            self::$ins = new self($config);
+        }
+        return self::$ins;
     }
 
     /**

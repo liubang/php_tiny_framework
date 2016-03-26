@@ -1,7 +1,7 @@
 <?php
 /*
  |------------------------------------------------------------------
- | linger.iliubang.cn
+ | 处理路由
  |------------------------------------------------------------------
  | @author    : liubang 
  | @date      : 16/3/23 下午8:34
@@ -16,7 +16,13 @@ use Linger\Linger;
 
 class Router
 {
+    /**
+     * 自定义路由规则
+     *
+     * @var array
+     */
     private $roules = array();
+
     private $uri = '';
 
     public function __construct()
@@ -27,6 +33,7 @@ class Router
     /**
      * 解析路由
      * 会优先解析在config文件中自定义的路由
+     *
      * @return $this
      */
     public function parseUri()
@@ -65,13 +72,7 @@ class Router
         }
         $class =  MODULE . '\\controller\\' . CONTROLLER;
         $controllerObj = new $class();
-        $requestObj = Request::getInstance();
-        $requestObj->setGet($args);
-        $requestObj->setPost($_POST);
-        $requestObj->setFile($_FILES);
-        unset($_GET);
-        unset($_POST);
-        unset($_FILES);
+        Request::getInstance();
         call_user_func_array(array($controllerObj, ACTION), array());
     }
 }

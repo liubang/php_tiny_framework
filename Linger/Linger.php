@@ -12,73 +12,35 @@
 namespace Linger;
 
 use Linger\Core\App;
+use Linger\Core\Config;
 
 class Linger
 {
-    public static $config = array();
-
-    public static $app = null;
-
     private static $includes = array();
 
     public static function getApp($config)
     {
-        if (file_exists($config)) {
-            static::$config = require $config;
-        } else {
-            die($config . '文件不存在');
-        }
-
-        self::init();
-
-        if (self::$app === NULL) {
-            self::$app = new App();
-        }
-        return self::$app;
-    }
-
-    private static function init()
-    {
-        spl_autoload_register(function($class) {
-            if (false !== stripos($class, 'Controller') && false === stripos($class, 'Linger\\Core')) {
-                $classPath = APP_ROOT . '/app/module/' . str_replace('\\', '/', $class) . '.class.php';
-            } else if (false !== stripos($class, 'Model') && false === stripos($class, 'Linger\\Core')) {
-                $classPath = APP_ROOT . '/app/' . str_replace('\\', '/', $class) . '.class.php';
-            } else {
-                $classPath = APP_ROOT . '/' . str_replace('\\', '/', $class) . '.php';
-            }
-            if (file_exists($classPath)) {
-                self::incFiles($classPath);
-            } else {
-                die($classPath . '文件不存在');
-            }
-        });
+        return App::getInstance($config);
     }
 
     public static function incFiles($filePath)
     {
         $file = md5($filePath);
-        if (in_array($file, self::$includes) && self::$includes[$filePath] === 1) {
+        if (in_array($file, self::$includes) && 1 === self::$includes[$filePath]) {
             return true;
         } else {
             require $filePath;
-            self::$config[$file] = 1;
+            self::$includes[$file] = 1;
             return true;
         }
     }
 
-
-    public static function C($name = '', $value = '')
+    public static function C($key = '', $val = '')
     {
-        if ('' === $name) {
-            return static::$config;
+        if (empty($value)) {
+            return Config::getConfig($key);
         } else {
-            if ('' === $value) {
-                return static::$config[$name];
-            } else {
-                static::$config[$name] = $value;
-                return true;
-            }
+            return Config::setConfig($key, $val);
         }
     }
 }

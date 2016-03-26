@@ -14,9 +14,14 @@ namespace Linger\Core;
 
 class Controller
 {
-
+    /**
+     * @var \Linger\Core\View
+     */
     protected $view = NULL;
 
+    /**
+     * @var \Linger\Core\Request
+     */
     protected $request = NULL;
 
     public function __construct()

@@ -15,19 +15,49 @@ namespace Linger\Core;
 class Request
 {
 
+    /**
+     * 保存get提交的变量
+     *
+     * @var array
+     */
     private $_get = array();
 
+    /**
+     * 保存post提交的变量
+     *
+     * @var array
+     */
     private $_post = array();
 
+    /**
+     * 保存表单提交的file
+     *
+     * @var array
+     */
     private $_file = array();
 
+    /**
+     * @var self
+     */
     private static $ins = null;
 
+    /**
+     * Request constructor.
+     */
     private function __construct()
     {
         $this->getWitchRequest();
+        $this->_get = $_GET;
+        $this->_post = $_POST;
+        $this->_file = $_FILES;
+        unset($_GET);
+        unset($_POST);
+        unset($_FILES);
     }
 
+    /**
+     * @return Request
+     */
     public static function getInstance()
     {
         if (null === self::$ins) {
@@ -36,6 +66,9 @@ class Request
         return self::$ins;
     }
 
+    /**
+     * 获取请求类型,并定义常量
+     */
     private function getWitchRequest()
     {
         $reqMethod = strtolower($_SERVER['REQUEST_METHOD']);
@@ -48,33 +81,13 @@ class Request
         }
     }
 
-    public function setGet($key, $value = '')
-    {
-        if ('' === $value) {
-            $this->_get = $key;
-        } else {
-            $this->_get[$key] = $value;
-        }
-    }
-
-    public function setPost($key, $value = '')
-    {
-        if ('' === $value) {
-            $this->_post = $key;
-        } else {
-            $this->_post[$key] = $value;
-        }
-    }
-
-    public function setFile($key, $value = '')
-    {
-        if ('' === $value) {
-            $this->_file = $key;
-        } else {
-            $this->_file[$key] = $value;
-        }
-    }
-
+    /**
+     * 获取get传来的参数
+     *
+     * @param string $key
+     *
+     * @return array|null
+     */
     public function get($key = '')
     {
         if ('' === $key) {
@@ -87,6 +100,13 @@ class Request
         }
     }
 
+    /**
+     * 获取post传递的参数
+     *
+     * @param string $key
+     *
+     * @return array|null
+     */
     public function post($key = '')
     {
         if ('' === $key) {
@@ -99,6 +119,13 @@ class Request
         }
     }
 
+    /**
+     * 获取上传的文件信息
+     *
+     * @param string $key
+     *
+     * @return array|bool
+     */
     public function file($key = '')
     {
         if ('' === $key) {
