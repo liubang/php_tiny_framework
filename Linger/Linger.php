@@ -16,10 +16,42 @@ use Linger\Core\Config;
 
 class Linger
 {
+    /**
+     * @var array
+     */
     private static $includes = array();
 
+    /**
+     * 框架主文件初始化
+     */
+    private static function init()
+    {
+        spl_autoload_register(function($class) {
+            if (false !== stripos($class, 'Controller') && false === stripos($class, 'Linger\\Core')) {
+                $classPath = APP_ROOT . '/app/module/' . str_replace('\\', '/', $class) . '.class.php';
+            } else if (false !== stripos($class, 'Model') && false === stripos($class, 'Linger\\Core')) {
+                $classPath = APP_ROOT . '/app/' . str_replace('\\', '/', $class) . '.class.php';
+            } else {
+                $classPath = APP_ROOT . '/' . str_replace('\\', '/', $class) . '.php';
+            }
+            if (file_exists($classPath)) {
+                self::incFiles($classPath);
+            } else {
+                die($classPath . '文件不存在');
+            }
+        });
+    }
+
+    /**
+     * 获取app
+     *
+     * @param string $config
+     *
+     * @return \Linger\Core\App
+     */
     public static function getApp($config)
     {
+        self::init();
         return App::getInstance($config);
     }
 
@@ -35,12 +67,20 @@ class Linger
         }
     }
 
+    /**
+     * 读取/设置配置项
+     *
+     * @param string $key
+     * @param string $val
+     *
+     * @return array
+     */
     public static function C($key = '', $val = '')
     {
         if (empty($value)) {
             return Config::getConfig($key);
         } else {
-            return Config::setConfig($key, $val);
+            Config::setConfig($key, $val);
         }
     }
 }

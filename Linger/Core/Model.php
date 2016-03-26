@@ -4,28 +4,24 @@
  | linger.iliubang.cn
  |------------------------------------------------------------------
  | @author    : liubang 
- | @date      : 16/3/25 上午12:56
+ | @date      : 16/3/27 上午12:00
  | @copyright : (c) iliubang.cn
  | @license   : MIT (http://opensource.org/licenses/MIT)
  |------------------------------------------------------------------
  */
 
-namespace model;
+namespace Linger\Core;
 
-use Linger\Core\Model;
-
-class UserModel extends Model
+class Model
 {
+
+    protected $table = '';
+
     public function __construct()
     {
-        parent::__construct();
+        $table = strtolower(str_replace('Model', '', ltrim(strrchr(get_called_class(), '\\'), '\\')));
+        $this->table = $table;
     }
 
-    public function getUserInfoById($userId)
-    {
-        return array(
-            'userId' => $userId,
-            'nickname' => 'liubang'
-        );
-    }
+
 }
