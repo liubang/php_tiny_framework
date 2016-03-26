@@ -67,9 +67,11 @@ class Router
         $controllerObj = new $class();
         $requestObj = Request::getInstance();
         $requestObj->setGet($args);
-        unset($_GET);
         $requestObj->setPost($_POST);
+        $requestObj->setFile($_FILES);
+        unset($_GET);
         unset($_POST);
+        unset($_FILES);
         call_user_func_array(array($controllerObj, ACTION), array());
     }
 }

@@ -19,6 +19,8 @@ class Request
 
     private $_post = array();
 
+    private $_file = array();
+
     private static $ins = null;
 
     private function __construct()
@@ -64,6 +66,15 @@ class Request
         }
     }
 
+    public function setFile($key, $value = '')
+    {
+        if ('' === $value) {
+            $this->_file = $key;
+        } else {
+            $this->_file[$key] = $value;
+        }
+    }
+
     public function get($key = '')
     {
         if ('' === $key) {
@@ -85,6 +96,18 @@ class Request
             return $this->_post[$key];
         } else {
             return null;
+        }
+    }
+
+    public function file($key = '')
+    {
+        if ('' === $key) {
+            return $this->_file;
+        }
+        if (in_array($key, $this->_file)) {
+            return $this->_file[$key];
+        } else {
+            return false;
         }
     }
 }
