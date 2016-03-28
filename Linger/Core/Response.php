@@ -29,7 +29,4 @@ class Response
         return self::$ins;
     }
 
-
-
-
 }
