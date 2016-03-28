@@ -160,10 +160,23 @@ abstract class DbDriver
         return $this;
     }
 
+    /**
+     * 解析PDO连接用的dsn
+     *
+     * @return string
+     */
     abstract protected function parseDsn();
 
+    /**
+     * 解析当前表的表结构
+     *
+     * @return self
+     */
     abstract protected function parseTableFields();
 
+    /**
+     * 每次执行完sql后，重置查询选项，避免单例模式下多次查询之间的干扰
+     */
     protected function resetOpt()
     {
         $this->opt = [
@@ -178,6 +191,13 @@ abstract class DbDriver
         }
     }
 
+    /**
+     * 设置当前要操作的表
+     *
+     * @param string $table
+     *
+     * @return $this
+     */
     public function forTable($table)
     {
         $this->table = $this->config['db_prefix'] . $table;
@@ -185,15 +205,20 @@ abstract class DbDriver
         return $this;
     }
 
+    /**
+     * 释放资源
+     */
     public function free()
     {
         $this->PDOStatement = null;
     }
 
     /**
+     * 执行查询sql
+     *
      * @param string $sql
      *
-     * @return array|boolean
+     * @return array|bool
      */
     public function query($sql)
     {
@@ -237,6 +262,13 @@ abstract class DbDriver
         }
     }
 
+    /**
+     * 执行插入，修改，删除sql
+     *
+     * @param string $sql
+     *
+     * @return bool|int|string
+     */
     public function execute($sql)
     {
         if (!$this->linkId) {
@@ -284,6 +316,11 @@ abstract class DbDriver
         }
     }
 
+    /**
+     * 开启事务
+     *
+     * @return bool
+     */
     public function startTrans()
     {
         if (!$this->linkId) {
@@ -296,6 +333,11 @@ abstract class DbDriver
         return true;
     }
 
+    /**
+     * 提交事务
+     *
+     * @return bool
+     */
     public function commit()
     {
         if ($this->trans[$this->linkId] > 0) {
@@ -309,6 +351,11 @@ abstract class DbDriver
         return true;
     }
 
+    /**
+     * 回滚事务
+     *
+     * @return bool
+     */
     public function rollback()
     {
         if ($this->trans[$this->linkId] > 0) {
@@ -322,18 +369,31 @@ abstract class DbDriver
         return true;
     }
 
+    /**
+     * 获取查询结果
+     *
+     * @return array
+     */
     protected function getResult()
     {
         $result = $this->PDOStatement->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
 
+    /**
+     * 关闭数据库连接
+     */
     public function close()
     {
         $this->links[$this->linkId] = null;
         $this->linkId = null;
     }
 
+    /**
+     * 错误处理
+     *
+     * @return string
+     */
     public function error()
     {
         if ($this->PDOStatement) {
@@ -350,11 +410,22 @@ abstract class DbDriver
         return $this->error;
     }
 
+    /**
+     * 绑定sql预处理变量
+     *
+     * @param string $key
+     * @param mix $val
+     */
     public function bindParam($key, $val)
     {
         $this->bind[':' . $key] = $val;
     }
 
+    /**
+     * 添加数据
+     * @param array $data
+     * @return bool|int|string
+     */
     public function add($data = array())
     {
         $keys = '';
@@ -375,6 +446,11 @@ abstract class DbDriver
         return $this->execute($sql);
     }
 
+    /**
+     * 更新数据
+     * @param array $data
+     * @return bool|int|string
+     */
     public function update($data = array())
     {
         $str = '';
@@ -398,6 +474,11 @@ abstract class DbDriver
         return $this->execute($sql);
     }
 
+    /**
+     * 删除数据
+     * @param string $where
+     * @return bool|int|string
+     */
     public function delete($where = '')
     {
         if (!empty($where)) {
@@ -409,6 +490,13 @@ abstract class DbDriver
         return $this->execute($sql);
     }
 
+    /**
+     * 获取一行数据
+     *
+     * @param string $field
+     * @param string $where
+     * @return array|bool|mixed
+     */
     public function getRow($field = '', $where = '')
     {
         if (!empty($field)) {
@@ -434,6 +522,13 @@ abstract class DbDriver
         return false;
     }
 
+    /**
+     * 获取一个字段数据
+     *
+     * @param string $field
+     * @param string $where
+     * @return array|bool
+     */
     public function getOne($field = '', $where = '')
     {
         if (!empty($field)) {
@@ -463,6 +558,14 @@ abstract class DbDriver
         return false;
     }
 
+    /**
+     * 获取所有满足条件的数据
+     *
+     * @param string $field
+     * @param string $where
+     * @param string $limit
+     * @return array|bool
+     */
     public function getAll($field = '', $where = '', $limit = '')
     {
         if (!empty($field)) {
@@ -482,6 +585,11 @@ abstract class DbDriver
         return $this->query($sql);
     }
 
+    /**
+     * 设置查询字段
+     * @param $arr
+     * @return $this
+     */
     public function fields($arr)
     {
         $field = '';
@@ -502,6 +610,12 @@ abstract class DbDriver
         return $this;
     }
 
+    /**
+     * 设置查询limit
+     *
+     * @param $limit
+     * @return $this
+     */
     public function limit($limit)
     {
         if (is_array($limit)) {
@@ -512,6 +626,12 @@ abstract class DbDriver
         return $this;
     }
 
+    /**
+     * 设置查询order
+     *
+     * @param $order
+     * @return $this
+     */
     public function order($order)
     {
         $str = ' ORDER BY ';
@@ -529,6 +649,12 @@ abstract class DbDriver
         return $this;
     }
 
+    /**
+     * 设置查询group
+     *
+     * @param $group
+     * @return $this
+     */
     public function group($group)
     {
         if (is_array($group)) {
@@ -540,6 +666,12 @@ abstract class DbDriver
         return $this;
     }
 
+    /**
+     * 设置查询where
+     *
+     * @param $where
+     * @return $this
+     */
     public function where($where)
     {
         $tmp = array();
@@ -561,6 +693,11 @@ abstract class DbDriver
         return $this;
     }
 
+    /**
+     * 获取当前连接的PDO实例
+     *
+     * @return null|PDO
+     */
     public function getDb()
     {
         if (!$this->linkId) {
@@ -569,12 +706,18 @@ abstract class DbDriver
         return null;
     }
 
+    /**
+     * 打印调试信息
+     */
     public function debug()
     {
         echo '当前操作的表为：' . $this->table . '<br />';
         echo '执行语句为：' . $this->sql . '<br />';
     }
 
+    /**
+     * 析构函数
+     */
     public function __destruct()
     {
         if (!empty($this->PDOStatement)) {

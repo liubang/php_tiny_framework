@@ -15,6 +15,9 @@ namespace Linger\Driver\Db;
 class MySql extends DbDriver
 {
 
+    /**
+     * @return string
+     */
     protected function parseDsn()
     {
         $dsn = 'mysql:dbname=' . $this->config['db_name'] . ';host=' . $this->config['db_host'];
@@ -31,6 +34,9 @@ class MySql extends DbDriver
         return $dsn;
     }
 
+    /**
+     * @return $this|bool
+     */
     protected function parseTableFields()
     {
         if (empty($this->table)) {
