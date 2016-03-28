@@ -23,8 +23,11 @@ return [
     'DB_PARAMS' => [],
     'DB_DSN'    => '',
 
+    //---system config---//
     'DEFAULT_MODULE' => 'index',
     'DEFAULT_CONTROLLER' => 'index',
     'DEFAULT_ACTION' => 'index',
+
+    //---router config---//
     'ROUTE' => [],
 ];
