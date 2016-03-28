@@ -9,6 +9,7 @@
  | @license   : MIT (http://opensource.org/licenses/MIT)
  |------------------------------------------------------------------
  */
+
 namespace Linger\Core;
 
 class Config
