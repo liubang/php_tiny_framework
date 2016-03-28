@@ -50,6 +50,7 @@ class IndexController extends Controller
 
     public function testAction()
     {
+        $_SESSION['userId'] = 1034285;
         $userModel = Linger::M('user');
         $result = $userModel->fields(array('id', 'user_name', 'reg_date'))->where(array('id' => '2'))->getRow();
         print_r($result);
@@ -59,6 +60,6 @@ class IndexController extends Controller
 
         $data = array('user_name' => '张海');
         echo $userModel->where(array('id' => 3))->update($data);
-
+        print_r($_SESSION);
     }
 }
