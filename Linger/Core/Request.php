@@ -75,9 +75,11 @@ class Request
         if ('post' === $reqMethod) {
             define('IS_POST', true);
             define('IS_GET', false);
-        } else if ('get' === $reqMethod) {
-            define('IS_POST', false);
-            define('IS_GET', true);
+        } else {
+            if ('get' === $reqMethod) {
+                define('IS_POST', false);
+                define('IS_GET', true);
+            }
         }
     }
 

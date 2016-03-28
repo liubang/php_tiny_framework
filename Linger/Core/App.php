@@ -48,11 +48,12 @@ class App
     public function bootstrap()
     {
         if (file_exists(APP_ROOT . '/' . APP_NAME . '/Bootstrap.php')) {
-            if (class_exists('\\'.APP_NAME.'\\Bootstrap')) {
-                $initFuncs = get_class_methods('\\'.APP_NAME.'\\Bootstrap');
+            if (class_exists('\\' . APP_NAME . '\\Bootstrap')) {
+                $initFuncs = get_class_methods('\\' . APP_NAME . '\\Bootstrap');
                 foreach ($initFuncs as $func) {
                     if (substr($func, 0, 5) === '_init') {
-                        call_user_func_array(array('\\'.APP_NAME.'\\Bootstrap', $func), array('app'=>$this, 'router' => $this->router));
+                        call_user_func_array(array('\\' . APP_NAME . '\\Bootstrap', $func),
+                            array('app' => $this, 'router' => $this->router));
                     }
                 }
             }

@@ -11,6 +11,7 @@
  */
 
 namespace home\controller;
+
 use Linger\Core\Controller;
 use model\UserModel;
 use Linger\Linger;
@@ -50,9 +51,14 @@ class IndexController extends Controller
     public function testAction()
     {
         $userModel = Linger::M('user');
-//        $userModel->debug();
         $result = $userModel->fields(array('id', 'user_name', 'reg_date'))->where(array('id' => '2'))->getRow();
-//        $userModel->debug();
         print_r($result);
+
+        $data = array('user_name' => 'zhanghai', 'reg_date' => time());
+        echo $userModel->add($data);
+
+        $data = array('user_name' => '张海');
+        echo $userModel->where(array('id' => 3))->update($data);
+
     }
 }

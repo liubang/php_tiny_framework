@@ -65,23 +65,23 @@ abstract class DbDriver
      * @var array
      */
     protected $opt = [
-        'fields'    => '*',
-        'where'     => '',
-        'group'     => '',
-        'order'     => '',
-        'limit'     => '',
+        'fields' => '*',
+        'where'  => '',
+        'group'  => '',
+        'order'  => '',
+        'limit'  => '',
     ];
 
     /**
      * @var array
      */
     protected $config = [
-        'db_host' => '127.0.0.1',
-        'db_user' => '',
-        'db_pwd'  => '',
-        'db_name' => '',
-        'db_port' => '3306',
-        'db_char' => 'utf8',
+        'db_host'   => '127.0.0.1',
+        'db_user'   => '',
+        'db_pwd'    => '',
+        'db_name'   => '',
+        'db_port'   => '3306',
+        'db_char'   => 'utf8',
         'db_prefix' => '',
         'db_socket' => '',
         'db_params' => [],
@@ -152,7 +152,8 @@ abstract class DbDriver
         }
 
         try {
-            $this->links[$this->linkId] = new PDO($this->config['db_dsn'], $this->config['db_user'], $this->config['db_pwd'], $this->options);
+            $this->links[$this->linkId] = new PDO($this->config['db_dsn'], $this->config['db_user'],
+                $this->config['db_pwd'], $this->options);
         } catch (\PDOException $e) {
             echo $e->getMessage();
             print_r($e->getTrace());
@@ -180,13 +181,13 @@ abstract class DbDriver
     protected function resetOpt()
     {
         $this->opt = [
-            'fields'    => '*',
-            'where'     => '',
-            'group'     => '',
-            'order'     => '',
-            'limit'     => '',
+            'fields' => '*',
+            'where'  => '',
+            'group'  => '',
+            'order'  => '',
+            'limit'  => '',
         ];
-        if(isset($this->tableFields[$this->linkId][$this->table]) && !empty($this->tableFields[$this->linkId][$this->table])) {
+        if (isset($this->tableFields[$this->linkId][$this->table]) && !empty($this->tableFields[$this->linkId][$this->table])) {
             $this->opt['fields'] = $this->tableFields[$this->linkId][$this->table];
         }
     }
@@ -227,7 +228,7 @@ abstract class DbDriver
         }
         $this->sql = $sql;
         if (!empty($this->bind)) {
-            $this->sql = strtr($this->sql, array_map(function($val){
+            $this->sql = strtr($this->sql, array_map(function ($val) {
                 return '\'' . addslashes($val) . '\'';
             }, $this->bind));
         }
@@ -276,7 +277,7 @@ abstract class DbDriver
         }
         $this->sql = $sql;
         if (!empty($this->bind)) {
-            $this->sql = strtr($this->sql, array_map(function($val){
+            $this->sql = strtr($this->sql, array_map(function ($val) {
                 return '\'' . addslashes($val) . '\'';
             }, $this->bind));
         }
@@ -414,7 +415,7 @@ abstract class DbDriver
      * 绑定sql预处理变量
      *
      * @param string $key
-     * @param mix $val
+     * @param mix    $val
      */
     public function bindParam($key, $val)
     {
@@ -423,7 +424,9 @@ abstract class DbDriver
 
     /**
      * 添加数据
+     *
      * @param array $data
+     *
      * @return bool|int|string
      */
     public function add($data = array())
@@ -448,7 +451,9 @@ abstract class DbDriver
 
     /**
      * 更新数据
+     *
      * @param array $data
+     *
      * @return bool|int|string
      */
     public function update($data = array())
@@ -476,7 +481,9 @@ abstract class DbDriver
 
     /**
      * 删除数据
+     *
      * @param string $where
+     *
      * @return bool|int|string
      */
     public function delete($where = '')
@@ -495,6 +502,7 @@ abstract class DbDriver
      *
      * @param string $field
      * @param string $where
+     *
      * @return array|bool|mixed
      */
     public function getRow($field = '', $where = '')
@@ -527,6 +535,7 @@ abstract class DbDriver
      *
      * @param string $field
      * @param string $where
+     *
      * @return array|bool
      */
     public function getOne($field = '', $where = '')
@@ -564,6 +573,7 @@ abstract class DbDriver
      * @param string $field
      * @param string $where
      * @param string $limit
+     *
      * @return array|bool
      */
     public function getAll($field = '', $where = '', $limit = '')
@@ -587,7 +597,9 @@ abstract class DbDriver
 
     /**
      * 设置查询字段
+     *
      * @param $arr
+     *
      * @return $this
      */
     public function fields($arr)
@@ -614,6 +626,7 @@ abstract class DbDriver
      * 设置查询limit
      *
      * @param $limit
+     *
      * @return $this
      */
     public function limit($limit)
@@ -630,6 +643,7 @@ abstract class DbDriver
      * 设置查询order
      *
      * @param $order
+     *
      * @return $this
      */
     public function order($order)
@@ -653,6 +667,7 @@ abstract class DbDriver
      * 设置查询group
      *
      * @param $group
+     *
      * @return $this
      */
     public function group($group)
@@ -670,6 +685,7 @@ abstract class DbDriver
      * 设置查询where
      *
      * @param $where
+     *
      * @return $this
      */
     public function where($where)

@@ -12,24 +12,23 @@
 
 return [
     //---db config---//
-    'DB_HOST'   => '127.0.0.1',
-    'DB_USER'   => '',
-    'DB_PWD'    => '',
-    'DB_NAME'   => '',
-    'DB_PORT'   => '3306',
-    'DB_CHAR'   => 'utf8',
-    'DB_PREFIX' => '',
-    'DB_SOCKET' => '',
-    'DB_PARAMS' => [],
-    'DB_DSN'    => '',
+    'DB_HOST'            => '127.0.0.1',
+    'DB_USER'            => '',
+    'DB_PWD'             => '',
+    'DB_NAME'            => '',
+    'DB_PORT'            => '3306',
+    'DB_CHAR'            => 'utf8',
+    'DB_PREFIX'          => '',
+    'DB_SOCKET'          => '',
+    'DB_PARAMS'          => [],
+    'DB_DSN'             => '',
 
     //---system config---//
-    'DEFAULT_MODULE' => 'index',
+    'DEFAULT_MODULE'     => 'index',
     'DEFAULT_CONTROLLER' => 'index',
-    'DEFAULT_ACTION' => 'index',
+    'DEFAULT_ACTION'     => 'index',
 
     //---router config---//
-    'ROUTE' => [],
-
-    'PLUGIN_PATH'   => APP_ROOT . '/plugins/',
+    'ROUTE'              => [],
+    'PLUGIN_PATH'        => APP_ROOT . '/plugins/',
 ];

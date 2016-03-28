@@ -17,12 +17,12 @@ class Controller
     /**
      * @var \Linger\Core\View
      */
-    protected $view = NULL;
+    protected $view = null;
 
     /**
      * @var \Linger\Core\Request
      */
-    protected $request = NULL;
+    protected $request = null;
 
     public function __construct()
     {

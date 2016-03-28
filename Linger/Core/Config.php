@@ -28,7 +28,7 @@ class Config
     public static function configInit($conFile)
     {
         if (file_exists($conFile)) {
-            static::$g_config = array_merge(require LINGER_ROOT . '/Conf/config.php',require $conFile);
+            static::$g_config = array_merge(require LINGER_ROOT . '/Conf/config.php', require $conFile);
         } else {
             die($conFile . '文件不存在');
         }

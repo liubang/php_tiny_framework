@@ -69,11 +69,11 @@ class Router
         define('ACTION', $action . 'Action');
         define('CURRTMPL', $action);
         if (count($req) > 0) {
-            for($i = 0; $i < count($req); $i += 2) {
-                $args[$req[$i]] = $req[$i+1];
+            for ($i = 0; $i < count($req); $i += 2) {
+                $args[$req[$i]] = $req[$i + 1];
             }
         }
-        $class =  MODULE . '\\controller\\' . CONTROLLER;
+        $class = MODULE . '\\controller\\' . CONTROLLER;
         $controllerObj = new $class();
         Request::getInstance();
         call_user_func_array(array($controllerObj, ACTION), array());
