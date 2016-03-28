@@ -31,17 +31,31 @@ class Controller
         }
     }
 
+    /**
+     * init 方法
+     */
     public function _init()
     {
         $this->view = new View(APP_ROOT . '/' . APP_NAME . '/module/' . MODULE . '/view');
         $this->request = Request::getInstance();
     }
 
+    /**
+     * 视图变量赋值
+     *
+     * @param $name
+     * @param $value
+     */
     public function assign($name, $value)
     {
         $this->view->assign($name, $value);
     }
 
+    /**
+     * 输出视图
+     *
+     * @param string $tmpl
+     */
     public function display($tmpl = '')
     {
         if ('' === $tmpl) {
