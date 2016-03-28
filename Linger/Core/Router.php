@@ -61,8 +61,7 @@ class Router
         $controller = (count($req) > 0 ? ucfirst(array_shift($req)) : Linger::C('DEFAULT_CONTROLLER')) . 'Controller';
         $action = (count($req) > 0 ? lcfirst(array_shift($req)) : Linger::C('DEFAULT_ACTION'));
         if (!empty($req) && count($req) % 2 === 0) {
-            header("HTTP/1.1 404 Not Found");
-            die('404 Not Found');
+            $this->_404();
         }
         define('MODULE', $module);
         define('CONTROLLER', $controller);
@@ -74,8 +73,20 @@ class Router
             }
         }
         $class = MODULE . '\\controller\\' . CONTROLLER;
+        if (!class_exists($class)) {
+            $this->_404();
+        }
         $controllerObj = new $class();
+        if (!method_exists($controllerObj, $action)) {
+            $this->_404();
+        }
         Request::getInstance();
         call_user_func_array(array($controllerObj, ACTION), array());
+    }
+
+    private function _404()
+    {
+        header("HTTP/1.1 404 Not Found");
+        die('404 Not Found');
     }
 }
