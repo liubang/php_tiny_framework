@@ -31,7 +31,7 @@ class App
 
     private function __construct($config)
     {
-        $this->config = new Config($config);
+        Config::configInit($config);
         $this->router = new Router();
     }
 

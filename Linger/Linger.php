@@ -77,7 +77,7 @@ class Linger
      */
     public static function C($key = '', $val = '')
     {
-        if (empty($value)) {
+        if (empty($val)) {
             return Config::getConfig($key);
         } else {
             Config::setConfig($key, $val);
