@@ -52,9 +52,12 @@ class Router
      */
     public function dispatch()
     {
-        $req = explode('/', $this->uri);
+        $req = array();
+        if (!empty($this->uri)) {
+            $req = explode('/', $this->uri);
+        }
         $args = array();
-        if (count($req) % 2 === 0) {
+        if (!empty($req) && count($req) % 2 === 0) {
             header("HTTP/1.1 404 Not Found");
             die('404 Not Found');
         }
