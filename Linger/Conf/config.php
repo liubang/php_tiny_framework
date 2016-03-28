@@ -30,4 +30,6 @@ return [
 
     //---router config---//
     'ROUTE' => [],
+
+    'PLUGIN_PATH'   => APP_ROOT . '/plugins/',
 ];

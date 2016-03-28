@@ -20,11 +20,6 @@ class App
     private $router = null;
 
     /**
-     * @var Config
-     */
-    private $config = null;
-
-    /**
      * @var self
      */
     private static $ins = null;
