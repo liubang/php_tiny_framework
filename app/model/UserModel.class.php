@@ -20,12 +20,5 @@ class UserModel extends Model
     {
         parent::__construct();
     }
-
-    public function getUserInfoById($userId)
-    {
-        return array(
-            'userId' => $userId,
-            'nickname' => 'liubang'
-        );
-    }
+    
 }

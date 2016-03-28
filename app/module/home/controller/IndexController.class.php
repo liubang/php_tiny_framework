@@ -13,6 +13,7 @@
 namespace home\controller;
 use Linger\Core\Controller;
 use model\UserModel;
+use Linger\Linger;
 
 class IndexController extends Controller
 {
@@ -31,7 +32,7 @@ class IndexController extends Controller
     {
         if (IS_GET) {
             print_r($this->get());
-            print_r($this->userModel->getUserInfoById(1034285));
+            //print_r($this->userModel->getUserInfoById(1034285));
         }
         //echo 'this is Home module index controller index action';
         //echo strtolower(preg_replace('/Controller/', '', trim(strrchr(__CLASS__, '\\'),  '\\')));
@@ -42,8 +43,16 @@ class IndexController extends Controller
 
     public function listAction()
     {
-        //print_r($_GET);
         $this->assign('id', $_GET['id']);
         $this->display();
+    }
+
+    public function testAction()
+    {
+        $userModel = Linger::M('user');
+//        $userModel->debug();
+        $result = $userModel->fields(array('id', 'user_name', 'reg_date'))->where(array('id' => '2'))->getRow();
+//        $userModel->debug();
+        print_r($result);
     }
 }

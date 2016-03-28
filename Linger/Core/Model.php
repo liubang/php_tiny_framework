@@ -22,6 +22,5 @@ class Model
         $table = strtolower(str_replace('Model', '', ltrim(strrchr(get_called_class(), '\\'), '\\')));
         $this->table = $table;
     }
-
-
+    
 }
