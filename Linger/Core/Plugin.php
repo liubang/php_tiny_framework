@@ -23,7 +23,7 @@ abstract class Pligin
     public function __construct()
     {
         $this->app = Linger::getApp();
-        
+
     }
 
     /**
