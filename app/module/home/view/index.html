@@ -2,8 +2,9 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Document</title>
+    <title>{$title}</title>
     <js file="/js/page/index.js" />
+    <css file="/css/index.css" />
 </head>
 <body>
     <h1><?=$aaa?></h1>
@@ -13,5 +14,26 @@
             <li>{$val.userId} - {$val.userName}</li>
         </foreach>
     </ul>
+    <ol>
+        <foreach name="arr" item="val" key="key">
+            <li>{$key} - {$val.userId} - {$val.userName}</li>
+        </foreach>
+    </ol>
+    <if condition="$flag eq true">
+        <h1>this is if </h1>
+    </if>
+    <if condition="$flag eq false">
+        <h1>this is false</h1>
+        <else />
+        <h1>this is true</h1>
+    </if>
+    <if condition="$flag eq false">
+        <h1>this is false</h1>
+        <elseif condition="$flag eq true"/>
+        <h1>this is true</h1>
+    </if>
+    <h1>{$time|date='Y-m-d H:i:s', ###}</h1>
+    <h1>{:Linger::C('DB_HOST')}</h1>
+    <include file="footer.html" />
 </body>
 </html>

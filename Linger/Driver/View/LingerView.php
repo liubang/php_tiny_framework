@@ -17,7 +17,7 @@ class LingerView extends LingerViewAbstract
 {
     public function __construct()
     {
-        define('LINGER', 'true');
+        parent::__construct();
     }
 
     public function display($tplFile, $cacheTime = -1, $cachePath = '', $contentType = 'text/html', $show=true)
@@ -26,17 +26,16 @@ class LingerView extends LingerViewAbstract
         $cacheTime = is_numeric($cacheTime) ? $cacheTime : intval(Linger::C('TPL_CACHE_TIME'));
         $cachePath = !empty($cachePath) ? $cachePath : Linger::C('TPL_CACHE_PATH');
         $content = null;
+        if (is_file($tplFile)) {
+            $this->tmplPath = dirname($tplFile);
+            $this->tmplFile = $tplFile;
+        } else {
+            $this->tmplFile = $this->tmplPath . '/' . $tplFile;
+        }
         if ($cacheTime > 0) {
 
         }
-
         if (!$content) {
-
-            $this->tmplFile = $this->tmplPath . '/' . $tplFile;
-
-            if (!$this->tmplFile) {
-                return;
-            }
             $this->compileFile = Linger::C('TPL_COMP_PATH') . MODULE . '_' . CONTROLLER . '_' . ACTION . '_' . substr(md5($this->tmplFile), 0, 8) . '.php';
             $this->compile();
             if (!empty($this->vars)) {

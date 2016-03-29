@@ -33,7 +33,7 @@ class LingerTag extends LingerTagAbstract
 
     public function _css($attr, $content)
     {
-        return "<link type=\"text/javascript\" rel=\"stylesheet\" href=\"{$attr['file']}\" />";
+        return "<link type=\"text/css\" rel=\"stylesheet\" href=\"{$attr['file']}\" />";
     }
 
     public function _js($attr, $content)
@@ -86,7 +86,7 @@ class LingerTag extends LingerTagAbstract
 
     public function _elseif($attr, $content)
     {
-        return "<?php } elseif ({$attr['condition']}) {?> {$content} <?php }?>";
+        return "<?php } elseif ({$attr['condition']}) {?> ";
     }
 
     public function _else($attr, $content)

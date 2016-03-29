@@ -113,7 +113,7 @@ abstract class LingerTagAbstract
                 $data = explode('.', $val[1]);
                 foreach ($data as $m => $n) {
                     if ($m == 0) {
-                        $var .= $m;
+                        $var .= $n;
                     } else {
                         $var .= '[\'' . $n . '\']';
                     }

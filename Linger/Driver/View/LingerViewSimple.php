@@ -14,6 +14,11 @@ namespace Linger\Driver\View;
 class LingerViewSimple extends LingerViewAbstract
 {
 
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
     /**
      * @param        $tplFile
      * @param int    $cacheTime

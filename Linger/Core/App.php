@@ -24,6 +24,11 @@ class App
      */
     private static $ins = null;
 
+    /**
+     * @var \app\Bootstrap
+     */
+    private $bootstrap = null;
+
     private function __construct($config)
     {
         Config::configInit($config);
@@ -48,11 +53,13 @@ class App
     public function bootstrap()
     {
         if (file_exists(APP_ROOT . '/' . APP_NAME . '/Bootstrap.php')) {
-            if (class_exists('\\' . APP_NAME . '\\Bootstrap')) {
+            $bootstrapClass = '\\' . APP_NAME . '\\Bootstrap';
+            if (class_exists($bootstrapClass)) {
                 $initFuncs = get_class_methods('\\' . APP_NAME . '\\Bootstrap');
+                $this->bootstrap = new $bootstrapClass();
                 foreach ($initFuncs as $func) {
                     if (substr($func, 0, 5) === '_init') {
-                        call_user_func_array(array('\\' . APP_NAME . '\\Bootstrap', $func),
+                        call_user_func_array(array($this->bootstrap, $func),
                             array('app' => $this, 'router' => $this->router));
                     }
                 }

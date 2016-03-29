@@ -38,6 +38,12 @@ abstract class LingerViewAbstract
      * @var array
      */
     protected $vars = [];
+    
+    public function __construct()
+    {
+        define('LINGER', 'true');
+        $this->tmplPath = APP_ROOT . '/' . APP_NAME . '/module/' . MODULE . '/view';
+    }
 
     public function assign($name, $value)
     {

@@ -24,5 +24,8 @@ class Bootstrap
         session_start();
     }
 
-    //...
+    public function _initRegistPlugin(\Linger\Core\App $app, \Linger\Core\Router $router)
+    {
+
+    }
 }
