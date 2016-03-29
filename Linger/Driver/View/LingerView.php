@@ -13,15 +13,8 @@
 namespace Linger\Driver\View;
 use Linger\Linger;
 
-class LingerView
+class LingerView extends LingerViewAbstract
 {
-    private $vars = [];
-
-    private $const = [];
-
-    private $tplFile = '';
-
-    private $compileFile = '';
 
     public function display($tplFile = '', $cacheTime = -1, $cachePath = '', $contentType = 'text/html', $show=true)
     {
@@ -34,11 +27,11 @@ class LingerView
         }
 
         if (!$content) {
-            $this->tplFile = $this->getTemplateFile($tplFile);
-            if (!$this->tplFile) {
+            $this->tmplFile = $this->getTemplateFile($tplFile);
+            if (!$this->tmplFile) {
                 return;
             }
-            $this->compileFile = Linger::C('TPL_COMP_PATH') . MODULE . '/' . CONTROLLER . '/' . ACTION . '_' . substr(md5($this->tplFile), 0, 8);
+            $this->compileFile = Linger::C('TPL_COMP_PATH') . MODULE . '/' . CONTROLLER . '/' . ACTION . '_' . substr(md5($this->tmplFile), 0, 8);
             $this->compile();
             if (!empty($this->vars)) {
                 extract($this->vars, EXTR_OVERWRITE);
@@ -67,9 +60,15 @@ class LingerView
         return $this->display($tplFile, $cacheTime, $cachePath, $contentType, false);
     }
 
-    public function assign(string $name, $value)
+    public function assign($name, $value)
     {
-        $this->vars[$name] = $value;
+        if (is_array($name)) {
+            foreach($name as $key => $val) {
+                $this->vars[$key] = $val;
+            }
+        } else {
+            $this->vars[$name] = $value;
+        }
     }
 
     private function compile()
@@ -81,19 +80,9 @@ class LingerView
         $compiler->run($this);
     }
 
-    public function compileInvallid()
+    private function compileInvallid()
     {
         //TODO ...
         return true;
-    }
-
-    public function getTmpFile()
-    {
-        return $this->tplFile;
-    }
-    
-    public function getCompileFile()
-    {
-        return $this->compileFile;
     }
 }
