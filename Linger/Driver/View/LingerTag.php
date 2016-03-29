@@ -16,6 +16,7 @@ class LingerTag extends LingerTagAbstract
 {
     protected $tag = [
         'foreach' => ['block' => 1, 'level' => 5],
+        'for'     => ['block' => 1, 'level' => 3],
         'list'    => ['block' => 1, 'level' => 5],
         'if'      => ['block' => 1, 'level' => 5],
         'elseif'  => ['block' => 0, 'level' => 0],
@@ -45,12 +46,24 @@ class LingerTag extends LingerTagAbstract
 
     }
 
+    public function _for($attr, $content)
+    {
+        $step = isset($attr['step']) ? $attr['step'] : 1;
+        $name = '$' . (isset($attr['name']) ? $attr['name'] : 'i');
+        $comparison = isset($attr['comparison']) ? $attr['comparison'] : '<';
+        if (isset($attr['start']) && isset($attr['end'])) {
+            return "for ({$name}={$attr['start']}; {$name} {$comparison} {$attr['end']}; $name+=$step ) { {$content} }";
+        }
+    }
+
     public function _foreach($attr, $content)
     {
-        if (!empty($attr['key']) && !empty($arrt['value'])) {
-            $php = "<?php foreach ({$attr['name']} as {$attr['key']} => {$attr['value']}) { ?>";
-        } else if (!empty($attr['item'])) {
-            $php = '<?php foreach (' . $attr['name'] . ' as ' . $attr['item'] . ') { ?>';
+        if (isset($attr['key']) && isset($arrt['item'])) {
+            $php = "<?php foreach ({$attr['name']} as {$attr['key']} => {$attr['item']}) { ?>";
+        } else {
+            if (isset($attr['item'])) {
+                $php = '<?php foreach (' . $attr['name'] . ' as ' . $attr['item'] . ') { ?>';
+            }
         }
         $php .= $content;
         $php .= '<?php } ?>';
@@ -59,7 +72,7 @@ class LingerTag extends LingerTagAbstract
 
     public function _include($attr, $content)
     {
-        if (isset($attr['file']) && !empty($attr['file'])) {
+        if (isset($attr['file'])) {
             $view = new LingerView();
             return $view->render($attr['file']);
         }
