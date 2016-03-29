@@ -36,7 +36,7 @@ class Controller
      */
     public function _init()
     {
-        $this->view = new View(APP_ROOT . '/' . APP_NAME . '/module/' . MODULE . '/view');
+        $this->view = new View(null, APP_ROOT . '/' . APP_NAME . '/module/' . MODULE . '/view');
         $this->request = Request::getInstance();
     }
 

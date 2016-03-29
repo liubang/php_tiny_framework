@@ -11,6 +11,7 @@
  */
 
 namespace Linger\Driver\View;
+use Linger\Linger;
 
 abstract class LingerViewAbstract
 {
@@ -61,6 +62,11 @@ abstract class LingerViewAbstract
     public function getCompileFile()
     {
         return $this->compileFile;
+    }
+
+    public function getTemplateFile()
+    {
+        return $this->tmplPath . '/' . md5(MODULE . CONTROLLER . ACTION);
     }
 
     public function getTmplPath()

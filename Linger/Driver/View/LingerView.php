@@ -15,8 +15,12 @@ use Linger\Linger;
 
 class LingerView extends LingerViewAbstract
 {
+    public function __construct()
+    {
+        define('LINGER', 'true');
+    }
 
-    public function display($tplFile = '', $cacheTime = -1, $cachePath = '', $contentType = 'text/html', $show=true)
+    public function display($tplFile, $cacheTime = -1, $cachePath = '', $contentType = 'text/html', $show=true)
     {
         $cacheName = md5($_SERVER['REQUEST_URI']);
         $cacheTime = is_numeric($cacheTime) ? $cacheTime : intval(Linger::C('TPL_CACHE_TIME'));
@@ -27,11 +31,13 @@ class LingerView extends LingerViewAbstract
         }
 
         if (!$content) {
-            $this->tmplFile = $this->getTemplateFile($tplFile);
+
+            $this->tmplFile = $this->tmplPath . '/' . $tplFile;
+
             if (!$this->tmplFile) {
                 return;
             }
-            $this->compileFile = Linger::C('TPL_COMP_PATH') . MODULE . '/' . CONTROLLER . '/' . ACTION . '_' . substr(md5($this->tmplFile), 0, 8);
+            $this->compileFile = Linger::C('TPL_COMP_PATH') . MODULE . '_' . CONTROLLER . '_' . ACTION . '_' . substr(md5($this->tmplFile), 0, 8) . '.php';
             $this->compile();
             if (!empty($this->vars)) {
                 extract($this->vars, EXTR_OVERWRITE);
@@ -73,7 +79,7 @@ class LingerView extends LingerViewAbstract
 
     private function compile()
     {
-        if ($this->compileInvallid()) {
+        if (!$this->compileInvallid()) {
             return false;
         }
         $compiler = new LingerCompiler();

@@ -55,9 +55,9 @@ abstract class LingerTagAbstract
     public function parseTag($tag, &$viewContent)
     {
         if ($this->tag[$tag]['block']) {
-            $preg = '#' . $this->tagLeft . $tag . '\s+(.*)' . $this->tagRight . '(.*)' . $this->tagLeft . '/' . $tag . $this->tagRight . '#isU';
+            $preg = "#{$this->tagLeft}{$tag}\\s+(.*){$this->tagRight}(.*){$this->tagLeft}/{$tag}{$this->tagRight}#isU";
         } else {
-            $preg = '#' . $this->tagLeft . $tag . '\s+(.*)' . '/' . $this->tagRight . '#isU';
+            $preg = "#{$this->tagLeft}{$tag}\\s+(.*)/{$this->tagRight}#isU";
         }
         $status = preg_match_all($preg, $viewContent, $info, PREG_SET_ORDER);
         if ($status) {

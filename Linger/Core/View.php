@@ -43,7 +43,7 @@ class View
         } else {
             return false;
         }
-
+        
         $this->viewObj->setTmpPath($tmplPath);
     }
 

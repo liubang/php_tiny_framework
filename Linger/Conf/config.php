@@ -31,8 +31,8 @@ return [
     //---router config---//
     'ROUTE'              => [],
     'PLUGIN_PATH'        => APP_ROOT . '/plugins/',
-    'VIEW_DRIVER'        => 'simple',
-    //'VIEW_DRIVER'        => 'linger',
+    //'VIEW_DRIVER'        => 'simple',
+    'VIEW_DRIVER'        => 'linger',
     'TPL_TAG_LEFT'       => '<',
     'TPL_TAG_RIGHT'      => '>',
     'TPL_CACHE_TIME'     => -1,

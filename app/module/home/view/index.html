@@ -3,9 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
-    <script src="/js/page/index.js"></script>
+    <js file="/js/page/index.js" />
 </head>
 <body>
-
+    <h1><?=$aaa?></h1>
+    <h1>{$aaa}</h1>
+    <ul>
+        <foreach name="arr" item="val">
+            <li>{$val.userId} - {$val.userName}</li>
+        </foreach>
+    </ul>
 </body>
 </html>

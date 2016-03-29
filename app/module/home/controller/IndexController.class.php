@@ -32,12 +32,13 @@ class IndexController extends Controller
     public function indexAction()
     {
         if (IS_GET) {
-            print_r($this->get());
+            //print_r($this->get());
             //print_r($this->userModel->getUserInfoById(1034285));
         }
         //echo 'this is Home module index controller index action';
         //echo strtolower(preg_replace('/Controller/', '', trim(strrchr(__CLASS__, '\\'),  '\\')));
         $this->assign('aaa', 'hello world');
+        $this->assign('arr', array('userId' => 1034285, 'userName' => 'zhanghai'));
         $this->display();
     }
 
