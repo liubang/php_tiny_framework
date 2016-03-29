@@ -52,7 +52,7 @@ abstract class LingerTagAbstract
         }
     }
 
-    public function parseTag($tag, &$viewContent, $view)
+    public function parseTag($tag, &$viewContent)
     {
         if ($this->tag[$tag]['block']) {
             $preg = '#' . $this->tagLeft . $tag . '\s+(.*)' . $this->tagRight . '(.*)' . $this->tagLeft . '/' . $tag . $this->tagRight . '#isU';
@@ -62,12 +62,12 @@ abstract class LingerTagAbstract
         $status = preg_match_all($preg, $viewContent, $info, PREG_SET_ORDER);
         if ($status) {
             foreach ($info as $value) {
-                if (!isset($value[1]) || empty($value[1])) {
+                if (empty($value[1])) {
                     $attr = [];
                 } else {
                     $attr = $this->parseTagAttr($value[1]);
                 }
-                if (!isset($value[2]) || empty($value[2])) {
+                if (empty($value[2])) {
                     $value[2] = '';
                 }
                 $content = call_user_func_array(array($this, '_' . $tag), array($attr, $value[2], $value));
@@ -122,5 +122,10 @@ abstract class LingerTagAbstract
             }
         }
         return $attrVal;
+    }
+
+    public function getTags()
+    {
+        return $this->tag;
     }
 }

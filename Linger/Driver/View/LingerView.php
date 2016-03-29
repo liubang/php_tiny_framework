@@ -12,15 +12,16 @@
 
 namespace Linger\Driver\View;
 use Linger\Linger;
+
 class LingerView
 {
-    public $vars = [];
+    private $vars = [];
 
-    public $const = [];
+    private $const = [];
 
-    public $tplFile = '';
+    private $tplFile = '';
 
-    public $compileFile = '';
+    private $compileFile = '';
 
     public function display($tplFile = '', $cacheTime = -1, $cachePath = '', $contentType = 'text/html', $show=true)
     {
@@ -80,4 +81,19 @@ class LingerView
         $compiler->run($this);
     }
 
+    public function compileInvallid()
+    {
+        //TODO ...
+        return true;
+    }
+
+    public function getTmpFile()
+    {
+        return $this->tplFile;
+    }
+    
+    public function getCompileFile()
+    {
+        return $this->compileFile;
+    }
 }
