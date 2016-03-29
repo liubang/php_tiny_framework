@@ -77,7 +77,7 @@ class Router
             $this->_404();
         }
         $controllerObj = new $class();
-        if (!method_exists($controllerObj, $action)) {
+        if (!method_exists($controllerObj, ACTION)) {
             $this->_404();
         }
         Request::getInstance();
