@@ -30,12 +30,12 @@ abstract class LingerTagAbstract
      * @var array
      */
     protected $condition = [
-        'eq'    => '==',
-        'neq'   => '<>',
-        'gt'    => '>',
-        'lt'    => '<',
-        'egt'   => '>=',
-        'elt'   => '<=',
+        'eq'  => '==',
+        'neq' => '<>',
+        'gt'  => '>',
+        'lt'  => '<',
+        'egt' => '>=',
+        'elt' => '<=',
     ];
 
     /**
@@ -43,6 +43,9 @@ abstract class LingerTagAbstract
      */
     protected $tag = [];
 
+    /**
+     * LingerTagAbstract constructor.
+     */
     public function __construct()
     {
         $this->tagLeft = Linger::C('TPL_TAG_LEFT');
@@ -52,6 +55,14 @@ abstract class LingerTagAbstract
         }
     }
 
+    /**
+     * 解析模板标签
+     *
+     * @param $tag
+     * @param $viewContent
+     *
+     * @return bool
+     */
     public function parseTag($tag, &$viewContent)
     {
         if ($this->tag[$tag]['block']) {
@@ -79,6 +90,13 @@ abstract class LingerTagAbstract
         }
     }
 
+    /**
+     * 解析模板标签属性
+     *
+     * @param $attrStr
+     *
+     * @return array|bool
+     */
     public function parseTagAttr($attrStr)
     {
         $preg = '/([a-zA-Z_]+)\s*=\s*(["\'])(.*)\2/iU';
@@ -94,6 +112,13 @@ abstract class LingerTagAbstract
         }
     }
 
+    /**
+     * 解析模板标签属性值
+     *
+     * @param $attrVal
+     *
+     * @return mixed
+     */
     public function parseAttrValue($attrVal)
     {
         foreach ($this->condition as $key => $val) {
@@ -124,6 +149,10 @@ abstract class LingerTagAbstract
         return $attrVal;
     }
 
+    /**
+     * 获取自定义标签
+     * @return array
+     */
     public function getTags()
     {
         return $this->tag;

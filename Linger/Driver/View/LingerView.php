@@ -15,11 +15,23 @@ use Linger\Linger;
 
 class LingerView extends LingerViewAbstract
 {
+    /**
+     * LingerView constructor.
+     */
     public function __construct()
     {
         parent::__construct();
     }
 
+    /**
+     * @param        $tplFile
+     * @param int    $cacheTime
+     * @param string $cachePath
+     * @param string $contentType
+     * @param bool   $show
+     *
+     * @return null
+     */
     public function display($tplFile, $cacheTime = -1, $cachePath = '', $contentType = 'text/html', $show=true)
     {
         if ($cacheTime > 0 && empty($cachePath)) {
@@ -63,11 +75,23 @@ class LingerView extends LingerViewAbstract
         }
     }
 
+    /**
+     * @param string $tplFile
+     * @param int    $cacheTime
+     * @param string $cachePath
+     * @param string $contentType
+     *
+     * @return null
+     */
     public function render($tplFile = '', $cacheTime = -1, $cachePath = '', $contentType = 'text/html')
     {
         return $this->display($tplFile, $cacheTime, $cachePath, $contentType, false);
     }
 
+    /**
+     * @param $name
+     * @param $value
+     */
     public function assign($name, $value)
     {
         if (is_array($name)) {
@@ -79,6 +103,9 @@ class LingerView extends LingerViewAbstract
         }
     }
 
+    /**
+     * @return bool
+     */
     private function compile()
     {
         if (!$this->compileInvallid()) {
@@ -88,6 +115,9 @@ class LingerView extends LingerViewAbstract
         $compiler->run($this);
     }
 
+    /**
+     * @return bool
+     */
     private function compileInvallid()
     {
         //TODO ...

@@ -34,51 +34,96 @@ abstract class LingerViewAbstract
     protected $compileFile = '';
 
     /**
+     * 模板变量
      * @var array
      */
     protected $vars = [];
-    
+
+    /**
+     * LingerViewAbstract constructor.
+     */
     public function __construct()
     {
         define('LINGER', 'true');
         $this->tmplPath = APP_ROOT . '/' . APP_NAME . '/module/' . MODULE . '/view';
     }
 
+    /**
+     * 模板赋值
+     *
+     * @param $name
+     * @param $value
+     */
     public function assign($name, $value)
     {
         if (is_array($name)) {
             foreach ($name as $k => $v) {
                 $this->vars[$k] = $v;
             }
-        } else if (is_string($name)) {
-            $this->vars[$name] = $value;
+        } else {
+            if (is_string($name)) {
+                $this->vars[$name] = $value;
+            }
         }
     }
 
+    /**
+     * 输出模板
+     *
+     * @param $tplFile
+     * @param $cacheTime
+     * @param $cachePath
+     * @param $contentType
+     * @param $show
+     *
+     * @return mixed
+     */
     abstract function display($tplFile, $cacheTime, $cachePath, $contentType, $show);
 
+    /**
+     * 渲染模板，返回渲染后的内容
+     *
+     * @param $tplFile
+     * @param $cacheTime
+     * @param $cachePath
+     * @param $contentType
+     *
+     * @return mixed
+     */
     abstract function render($tplFile, $cacheTime, $cachePath, $contentType);
 
+    /**
+     * 获取模板文件
+     * @return string
+     */
     public function getTmpFile()
     {
         return $this->tmplFile;
     }
 
+    /**
+     * 获取编译后的文件
+     * @return string
+     */
     public function getCompileFile()
     {
         return $this->compileFile;
     }
 
-    public function getTemplateFile()
-    {
-        return $this->tmplPath . '/' . md5(MODULE . CONTROLLER . ACTION);
-    }
-
+    /**
+     * 获取模板路径
+     * @return string
+     */
     public function getTmplPath()
     {
         return $this->tmplPath;
     }
 
+    /**
+     * 设置模板路径
+     *
+     * @param $tmplPath
+     */
     public function setTmpPath($tmplPath)
     {
         $this->tmplPath = $tmplPath;
