@@ -16,20 +16,23 @@
     <div class="container">
         <p class="bt1">{$type}</p>
         <p class="bt2">{$message}</p>
-        <p class="bt3">PHP Trace</p>
-        <table class="lg-table lg-table-list">
-            <tr>
-                <th>No.</th><th>File</th><th>Line</th><th>Code</th>
-            </tr>
-            <foreach name="trace" item="val" key="key">
-            <tr>
-                <td>{$key}</td>
-                <td>{$val.file|default}</td>
-                <td>{$val.line|default=0}</td>
-                <td>{$val.class|default}:{$val.function|default}()</td>
-            </tr>
-            </foreach>
-        </table>
+        <nempty condition="$trace">
+            <p class="bt3">PHP Trace</p>
+            <table class="lg-table lg-table-list">
+                <tr>
+                    <th>No.</th><th>File</th><th>Line</th><th>Code</th>
+                </tr>
+                <foreach name="trace" item="val" key="key">
+                    <tr>
+                        <td>{$key}</td>
+                        <td>{$val.file|default}</td>
+                        <td>{$val.line|default=0}</td>
+                        <td>{$val.class|default}:{$val.function|default}()</td>
+                    </tr>
+                </foreach>
+            </table>
+        </nempty>
+
         <p class="bt2">程序运行时间：{$time|number_format=6}(s)</p>
     </div>
 </body>

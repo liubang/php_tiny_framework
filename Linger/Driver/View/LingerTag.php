@@ -17,12 +17,13 @@ class LingerTag extends LingerTagAbstract
     protected $tag = [
         'foreach' => ['block' => 1, 'level' => 5],
         'for'     => ['block' => 1, 'level' => 3],
-        'list'    => ['block' => 1, 'level' => 5],
         'if'      => ['block' => 1, 'level' => 5],
         'elseif'  => ['block' => 0, 'level' => 0],
         'else'    => ['block' => 0, 'level' => 0],
         'import'  => ['block' => 0, 'level' => 0],
         'include' => ['block' => 0, 'level' => 0],
+        'empty'   => ['block' => 1, 'level' => 5],
+        'nempty'  => ['block' => 1, 'level' => 5]
     ];
 
     public function __initalize()
@@ -40,9 +41,14 @@ class LingerTag extends LingerTagAbstract
         }
     }
 
-    public function _list($attr, $content)
+    public function _empty($attr, $content)
     {
+        return "<?php if (empty({$attr['condition']})) {?> {$content} <?php }?>";
+    }
 
+    public function _nempty($attr, $content)
+    {
+        return "<?php if (!empty({$attr['condition']})) {?> {$content} <?php }?>";
     }
 
     public function _for($attr, $content)

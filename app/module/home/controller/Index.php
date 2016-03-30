@@ -31,8 +31,8 @@ class IndexController extends Controller
 
     public function indexAction()
     {
-       // trigger_error('ddd', E_ERROR);die;
-        throw new \Exception('this is a exception!');die;
+        trigger_error('ddd', E_ERROR);die;
+        //throw new \Exception('this is a exception!');die;
 
 //        $str = <<<HTML
 //            <foreach name='aaa' item='bbb'>

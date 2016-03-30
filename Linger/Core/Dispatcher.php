@@ -25,11 +25,17 @@ class Dispatcher
      */
     private $response = null;
 
+    /**
+     * Dispatcher constructor.
+     */
     private function __construct()
     {
         $this->response = Response::getInstance();
     }
 
+    /**
+     * @return Dispatcher
+     */
     public static function getInstance()
     {
         if (null === self::$ins) {
@@ -38,6 +44,9 @@ class Dispatcher
         return self::$ins;
     }
 
+    /**
+     * 分发请求
+     */
     public function dispatch()
     {
         $class = MODULE . '\\controller\\' . CONTROLLER;

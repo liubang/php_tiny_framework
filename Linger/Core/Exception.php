@@ -28,7 +28,7 @@ class Exception
     {
         $this->response = Response::getInstance();
         set_exception_handler(array($this, 'appException'));
-        //set_error_handler(array($this, 'appError'));
+        set_error_handler(array($this, 'appError'), E_ALL);
     }
 
     public static function getInstance()
@@ -49,8 +49,9 @@ class Exception
         $this->response->error($message, $trace, 'Exception');
     }
 
-    public function appError()
+    public function appError($errno, $errstr, $errfile, $errline)
     {
-
+        $message = "Custom Error: [{$errno}] {$errstr} on {$errfile} [{$errline}]";
+        $this->response->error($message, [], 'Error');
     }
 }
