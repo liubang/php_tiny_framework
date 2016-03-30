@@ -29,13 +29,25 @@ class App
      */
     private $bootstrap = null;
 
+    /**
+     * @var \Linger\Core\Request
+     */
+    private $request = null;
+
+    /**
+     * @var \Linger\Core\Response
+     */
+    private $response = null;
+
     private function __construct($config)
     {
         Config::configInit($config);
-        $this->router = new Router();
+        $this->request = Request::getInstance();
+        $this->router = Router::getInstance();
+        $this->response = Response::getInstance();
     }
 
-    public static function getInstance($config)
+    public static function getInstance($config = [])
     {
         if (null === self::$ins) {
             self::$ins = new self($config);

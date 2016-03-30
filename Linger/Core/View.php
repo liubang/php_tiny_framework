@@ -28,7 +28,7 @@ class View
      * @param null   $viewClass
      * @param string $tmplPath
      */
-    public function __construct($viewClass = null, $tmplPath = '')
+    public function __construct($tmplPath = '', $viewClass = null)
     {
         if (is_null($viewClass)) {
             $viewDriver = Linger::C('VIEW_DRIVER');
@@ -42,6 +42,9 @@ class View
             $this->viewObj = new $viewClass;
         } else {
             return false;
+        }
+        if (empty($tmplPath)) {
+            $tmplPath = APP_ROOT . '/' . APP_NAME . '/module/' . MODULE . '/view';
         }
 
         $this->viewObj->setTmpPath($tmplPath);

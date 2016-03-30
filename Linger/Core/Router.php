@@ -23,11 +23,39 @@ class Router
      */
     private $roules = array();
 
+    /**
+     * @var string
+     */
     private $uri = '';
 
-    public function __construct()
+    /**
+     * @var self
+     */
+    private static $ins = null;
+
+    /**
+     * @var \Linger\Core\Dispatcher
+     */
+    private $dispatcher = null;
+
+    /**
+     * Router constructor.
+     */
+    private function __construct()
     {
         $this->roules = Linger::C('ROUTE');
+        $this->dispatcher = Dispatcher::getInstance();
+    }
+
+    /**
+     * @return Router
+     */
+    public static function getInstance()
+    {
+        if (null === self::$ins) {
+            self::$ins = new self();
+        }
+        return self::$ins;
     }
 
     /**
@@ -38,13 +66,33 @@ class Router
      */
     public function parseUri()
     {
-        $this->uri = preg_replace('/^(?:index.php)?(.*?)(?:\.html)/', '\1', trim($_SERVER['REQUEST_URI'], '/'));
+        $this->uri = trim(preg_replace('/^(?:index\.php|\/index\.php)?(.*?)/i', '\1', $_SERVER['REQUEST_URI']), '/');
         foreach ($this->roules as $key => $value) {
             if (preg_match('#' . $key . '#', $this->uri)) {
                 $this->uri = preg_replace('#' . $key . '#', $value, $this->uri);
             }
         }
+        $this->uri = preg_replace('/^(.*?)(?:\.html)/i', '\1', trim($this->uri, '/'));
         return $this;
+    }
+
+    /**
+     * 添加路由规则
+     *
+     * @param array|string $rouls
+     * @param string|null  $ref
+     */
+    public function addRout($rouls, $ref = null)
+    {
+        if (null === $ref) {
+            if (is_array($rouls)) {
+                $this->roules = array_merge($this->roules, $rouls);
+            }
+        } else {
+            if (is_string($rouls) && is_string($ref)) {
+                $this->roules[$rouls] = $ref;
+            }
+        }
     }
 
     /**
@@ -52,41 +100,7 @@ class Router
      */
     public function dispatch()
     {
-        $req = array();
-        if (!empty($this->uri)) {
-            $req = explode('/', $this->uri);
-        }
-        $args = array();
-        $module = count($req) > 0 ? strtolower(array_shift($req)) : Linger::C('DEFAULT_MODULE');
-        $controller = (count($req) > 0 ? ucfirst(array_shift($req)) : Linger::C('DEFAULT_CONTROLLER')) . 'Controller';
-        $action = (count($req) > 0 ? lcfirst(array_shift($req)) : Linger::C('DEFAULT_ACTION'));
-        if (!empty($req) && count($req) % 2 === 0) {
-            $this->_404();
-        }
-        define('MODULE', $module);
-        define('CONTROLLER', $controller);
-        define('ACTION', $action . 'Action');
-        define('CURRTMPL', $action);
-        if (count($req) > 0) {
-            for ($i = 0; $i < count($req); $i += 2) {
-                $args[$req[$i]] = $req[$i + 1];
-            }
-        }
-        $class = MODULE . '\\controller\\' . CONTROLLER;
-        if (!class_exists($class)) {
-            $this->_404();
-        }
-        $controllerObj = new $class();
-        if (!method_exists($controllerObj, ACTION)) {
-            $this->_404();
-        }
         Request::getInstance();
-        call_user_func_array(array($controllerObj, ACTION), array());
-    }
-
-    private function _404()
-    {
-        header("HTTP/1.1 404 Not Found");
-        die('404 Not Found');
+        $this->dispatcher->dispatch($this->uri);
     }
 }

@@ -26,6 +26,11 @@ class Controller
      */
     protected $request = null;
 
+    /**
+     * @var \Linger\Core\Response
+     */
+    protected $response = null;
+
     public function __construct()
     {
         if (method_exists($this, '_init')) {
@@ -38,8 +43,9 @@ class Controller
      */
     public function _init()
     {
-        $this->view = new View(null, APP_ROOT . '/' . APP_NAME . '/module/' . MODULE . '/view');
+        $this->view = new View();
         $this->request = Request::getInstance();
+        $this->response = Response::getInstance();
     }
 
     /**
@@ -93,6 +99,16 @@ class Controller
         $this->view->render($tmpl, $cacheTime, $cachePath, $contentType);
     }
 
+    public function getRequest()
+    {
+        return $this->request;
+    }
+
+    public function getResponse()
+    {
+        return $this->response;
+    }
+
     public function get($key = '')
     {
         return $this->request->get($key);
@@ -101,5 +117,10 @@ class Controller
     public function post($key = '')
     {
         return $this->request->post($key);
+    }
+
+    public function _404($code = false)
+    {
+        $this->response->_404($code);
     }
 }

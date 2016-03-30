@@ -58,7 +58,7 @@ class Linger
      *
      * @return \Linger\Core\App
      */
-    public static function getApp($config)
+    public static function getApp($config = [])
     {
         self::init();
         return App::getInstance($config);
