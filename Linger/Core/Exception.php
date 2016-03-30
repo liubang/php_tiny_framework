@@ -45,7 +45,6 @@ class Exception
     public function appException($e)
     {
         $trace = $e->getTrace();
-        //print_r($trace);die;
         $message = $e->getMessage();
         $this->response->error($message, $trace, 'Exception');
     }
