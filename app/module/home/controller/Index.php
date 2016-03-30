@@ -31,7 +31,7 @@ class IndexController extends Controller
 
     public function indexAction()
     {
-        trigger_error('elsakg', E_USER_ERROR);die;
+        //trigger_error('elsakg', E_USER_NOTICE);die;
         //throw new \Exception('this is a exception!');die;
 
 //        $str = <<<HTML

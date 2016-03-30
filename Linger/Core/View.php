@@ -11,6 +11,7 @@
  */
 
 namespace Linger\Core;
+
 use Linger\Linger;
 use Linger\Driver\View\LingerView;
 use Linger\Driver\View\LingerViewSimple;

@@ -11,6 +11,7 @@
  */
 
 namespace Linger\Core;
+
 use Linger\Linger;
 
 class Response
@@ -25,6 +26,7 @@ class Response
      */
     private function __construct()
     {
+
     }
 
     /**
@@ -56,7 +58,7 @@ class Response
         die();
     }
 
-    public function error($message, $trace, $type='Exception')
+    public function error($message, $trace, $type = 'Exception')
     {
         if (Linger::C('DEBUG')) {
             $view = new View();
@@ -65,7 +67,7 @@ class Response
             $view->assign('type', $type);
             $view->assign('message', $message);
             $view->assign('trace', $trace);
-            $view->display(Linger::C('TMPL_ACTION_ERROR'));
+            $view->display(Linger::C('TMPL_ACTION_ERROR'), -1);
         } else {
             die($message);
         }
