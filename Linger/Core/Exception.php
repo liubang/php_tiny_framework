@@ -52,6 +52,31 @@ class Exception
     public function appError($errno, $errstr, $errfile, $errline)
     {
         $message = "Custom Error: [{$errno}] {$errstr} on {$errfile} [{$errline}]";
-        $this->response->error($message, [], 'Error');
+        switch ($errno) {
+            case E_NOTICE:
+                $this->response->error($message, [], 'System Notice');
+                break;
+            case E_USER_NOTICE:
+                $this->response->error($message, [], 'Custom Notice');
+                break;
+            case E_WARNING:
+            case E_COMPILE_WARNING:
+            case E_CORE_WARNING:
+                $this->response->error($message, [], 'System Warning');
+                break;
+            case E_USER_WARNING:
+                $this->response->error($message, [], 'Custom Warning');
+                break;
+            case E_USER_ERROR:
+                $this->response->error($message, [], 'Custom Error');
+                break;
+            case E_ERROR:
+            case E_COMPILE_ERROR:
+            case E_CORE_ERROR:
+            default :
+                $this->response->error($message, [], 'System Error');
+                break;
+        }
+
     }
 }
