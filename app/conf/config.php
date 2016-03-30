@@ -24,4 +24,5 @@ return array(
         'home.html'        => 'home/index/index',
         'list/(\d+)\.html' => 'home/index/list/id/\1',
     ),
+    'TPL_CACHE_TIME'     => 2,
 );

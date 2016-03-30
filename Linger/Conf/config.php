@@ -35,7 +35,7 @@ return [
     'VIEW_DRIVER'        => 'linger',
     'TPL_TAG_LEFT'       => '<',
     'TPL_TAG_RIGHT'      => '>',
-    'TPL_CACHE_TIME'     => 10,
+    'TPL_CACHE_TIME'     => -1,
     'TPL_CACHE_PATH'     => APP_ROOT . '/public/tmp/cache/',
     'TPL_COMP_PATH'      => APP_ROOT . '/public/tmp/compile/',
     'TPL_CHARSET'        => 'UTF-8',
