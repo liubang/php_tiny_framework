@@ -52,11 +52,9 @@ class Linger
     }
 
     /**
-     * 获取app
+     * @param array $config
      *
-     * @param string $config
-     *
-     * @return \Linger\Core\App
+     * @return App
      */
     public static function getApp($config = [])
     {
@@ -64,6 +62,11 @@ class Linger
         return App::getInstance($config);
     }
 
+    /**
+     * @param $filePath
+     *
+     * @return bool
+     */
     public static function incFiles($filePath)
     {
         $file = md5($filePath);
@@ -86,11 +89,15 @@ class Linger
      */
     public static function C($key = '', $val = '')
     {
-        if (empty($val)) {
-            return Config::getConfig($key);
+        $config = Config::getInstance();
+        if (empty($key)) {
+            return $config->getConfig();
+        } else if (empty($val)) {
+            return $config->getConfig($key);
         } else {
-            Config::setConfig($key, $val);
+            $config->setConfig($key, $val);
         }
+
     }
 
     /**

@@ -42,12 +42,7 @@ class Router
      * @var \Linger\Core\Request
      */
     private $request = null;
-
-    /**
-     * @var array
-     */
-    private $requestArr = [];
-
+    
     /**
      * Router constructor.
      */
@@ -138,14 +133,5 @@ class Router
                 $this->roules[$rouls] = $ref;
             }
         }
-    }
-
-    /**
-     * 分发路由
-     */
-    public function dispatch()
-    {
-        Request::getInstance();
-        $this->dispatcher->dispatch($this->requestArr);
     }
 }

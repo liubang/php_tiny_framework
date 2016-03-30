@@ -39,11 +39,17 @@ class App
      */
     private $response = null;
 
+    /**
+     * @var \Linger\Core\Dispatcher
+     */
+    private $dispatcher = null;
+
     private function __construct($config)
     {
-        Config::configInit($config);
+        $this->config = Config::getInstance($config);
         $this->request = Request::getInstance();
         $this->router = Router::getInstance();
+        $this->dispatcher = Dispatcher::getInstance();
         $this->response = Response::getInstance();
     }
 
@@ -85,7 +91,8 @@ class App
      */
     public function run()
     {
-        $this->router->parseUri()->dispatch();
+        $this->router->parseUri();
+        $this->dispatcher->dispatch();
     }
 
 

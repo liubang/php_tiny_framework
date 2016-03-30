@@ -11,7 +11,6 @@
  */
 
 namespace Linger\Core;
-
 class Config
 {
     /**
@@ -19,20 +18,41 @@ class Config
      *
      * @var array
      */
-    private static $g_config = array();
+    private $g_config = array();
 
     /**
-     * 初始化配置项
-     *
-     * @param string $conFile config文件的路径
+     * @var self|null
      */
-    public static function configInit($conFile)
+    private static $ins = null;
+
+    private function __construct($conFile)
     {
         if (file_exists($conFile)) {
-            static::$g_config = array_merge(require LINGER_ROOT . '/Conf/config.php', require $conFile);
+            $this->g_config = array_merge(require LINGER_ROOT . '/Conf/config.php', require $conFile);
+            $fun = function($arr) use (&$fun){
+                $rs = [];
+                foreach ($arr as $k => $v) {
+                    $rs[strtolower($k)] = is_array($v) ? $fun($v) : $v;
+                }
+                return $rs;
+            };
+            $this->g_config = $fun($this->g_config);
         } else {
             die($conFile . '文件不存在');
         }
+    }
+
+    /**
+     * @param $conFile
+     *
+     * @return self
+     */
+    public static function getInstance($conFile = '')
+    {
+        if (null === self::$ins) {
+            self::$ins = new self($conFile);
+        }
+        return self::$ins;
     }
 
     /**
@@ -42,12 +62,25 @@ class Config
      *
      * @return array
      */
-    public static function getConfig($key = '')
+    public function getConfig($key = '')
     {
         if (empty($key)) {
-            return static::$g_config;
+            return $this->g_config;
         }
-        return static::$g_config[$key];
+        $key = strtolower($key);
+        if (strpos($key, '.')) {
+            $val = $this->g_config;
+            $keys = explode('.', $key);
+            foreach ($keys as $key) {
+                if (isset($val[$key])) {
+                    $val = $val[$key];
+                } else {
+                    return false;
+                }
+            }
+            return $val;
+        }
+        return $this->g_config[$key];
     }
 
     /**
@@ -56,12 +89,12 @@ class Config
      * @param string $key
      * @param string $val
      */
-    public static function setConfig($key, $val = '')
+    public function setConfig($key, $val = '')
     {
         if (empty($val)) {
-            static::$g_config = $key;
+            $this->g_config = $key;
         } else {
-            static::$g_config[$key] = $val;
+            $this->g_config[$key] = $val;
         }
     }
 }
