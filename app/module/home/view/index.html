@@ -3,15 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>{$title}</title>
-    <js file="/js/jquery.min.js" />
-    <css file="/css/Linger.css" />
+    <import type="js" file="/js/jquery.min.js" />
+    <import type="css" file="/css/Linger.css" />
 </head>
 <body>
     <h1><?=$aaa?></h1>
     <h1>{$aaa}</h1>
     <ul>
         <foreach name="arr" item="val">
+            <foreach name="arr" item="val">
             <li>{$val.userId} - {$val.userName}</li>
+            </foreach>
         </foreach>
     </ul>
     <ol>

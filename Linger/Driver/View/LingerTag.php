@@ -21,8 +21,7 @@ class LingerTag extends LingerTagAbstract
         'if'      => ['block' => 1, 'level' => 5],
         'elseif'  => ['block' => 0, 'level' => 0],
         'else'    => ['block' => 0, 'level' => 0],
-        'js'      => ['block' => 0, 'level' => 0],
-        'css'     => ['block' => 0, 'level' => 0],
+        'import'  => ['block' => 0, 'level' => 0],
         'include' => ['block' => 0, 'level' => 0],
     ];
 
@@ -31,14 +30,14 @@ class LingerTag extends LingerTagAbstract
 
     }
 
-    public function _css($attr, $content)
+    public function _import($attr, $content)
     {
-        return "<link type=\"text/css\" rel=\"stylesheet\" href=\"{$attr['file']}\" />";
-    }
-
-    public function _js($attr, $content)
-    {
-        return "<script type=\"text/javascript\" src=\"{$attr['file']}\"></script>";
+        if ($attr['type'] === 'js') {
+            return "<script type=\"text/javascript\" src=\"{$attr['file']}\"></script>";
+        }
+        if ($attr['type'] === 'css') {
+            return "<link type=\"text/css\" rel=\"stylesheet\" href=\"{$attr['file']}\" />";
+        }
     }
 
     public function _list($attr, $content)
