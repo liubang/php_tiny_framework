@@ -129,7 +129,6 @@ class LingerCompiler
     {
         $preg = '/\{\:(.*)\}/isU';
         $status = preg_match_all($preg, $this->content, $info, PREG_SET_ORDER);
-        print_r($info);die;
         if ($status) {
             foreach ($info as $v) {
                 if (!empty($v[1])) {
