@@ -11,7 +11,6 @@
  */
 
 namespace Linger\Driver\View;
-use Linger\Linger;
 
 abstract class LingerViewAbstract
 {
