@@ -46,7 +46,7 @@ class Linger
             if (file_exists($classPath)) {
                 self::incFiles($classPath);
             } else {
-                die($classPath . '文件不存在');
+                //die($classPath . '文件不存在');
             }
         });
     }
