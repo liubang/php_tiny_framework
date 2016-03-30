@@ -31,6 +31,11 @@ return [
     'TMPL_ACTION_ERROR'   => LINGER_ROOT . '/Tpl/jump.html',
     'TMPL_ACTION_404'     => LINGER_ROOT . '/Tpl/404.html',
 
+    'URL_MODEL'           => 2,   //路由模式为pathinfo， 1 为$_GET传参的形式，Linger只支持这两个路由形式
+    'URL_VAR_MODULE'      => 'm', //当使用get传参路由形式的时候module参数的键名
+    'URL_VAR_CONTROLLER'  => 'c', //当使用get传参路由形式的时候controller参数的键名
+    'URL_VAR_ACTION'      => 'a', //当使用get传参路由形式的时候action参数的键名
+
     //---router config---//
     'ROUTE'               => [],
     'URL_HTML_SUFFIX'     => '.html',

@@ -38,28 +38,8 @@ class Dispatcher
         return self::$ins;
     }
 
-    public function dispatch($uri)
+    public function dispatch()
     {
-        $req = array();
-        if (!empty($uri)) {
-            $req = explode('/', $uri);
-        }
-        $args = array();
-        $module = count($req) > 0 ? strtolower(array_shift($req)) : Linger::C('DEFAULT_MODULE');
-        $controller = (count($req) > 0 ? ucfirst(array_shift($req)) : Linger::C('DEFAULT_CONTROLLER')) . 'Controller';
-        $action = (count($req) > 0 ? lcfirst(array_shift($req)) : Linger::C('DEFAULT_ACTION'));
-        if (!empty($req) && count($req) % 2 === 0) {
-            $this->response->_404();
-        }
-        define('MODULE', $module);
-        define('CONTROLLER', $controller);
-        define('ACTION', $action . 'Action');
-        define('CURRTMPL', $action);
-        if (count($req) > 0) {
-            for ($i = 0; $i < count($req); $i += 2) {
-                $args[$req[$i]] = $req[$i + 1];
-            }
-        }
         $class = MODULE . '\\controller\\' . CONTROLLER;
         if (!class_exists($class)) {
             $this->response->_404();

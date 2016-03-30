@@ -66,7 +66,6 @@ class IndexController extends Controller
 
     public function listAction()
     {
-        $this->_404();
         $this->assign('id', $_GET['id']);
         $this->display();
     }

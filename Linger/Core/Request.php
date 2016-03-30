@@ -20,26 +20,32 @@ class Request
      *
      * @var array
      */
-    private $_get = array();
+    private $_get = [];
 
     /**
      * 保存post提交的变量
      *
      * @var array
      */
-    private $_post = array();
+    private $_post = [];
 
     /**
      * 保存表单提交的file
      *
      * @var array
      */
-    private $_file = array();
+    private $_file = [];
+
+    /**
+     * @var array
+     */
+    private $_request = [];
 
     /**
      * @var self
      */
     private static $ins = null;
+
 
     /**
      * Request constructor.
@@ -50,9 +56,11 @@ class Request
         $this->_get = $_GET;
         $this->_post = $_POST;
         $this->_file = $_FILES;
+        $this->_request = $_REQUEST;
         unset($_GET);
         unset($_POST);
         unset($_FILES);
+        unset($_REQUEST);
     }
 
     /**
@@ -84,41 +92,79 @@ class Request
     }
 
     /**
-     * 获取get传来的参数
-     *
-     * @param string $key
-     *
-     * @return array|null
+     * @param $type
+     * @param $key
+     * @param $val
      */
-    public function get($key = '')
+    public function add($type, $key, $val = '')
     {
-        if ('' === $key) {
-            return $this->_get;
-        }
-        if (in_array($key, $this->_get)) {
-            return $this->_get[$key];
-        } else {
-            return null;
+        $arr = '_' . $type;
+        if (is_array($key)) {
+            $this->$arr = array_merge($this->$arr, $key);
+        } else if (is_string($key)) {
+            $this->$arr[$key] = $val;
         }
     }
 
     /**
-     * 获取post传递的参数
-     *
      * @param string $key
+     * @param string $callable
      *
-     * @return array|null
+     * @return array|mixed|null
      */
-    public function post($key = '')
+    public function get($key = '', $callable = 'htmlspecialchars')
     {
         if ('' === $key) {
-            return $this->_post;
+            return array_map($callable, $this->_get);
+        }
+        if (in_array($key, $this->_get)) {
+            if (is_array($this->_get[$key])) {
+                return array_map($callable, $this->_get[$key]);
+            }
+            return $callable($this->_get[$key]);
+        }
+
+        return null;
+    }
+
+    /**
+     * @param string $key
+     * @param string $callable
+     *
+     * @return null
+     */
+    public function getRequest($key = '', $callable = 'htmlspecialchars')
+    {
+        if (empty($key)) {
+            return array_map($callable, $this->_request);
+        }
+        if (in_array($key, $this->_request)) {
+            if (is_array($this->_request[$key])) {
+                return array_map($callable, $this->_request[$key]);
+            }
+            return $callable($this->_request[$key]);
+        }
+        return null;
+    }
+
+    /**
+     * @param string $key
+     * @param string $callable
+     *
+     * @return null
+     */
+    public function post($key = '', $callable = 'htmlspecialchars')
+    {
+        if ('' === $key) {
+            return array_map($callable, $this->_post);
         }
         if (in_array($key, $this->_post)) {
-            return $this->_post[$key];
-        } else {
-            return null;
+            if (is_array($this->_post[$key])) {
+                return array_map($callable, $this->_post[$key]);
+            }
+            return $callable($this->_post[$key]);
         }
+        return null;
     }
 
     /**

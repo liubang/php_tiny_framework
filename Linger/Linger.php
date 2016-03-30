@@ -82,7 +82,7 @@ class Linger
      * @param string $key
      * @param string $val
      *
-     * @return array
+     * @return array|string
      */
     public static function C($key = '', $val = '')
     {

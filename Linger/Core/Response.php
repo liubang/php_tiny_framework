@@ -25,6 +25,11 @@ class Response
 
     }
 
+    /**
+     * 单例模式
+     *
+     * @return Response
+     */
     public static function getInstance()
     {
         if (null === self::$ins) {
@@ -33,13 +38,18 @@ class Response
         return self::$ins;
     }
 
+    /**
+     * 返回404状态或404页面
+     *
+     * @param bool $code
+     */
     public function _404($code = false)
     {
         if ($code) {
             header('Http/1.1 404 Not Found');
         } else {
             $view = new View();
-            $view->display(Linger::C('TMPL_ACTION_404'));
+            $view->display(Linger::C('TMPL_ACTION_404'), -1);
         }
         die();
     }
