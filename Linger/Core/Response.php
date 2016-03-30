@@ -25,7 +25,6 @@ class Response
      */
     private function __construct()
     {
-
     }
 
     /**
@@ -61,6 +60,8 @@ class Response
     {
         if (Linger::C('DEBUG')) {
             $view = new View();
+            $time = microtime(true) - App::$start;
+            $view->assign('time', $time);
             $view->assign('type', $type);
             $view->assign('message', $message);
             $view->assign('trace', $trace);

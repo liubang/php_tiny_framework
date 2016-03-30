@@ -15,6 +15,11 @@ namespace Linger\Core;
 class App
 {
     /**
+     * @var integer
+     */
+    public static $start;
+
+    /**
      * @var Exception|null
      */
     private $exception = null;
@@ -51,6 +56,7 @@ class App
 
     private function __construct($config)
     {
+        self::$start = microtime(true);
         $this->config = Config::getInstance($config);
         $this->exception = Exception::getInstance();
         $this->request = Request::getInstance();
