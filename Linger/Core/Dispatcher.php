@@ -11,7 +11,6 @@
  */
 
 namespace Linger\Core;
-use Linger\Linger;
 
 class Dispatcher
 {
