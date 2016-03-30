@@ -37,7 +37,7 @@ class Linger
             if (false !== stripos($class, 'Controller') && false === strpos($class, 'Linger\\Core')) {
                 $classPath = APP_ROOT . '/app/module/' . str_replace('\\', '/', substr($class, 0, strlen($class) - 10)) . '.php';
             } else if (false !== stripos($class, 'Model') && false === strpos($class, 'Linger\\Core')) {
-                $classPath = APP_ROOT . '/app/' . str_replace('\\', '/', $class) . '.class.php';
+                $classPath = APP_ROOT . '/app/' . str_replace('\\', '/', substr($class, 0, strlen($class) - 5)) . '.php';
             } else if (false !== strpos($class, 'Linger\\Core')) {
                 $classPath = LINGER_ROOT .  str_replace('Linger', '', str_replace('\\', '/', $class)) . '.php';
             } else {

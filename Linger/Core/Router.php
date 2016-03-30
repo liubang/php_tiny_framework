@@ -38,7 +38,7 @@ class Router
      */
     public function parseUri()
     {
-        $this->uri = trim(str_replace('index.php', '', $_SERVER['REQUEST_URI']), '/');
+        $this->uri = preg_replace('/^(?:index.php)?(.*?)(?:\.html)/', '\1', trim($_SERVER['REQUEST_URI'], '/'));
         foreach ($this->roules as $key => $value) {
             if (preg_match('#' . $key . '#', $this->uri)) {
                 $this->uri = preg_replace('#' . $key . '#', $value, $this->uri);
