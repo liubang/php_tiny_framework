@@ -22,9 +22,9 @@ class LingerView extends LingerViewAbstract
 
     public function display($tplFile, $cacheTime = -1, $cachePath = '', $contentType = 'text/html', $show=true)
     {
-        $cacheName = md5($_SERVER['REQUEST_URI']);
-        $cacheTime = is_numeric($cacheTime) ? $cacheTime : intval(Linger::C('TPL_CACHE_TIME'));
-        $cachePath = !empty($cachePath) ? $cachePath : Linger::C('TPL_CACHE_PATH');
+        if ($cacheTime > 0 && empty($cachePath)) {
+            die('请配置缓存目录！');
+        }
         $content = null;
         if (is_file($tplFile)) {
             $this->tmplPath = dirname($tplFile);
@@ -33,7 +33,11 @@ class LingerView extends LingerViewAbstract
             $this->tmplFile = $this->tmplPath . '/' . $tplFile;
         }
         if ($cacheTime > 0) {
-
+            if (is_file($cachePath)) {
+                if (time() - filemtime($cachePath) <= $cacheTime) {
+                    $content = file_get_contents($cachePath);
+                }
+            }
         }
         if (!$content) {
             $this->compileFile = Linger::C('TPL_COMP_PATH') . MODULE . '_' . CONTROLLER . '_' . ACTION . '_' . substr(md5($this->tmplFile), 0, 8) . '.php';
@@ -45,18 +49,17 @@ class LingerView extends LingerViewAbstract
             include $this->compileFile;
             $content = ob_get_clean();
             if ($cacheTime > 0) {
-
+                file_put_contents($cachePath, $content);
             }
-
-            if ($show) {
-                $charset = Linger::C('TPL_CHARSET') ? Linger::C('TPL_CHARSET') : 'UTF-8';
-                if (!headers_sent()) {
-                    header("Content-Type: {$contentType}; charset={$charset}");
-                }
-                echo $content;
-            } else {
-                return $content;
+        }
+        if ($show) {
+            $charset = Linger::C('TPL_CHARSET') ? Linger::C('TPL_CHARSET') : 'UTF-8';
+            if (!headers_sent()) {
+                header("Content-Type: {$contentType}; charset={$charset}");
             }
+            echo $content;
+        } else {
+            return $content;
         }
     }
 

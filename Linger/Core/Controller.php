@@ -12,6 +12,8 @@
 
 namespace Linger\Core;
 
+use Linger\Linger;
+
 class Controller
 {
     /**
@@ -52,24 +54,43 @@ class Controller
     }
 
     /**
-     * 输出视图
-     *
      * @param string $tmpl
+     * @param null   $cacheTime
+     * @param string $cachePath
+     * @param string $contentType
+     * @param bool   $show
      */
-    public function display($tmpl = '')
+    public function display($tmpl = '', $cacheTime = null, $cachePath = '', $contentType = 'text/html', $show = true)
     {
+        if (empty($cacheTime)) {
+            $cacheTime = Linger::C('TPL_CACHE_TIME');
+        }
+        if (!empty($cachePath)) {
+            if (!is_dir(dirname($cachePath))) {
+                $cachePath = Linger::C('TPL_CACHE_PATH') . '/' . $cachePath;
+            }
+        } else {
+            $cachePath = rtrim(Linger::C('TPL_CACHE_PATH'),'/') . '/' . MODULE . '_' . CONTROLLER . '_' . ACTION . '_' . substr(md5($_SERVER['REQUEST_URI']), 0, 8) . '.html';
+        }
         if ('' === $tmpl) {
             $tmpl = strtolower(CURRTMPL) . '.html';
         }
-        $this->view->display($tmpl);
+        $this->view->display($tmpl, $cacheTime, $cachePath, $contentType, $show);
     }
 
-    public function render($tmpl = '')
+
+    /**
+     * @param string $tmpl
+     * @param null   $cacheTime
+     * @param string $cachePath
+     * @param string $contentType
+     */
+    public function render($tmpl = '', $cacheTime = null, $cachePath = '', $contentType = 'text/html')
     {
         if ('' === $tmpl) {
             $tmpl = strtolower(CURRTMPL) . '.html';
         }
-        $this->view->render($tmpl);
+        $this->view->render($tmpl, $cacheTime, $cachePath, $contentType);
     }
 
     public function get($key = '')
