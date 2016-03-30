@@ -45,7 +45,7 @@ class Linger
             }
             if (file_exists($classPath)) {
                 self::incFiles($classPath);
-            } 
+            }
         });
     }
 
