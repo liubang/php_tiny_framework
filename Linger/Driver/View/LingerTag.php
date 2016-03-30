@@ -57,8 +57,8 @@ class LingerTag extends LingerTagAbstract
 
     public function _foreach($attr, $content)
     {
-        if (isset($attr['key']) && isset($arrt['item'])) {
-            $php = "<?php foreach (${$attr['name']} as ${$attr['key']} => ${$attr['item']}) { ?>";
+        if (isset($attr['key']) && isset($attr['item'])) {
+            $php = "<?php foreach ($" . $attr['name'] . " as $" . $attr['key'] . " => $" . $attr['item'] . ") { ?>";
         } else {
             if (isset($attr['item'])) {
                 $php = '<?php foreach ($' . $attr['name'] . ' as $' . $attr['item'] . ') { ?>';

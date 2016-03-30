@@ -11,6 +11,7 @@
  */
 
 return array(
+    'DEBUG'              => 1,
     'DB_HOST'            => '127.0.0.1',
     'DB_USER'            => 'liubang',
     'DB_PWD'             => 'liubang',
@@ -25,5 +26,5 @@ return array(
         'list/(\d+)\.html' => 'home/index/list/id/\1',
     ),
     'TPL_CACHE_TIME'     => 2,
-    'URL_MODEL'          => 1,
+    'URL_MODEL'          => 2,
 );

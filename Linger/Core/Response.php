@@ -20,6 +20,9 @@ class Response
      */
     private static $ins = null;
 
+    /**
+     * Response constructor.
+     */
     private function __construct()
     {
 
@@ -52,6 +55,19 @@ class Response
             $view->display(Linger::C('TMPL_ACTION_404'), -1);
         }
         die();
+    }
+
+    public function error($message, $trace, $type='Exception')
+    {
+        if (Linger::C('DEBUG')) {
+            $view = new View();
+            $view->assign('type', $type);
+            $view->assign('message', $message);
+            $view->assign('trace', $trace);
+            $view->display(Linger::C('TMPL_ACTION_ERROR'));
+        } else {
+            die($message);
+        }
     }
 
 }

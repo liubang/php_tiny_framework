@@ -92,9 +92,9 @@ class Request
     }
 
     /**
-     * @param $type
-     * @param $key
-     * @param $val
+     * @param        $type
+     * @param        $key
+     * @param string $val
      */
     public function add($type, $key, $val = '')
     {

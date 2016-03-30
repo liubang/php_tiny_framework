@@ -9,7 +9,7 @@
  | @license   : MIT (http://opensource.org/licenses/MIT)
  |------------------------------------------------------------------
  */
-
+error_reporting(E_ALL);
 define('APP_ROOT', realpath(dirname(__FILE__) . '/../'));
 define('APP_NAME', 'app');
 require APP_ROOT . '/Linger/Linger.php';

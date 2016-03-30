@@ -42,7 +42,7 @@ class Router
      * @var \Linger\Core\Request
      */
     private $request = null;
-    
+
     /**
      * Router constructor.
      */
@@ -81,10 +81,14 @@ class Router
                 }
             }
             $this->uri = preg_replace('/^(.*?)(?:\.html)/i', '\1', trim($this->uri, '/'));
-            $req = explode('/', $this->uri);
+            if (strpos($this->uri, '/')) {
+                $req = explode('/', $this->uri);
+            } else {
+                $req = [];
+            }
             $module = count($req) > 0 ? strtolower(array_shift($req)) : Linger::C('DEFAULT_MODULE');
-            $controller = (count($req) > 0 ? ucfirst(array_shift($req)) : Linger::C('DEFAULT_CONTROLLER')) . 'Controller';
-            $action = (count($req) > 0 ? lcfirst(array_shift($req)) : Linger::C('DEFAULT_ACTION'));
+            $controller = count($req) > 0 ? ucfirst(array_shift($req)) : Linger::C('DEFAULT_CONTROLLER');
+            $action = count($req) > 0 ? lcfirst(array_shift($req)) : Linger::C('DEFAULT_ACTION');
             define('MODULE', $module);
             define('CONTROLLER', $controller . 'Controller');
             define('ACTION', $action . 'Action');

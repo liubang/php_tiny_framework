@@ -15,6 +15,11 @@ namespace Linger\Core;
 class App
 {
     /**
+     * @var Exception|null
+     */
+    private $exception = null;
+
+    /**
      * @var Router
      */
     private $router = null;
@@ -47,6 +52,7 @@ class App
     private function __construct($config)
     {
         $this->config = Config::getInstance($config);
+        $this->exception = Exception::getInstance();
         $this->request = Request::getInstance();
         $this->router = Router::getInstance();
         $this->dispatcher = Dispatcher::getInstance();

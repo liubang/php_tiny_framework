@@ -123,4 +123,12 @@ class Linger
         return self::$g_dao[$table];
     }
 
+    public static function _default($name, $var = '')
+    {
+        if (empty($name) || !isset($name)) {
+            return $var;
+        }
+        return $name;
+    }
+
 }

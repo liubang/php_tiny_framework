@@ -11,6 +11,7 @@
  */
 
 namespace Linger\Driver\View;
+use Linger\Linger;
 
 class LingerCompiler
 {
@@ -103,10 +104,14 @@ class LingerCompiler
                     }
                 }
                 if (!empty($value[2])) {
+                    $funcAlias = Linger::C('TMPL_ALIASES_FUNC');
                     $funcs = explode('|', $value[2]);
                     foreach ($funcs as $func) {
                         $tmp = explode('=', $func);
-                        $function = $tmp[0];
+                        $function = trim($tmp[0]);
+                        if (array_key_exists($function, $funcAlias)) {
+                            $function = $funcAlias[$function];
+                        }
                         $args = isset($tmp[1]) ? $tmp[1] : '';
                         if (strstr($args, '###')) {
                             $args = str_replace('###', $var, $args);
