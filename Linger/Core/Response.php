@@ -58,6 +58,11 @@ class Response
         die();
     }
 
+    /**
+     * @param        $message
+     * @param        $trace
+     * @param string $type
+     */
     public function error($message, $trace, $type = 'Exception')
     {
         if (Linger::C('DEBUG')) {
@@ -68,6 +73,7 @@ class Response
             $view->assign('message', $message);
             $view->assign('trace', $trace);
             $view->display(Linger::C('TMPL_ACTION_ERROR'), -1);
+            die;
         } else {
             die($message);
         }

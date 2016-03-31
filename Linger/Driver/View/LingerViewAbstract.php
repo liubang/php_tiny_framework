@@ -44,7 +44,7 @@ abstract class LingerViewAbstract
      */
     public function __construct()
     {
-        define('LINGER', 'true');
+        defined('LINGER') || define('LINGER', 'true');
         $this->tmplPath = APP_ROOT . '/' . APP_NAME . '/module/' . MODULE . '/view';
     }
 
