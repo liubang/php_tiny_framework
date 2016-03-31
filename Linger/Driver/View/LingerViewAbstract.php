@@ -44,6 +44,10 @@ abstract class LingerViewAbstract
      */
     public function __construct()
     {
+        /**
+         * 由于视图不是单例，所以多次实例化视图类可能会导致多次声明LINGER，造成System Notice错误
+         * 所以此处应该先判断是否已经声明过该常量
+         */
         defined('LINGER') || define('LINGER', 'true');
         $this->tmplPath = APP_ROOT . '/' . APP_NAME . '/module/' . MODULE . '/view';
     }
