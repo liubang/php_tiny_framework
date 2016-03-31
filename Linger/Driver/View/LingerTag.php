@@ -33,21 +33,31 @@ class LingerTag extends LingerTagAbstract
 
     public function _import($attr, $content)
     {
+        if (!isset($attr['type']) || !isset($attr['file'])) {
+            trigger_error('模板解析错误，import标签没有正确设置标签属性！', E_USER_ERROR);
+        }
         if ($attr['type'] === 'js') {
             return "<script type=\"text/javascript\" src=\"{$attr['file']}\"></script>";
-        }
-        if ($attr['type'] === 'css') {
-            return "<link type=\"text/css\" rel=\"stylesheet\" href=\"{$attr['file']}\" />";
+        } else {
+            if ($attr['type'] === 'css') {
+                return "<link type=\"text/css\" rel=\"stylesheet\" href=\"{$attr['file']}\" />";
+            }
         }
     }
 
     public function _empty($attr, $content)
     {
+        if (!isset($attr['condition'])) {
+            trigger_error('模板解析错误，empty标签没有正确设置标签属性！', E_USER_ERROR);
+        }
         return "<?php if (empty({$attr['condition']})) {?> {$content} <?php }?>";
     }
 
     public function _nempty($attr, $content)
     {
+        if (!isset($attr['condition'])) {
+            trigger_error('模板解析错误，nempty标签没有正确设置标签属性！', E_USER_ERROR);
+        }
         return "<?php if (!empty({$attr['condition']})) {?> {$content} <?php }?>";
     }
 
@@ -58,17 +68,20 @@ class LingerTag extends LingerTagAbstract
         $comparison = isset($attr['comparison']) ? $attr['comparison'] : '<';
         if (isset($attr['start']) && isset($attr['end'])) {
             return "for ({$name}={$attr['start']}; {$name} {$comparison} {$attr['end']}; $name+=$step ) { {$content} }";
+        } else {
+            trigger_error('模板解析错误，for标签没有正确设置标签属性！', E_USER_ERROR);
         }
     }
 
     public function _foreach($attr, $content)
     {
-        if (isset($attr['key']) && isset($attr['item'])) {
+        if (!isset($attr['name']) || !isset($attr['item'])) {
+            trigger_error('模板解析错误，foreach标签没有正确设置标签属性！', E_USER_ERROR);
+        }
+        if (isset($attr['key'])) {
             $php = "<?php foreach ($" . $attr['name'] . " as $" . $attr['key'] . " => $" . $attr['item'] . ") { ?>";
         } else {
-            if (isset($attr['item'])) {
-                $php = '<?php foreach ($' . $attr['name'] . ' as $' . $attr['item'] . ') { ?>';
-            }
+            $php = '<?php foreach ($' . $attr['name'] . ' as $' . $attr['item'] . ') { ?>';
         }
         $php .= $content;
         $php .= '<?php } ?>';
@@ -86,11 +99,17 @@ class LingerTag extends LingerTagAbstract
 
     public function _if($attr, $content)
     {
+        if (!isset($attr['condition'])) {
+            trigger_error('模板解析错误，if标签没有正确设置标签属性！', E_USER_ERROR);
+        }
         return "<?php if ({$attr['condition']}) { ?> {$content} <?php }?>";
     }
 
     public function _elseif($attr, $content)
     {
+        if (!isset($attr['condition'])) {
+            trigger_error('模板解析错误，elseif标签没有正确设置标签属性！', E_USER_ERROR);
+        }
         return "<?php } elseif ({$attr['condition']}) {?> ";
     }
 
