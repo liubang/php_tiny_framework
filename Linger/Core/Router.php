@@ -81,10 +81,17 @@ class Router
                 }
             }
             $this->uri = preg_replace('/^(.*?)(?:\.html)/i', '\1', trim($this->uri, '/'));
-            $req = explode('/', $this->uri);
-            $module = count($req) > 0 ? strtolower(array_shift($req)) : Linger::C('DEFAULT_MODULE');
-            $controller = count($req) > 0 ? ucfirst(array_shift($req)) : Linger::C('DEFAULT_CONTROLLER');
-            $action = count($req) > 0 ? lcfirst(array_shift($req)) : Linger::C('DEFAULT_ACTION');
+            if (!empty($this->uri)) {
+                $req = explode('/', $this->uri);
+            } else {
+                $req = [];
+            }
+            $module = count($req) > 0 ?
+                strtolower(array_shift($req)) : Linger::C('DEFAULT_MODULE');
+            $controller = count($req) > 0 ?
+                ucfirst(array_shift($req)) : Linger::C('DEFAULT_CONTROLLER');
+            $action = count($req) > 0 ?
+                lcfirst(array_shift($req)) : Linger::C('DEFAULT_ACTION');
             define('MODULE', $module);
             define('CONTROLLER', $controller . 'Controller');
             define('ACTION', $action . 'Action');
@@ -101,9 +108,12 @@ class Router
         } else if (1 === $model) {
             $request = Request::getInstance();
             $req= $request->get();
-            $module = isset($req[Linger::C('URL_VAR_MODULE')]) ? $req[Linger::C('URL_VAR_MODULE')] : Linger::C('DEFAULT_MODULE');
-            $controller = isset($req[Linger::C('URL_VAR_CONTROLLER')]) ? $req[Linger::C('URL_VAR_CONTROLLER')] : Linger::C('DEFAULT_CONTROLLER');
-            $action = isset($req[Linger::C('URL_VAR_ACTION')]) ? $req[Linger::C('URL_VAR_ACTION')] : Linger::C('DEFAULT_ACTION');
+            $module = isset($req[Linger::C('URL_VAR_MODULE')]) ?
+                $req[Linger::C('URL_VAR_MODULE')] : Linger::C('DEFAULT_MODULE');
+            $controller = isset($req[Linger::C('URL_VAR_CONTROLLER')]) ?
+                $req[Linger::C('URL_VAR_CONTROLLER')] : Linger::C('DEFAULT_CONTROLLER');
+            $action = isset($req[Linger::C('URL_VAR_ACTION')]) ?
+                $req[Linger::C('URL_VAR_ACTION')] : Linger::C('DEFAULT_ACTION');
             define('MODULE', $module);
             define('CONTROLLER', $controller . 'Controller');
             define('ACTION', $action . 'Action');
