@@ -49,6 +49,14 @@ class Exception
         $this->response->error($message, $trace, 'Exception');
     }
 
+    /**
+     * 错误处理
+     *
+     * @param $errno
+     * @param $errstr
+     * @param $errfile
+     * @param $errline
+     */
     public function appError($errno, $errstr, $errfile, $errline)
     {
         $message = "Custom Error: [{$errno}] {$errstr} on {$errfile} [{$errline}]";
@@ -77,6 +85,5 @@ class Exception
                 $this->response->error($message, [], 'System Error');
                 break;
         }
-
     }
 }
