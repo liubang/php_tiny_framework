@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="../js/jquery.min.js"></script>
+</head>
+<body>
+
+<script>
+    $(function() {
+        $.ajax({
+            type: 'post',
+            dataType: 'json',
+            url: 'http://neibuxinyu.kongfz.com/buyer/index/getUserReview',
+            data: {orderId: 34905347, rating: 'good', 'quality': 0, service: 0,},
+            success: function(data) {
+                console.log(data);
+            },
+            error: function(data) {
+
+            }
+        });
+    });
+</script>
+</body>
+</html>

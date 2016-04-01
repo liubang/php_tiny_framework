@@ -14,12 +14,32 @@ namespace Linger\Core;
 
 class Model
 {
-
+    /**
+     * @var string
+     */
     protected $table = '';
 
-    public function __construct()
+    /**
+     * @var array
+     */
+    protected $_validate = [];
+
+    /**
+     * @var array
+     */
+    protected $_auto  = [];
+
+    /**
+     * Model constructor.
+     *
+     * @param string $table
+     */
+    public function __construct($table = '')
     {
-        $table = strtolower(str_replace('Model', '', ltrim(strrchr(get_called_class(), '\\'), '\\')));
-        $this->table = $table;
+        if (empty($table)) {
+            $this->table = $table;
+        } else {
+            $this->table = strtolower(str_replace('Model', '', ltrim(strrchr(get_called_class(), '\\'), '\\')));
+        }
     }
 }

@@ -31,6 +31,17 @@ class IndexController extends Controller
 
     public function indexAction()
     {
+        $str = '<strong><a href="http://zixun.kongfz.com/mode.php?m=cms&amp;q=view&amp;id=43777" target="_blank"><img src="http://zixun.kongfz.com/attachment/cms_article/Mon_1603/1977411_73c013af85406d9.jpg" alt="http://zixun.kongfz.com/mode.php?m=cms&amp;q=view&amp;id=43777" width="600px" height="220px" </img>83岁林文月：中日“摆渡者”的文学风景</a></strong>';
+
+        $preg = '/(?:.*?)href=[\'\"](.*?)[\'\"](?:.*?)src=[\'\"]([a-zA-Z0-9_\.\/\:]+)[\'\"](?:.*)?<\/img>(.*)?<\/a>/';
+
+        preg_match($preg, $str, $info);
+
+        print_r($info);
+
+        preg_match('/(?:article\_|id=)(\d+)(?:\.html)?/', $info[1], $res);
+
+        print_r($res);die;
         //trigger_error('elsakg', E_USER_NOTICE);die;
         //throw new \Exception('this is a exception!');die;
 
