@@ -33,15 +33,21 @@ class Linger
     {
         define('LINGER_ROOT', realpath(dirname(__FILE__)));
 
-        spl_autoload_register(function($class) {
+        spl_autoload_register(function ($class) {
             if (false !== stripos($class, 'Controller') && false === strpos($class, 'Linger\\Core')) {
-                $classPath = APP_ROOT . '/app/module/' . str_replace('\\', '/', substr($class, 0, strlen($class) - 10)) . '.php';
-            } else if (false !== stripos($class, 'Model') && false === strpos($class, 'Linger\\Core')) {
-                $classPath = APP_ROOT . '/app/' . str_replace('\\', '/', substr($class, 0, strlen($class) - 5)) . '.php';
-            } else if (false !== strpos($class, 'Linger\\Core')) {
-                $classPath = LINGER_ROOT .  str_replace('Linger', '', str_replace('\\', '/', $class)) . '.php';
+                $classPath = APP_ROOT . '/app/module/' . str_replace('\\', '/',
+                        substr($class, 0, strlen($class) - 10)) . '.php';
             } else {
-                $classPath = APP_ROOT . '/' . str_replace('\\', '/', $class) . '.php';
+                if (false !== stripos($class, 'Model') && false === strpos($class, 'Linger\\Core')) {
+                    $classPath = APP_ROOT . '/app/' . str_replace('\\', '/',
+                            substr($class, 0, strlen($class) - 5)) . '.php';
+                } else {
+                    if (false !== strpos($class, 'Linger\\Core')) {
+                        $classPath = LINGER_ROOT . str_replace('Linger', '', str_replace('\\', '/', $class)) . '.php';
+                    } else {
+                        $classPath = APP_ROOT . '/' . str_replace('\\', '/', $class) . '.php';
+                    }
+                }
             }
             if (file_exists($classPath)) {
                 self::incFiles($classPath);
@@ -68,13 +74,12 @@ class Linger
     public static function incFiles($filePath)
     {
         $file = md5($filePath);
-        if (in_array($file, self::$includes) && 1 === self::$includes[$filePath]) {
-            return true;
-        } else {
-            require $filePath;
-            self::$includes[$file] = 1;
+        if (array_key_exists($filePath, self::$includes) && 1 === self::$includes[$file]) {
             return true;
         }
+        require $filePath;
+        self::$includes[$file] = 1;
+        return true;
     }
 
     /**
@@ -90,16 +95,19 @@ class Linger
         $config = Config::getInstance();
         if (empty($key)) {
             return $config->getConfig();
-        } else if (empty($val)) {
-            return $config->getConfig($key);
         } else {
-            $config->setConfig($key, $val);
+            if (empty($val)) {
+                return $config->getConfig($key);
+            } else {
+                $config->setConfig($key, $val);
+            }
         }
 
     }
 
     /**
      * @param $table
+     *
      * @return Driver\Db\DbDriver
      */
     public static function M($table)
