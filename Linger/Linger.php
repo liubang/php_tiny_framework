@@ -56,11 +56,11 @@ class Linger
     }
 
     /**
-     * @param array $config
+     * @param array|string $config
      *
      * @return App
      */
-    public static function getApp($config = [])
+    public static function app($config)
     {
         self::init();
         return App::getInstance($config);
@@ -135,6 +135,16 @@ class Linger
             return $var;
         }
         return $name;
+    }
+
+    /**
+     * @param array $arr
+     */
+    public static function p($arr)
+    {
+        echo '<pre>';
+        print_r($arr);
+        echo '<pre>';
     }
 
 }

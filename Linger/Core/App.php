@@ -54,6 +54,11 @@ class App
      */
     private $dispatcher = null;
 
+    /**
+     * App constructor.
+     *
+     * @param $config
+     */
     private function __construct($config)
     {
         self::$start = microtime(true);
@@ -65,7 +70,12 @@ class App
         $this->response = Response::getInstance();
     }
 
-    public static function getInstance($config = [])
+    /**
+     * @param array|string $config
+     *
+     * @return App
+     */
+    public static function getInstance($config)
     {
         if (null === self::$ins) {
             self::$ins = new self($config);

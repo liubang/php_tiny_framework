@@ -11,6 +11,7 @@
  */
 
 namespace Linger\Core;
+
 class Config
 {
     /**
@@ -25,32 +26,102 @@ class Config
      */
     private static $ins = null;
 
-    private function __construct($conFile)
+    /**
+     * Config constructor.
+     *
+     * @param $config
+     */
+    private function __construct($config)
     {
-        if (file_exists($conFile)) {
-            $this->g_config = array_merge(require LINGER_ROOT . '/Conf/config.php', require $conFile);
-            $fun = function($arr) use (&$fun){
-                $rs = [];
-                foreach ($arr as $k => $v) {
-                    $rs[strtolower($k)] = is_array($v) ? $fun($v) : $v;
+        if (is_string($config)) {
+            if (is_file($config)) {
+                $ext = substr($config, strlen($config) - 4);
+                if ($ext === '.ini') {
+                    $config = self::parseIniFile($config);
                 }
-                return $rs;
-            };
-            $this->g_config = $fun($this->g_config);
-        } else {
-            die($conFile . '文件不存在');
+                if ($ext === '.php') {
+                    $config = require $config;
+                }
+            } else {
+                die($config . '文件不存在');
+            }
         }
+        if (is_array($config)) {
+            $this->g_config = array_merge(require LINGER_ROOT . '/Conf/config.php', $config);
+        } else {
+            die('请传入正确的配置文件或配置数组');
+        }
+
+        $this->g_config = self::changeArrayKeyCase($this->g_config);
     }
 
     /**
-     * @param $conFile
+     * @param      $file
+     * @param bool $processSections
+     * @param int  $scannerMode
      *
-     * @return self
+     * @return array|mixed
      */
-    public static function getInstance($conFile = '')
+    private static function parseIniFile($file, $processSections = false, $scannerMode = INI_SCANNER_NORMAL)
+    {
+        $explodeStr = '.';
+        $escapeChar = "'";
+        $data = parse_ini_file($file, $processSections, $scannerMode);
+        if (!$processSections) {
+            $data = array($data);
+        }
+        foreach ($data as $sectionKey => $section) {
+            foreach ($section as $key => $value) {
+                if (strpos($key, $explodeStr)) {
+                    if (substr($key, 0, 1) !== $escapeChar) {
+                        $subKeys = explode($explodeStr, $key);
+                        $subs = &$data[$sectionKey];
+                        foreach ($subKeys as $subKey) {
+                            if (!isset($subs[$subKey])) {
+                                $subs[$subKey] = '';
+                            }
+                            $subs = &$subs[$subKey];
+                        }
+                        $subs = $value;
+                        unset($data[$sectionKey][$key]);
+                    } else {
+                        $newKey = trim($key, $escapeChar);
+                        $data[$sectionKey][$newKey] = $value;
+                        unset($data[$sectionKey][$key]);
+                    }
+                }
+            }
+        }
+        if (!$processSections) {
+            $data = $data[0];
+        }
+        return $data;
+    }
+
+    /**
+     * @param $config
+     *
+     * @return array
+     */
+    private static function changeArrayKeyCase($config)
+    {
+        $arr = [];
+        foreach ($config as $key => $val) {
+            $key = strtolower($key);
+            $arr[$key] = is_array($val) ? self::changeArrayKeyCase($val) : $val;
+        }
+        return $arr;
+    }
+
+    /**
+     * @param $config
+     *
+     * @return Config|null
+     */
+    public static function getInstance($config = [])
     {
         if (null === self::$ins) {
-            self::$ins = new self($conFile);
+            self::$ins = new self($config);
         }
         return self::$ins;
     }
@@ -92,8 +163,9 @@ class Config
     public function setConfig($key, $val = '')
     {
         if (empty($val)) {
-            $this->g_config = $key;
+            $this->g_config = self::changeArrayKeyCase($key);
         } else {
+            $key = strtolower($key);
             $this->g_config[$key] = $val;
         }
     }

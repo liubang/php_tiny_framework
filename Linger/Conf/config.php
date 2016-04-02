@@ -49,6 +49,4 @@ return [
     'TPL_CACHE_PATH'      => APP_ROOT . '/public/tmp/cache/',
     'TPL_COMP_PATH'       => APP_ROOT . '/public/tmp/compile/',
     'TPL_CHARSET'         => 'UTF-8',
-
-
 ];

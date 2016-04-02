@@ -25,9 +25,7 @@ class Response
      * Response constructor.
      */
     private function __construct()
-    {
-
-    }
+    {}
 
     /**
      * 单例模式
