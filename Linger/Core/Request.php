@@ -121,62 +121,73 @@ class Request
     }
 
     /**
-     * @param string $key
-     * @param string $callable
+     * @param string   $key
+     * @param string   $callable
+     * @param null|mix $default
      *
      * @return array|mixed|null
      */
-    public function get($key = '', $callable = 'htmlspecialchars')
+    public function get($key = '', $callable = 'htmlspecialchars', $default = null)
     {
         if ('' === $key) {
             return array_map($callable, $this->_get);
         }
-        if (in_array($key, $this->_get)) {
+        if (key_exists($key, $this->_get)) {
             if (is_array($this->_get[$key])) {
                 return array_map($callable, $this->_get[$key]);
             }
             return $callable($this->_get[$key]);
         }
-
+        if (null !== $default) {
+            return $default;
+        }
         return null;
     }
 
     /**
-     * @param string $key
-     * @param string $callable
+     * @param string   $key
+     * @param string   $callable
+     * @param null|mix $default
      *
      * @return null
      */
-    public function getRequest($key = '', $callable = 'htmlspecialchars')
+    public function getRequest($key = '', $callable = 'htmlspecialchars', $default = null)
     {
         if (empty($key)) {
             return array_map($callable, $this->_request);
         }
-        if (in_array($key, $this->_request)) {
+        if (key_exists($key, $this->_request)) {
             if (is_array($this->_request[$key])) {
                 return array_map($callable, $this->_request[$key]);
             }
             return $callable($this->_request[$key]);
         }
+        if (null !== $default) {
+            return $default;
+        }
         return null;
     }
 
     /**
-     * @param string $key
-     * @param string $callable
+     * @param string   $key
+     * @param string   $callable
+     * @param null|mix $default
      *
      * @return null
      */
-    public function post($key = '', $callable = 'htmlspecialchars')
+    public function post($key = '', $callable = 'htmlspecialchars', $default = null)
     {
         if ('' === $key) {
             return array_map($callable, $this->_post);
         }
-        if (in_array($key, $this->_post)) {
+        if (key_exists($key, $this->_post)) {
             if (is_array($this->_post[$key])) {
                 return array_map($callable, $this->_post[$key]);
             }
             return $callable($this->_post[$key]);
+        }
+        if (null !== $default) {
+            return $default;
         }
         return null;
     }
