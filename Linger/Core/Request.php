@@ -46,7 +46,6 @@ class Request
      */
     private static $ins = null;
 
-
     /**
      * Request constructor.
      */
