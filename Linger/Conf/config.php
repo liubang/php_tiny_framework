@@ -28,6 +28,7 @@ return [
     'DEFAULT_MODULE'      => 'index',
     'DEFAULT_CONTROLLER'  => 'index',
     'DEFAULT_ACTION'      => 'index',
+    'MODULE_ALLOW_LIST'   => ['index'],
     'TMPL_ACTION_SUCCESS' => LINGER_ROOT . '/Tpl/jump.html',
     'TMPL_ACTION_ERROR'   => LINGER_ROOT . '/Tpl/error.html',
     'TMPL_ACTION_404'     => LINGER_ROOT . '/Tpl/404.html',

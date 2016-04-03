@@ -21,6 +21,7 @@ return array(
     'DEFAULT_MODULE'     => 'home',
     'DEFAULT_CONTROLLER' => 'index',
     'DEFAULT_ACTION'     => 'index',
+    'MODULE_ALLOW_LIST'  => ['index', 'admin', 'home'],
     'ROUTE'              => array(
         'home.html'        => 'home/index/index',
         'list/(\d+)\.html' => 'home/index/list/id/\1',

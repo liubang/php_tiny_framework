@@ -56,6 +56,17 @@ class Response
         exit;
     }
 
+    //TODO 403 page
+    public function _403($code = false)
+    {
+        if ($code) {
+            header('Http/1.1 403 Forbidden');
+        } else {
+            $view = new View();
+            $view->display();
+        }
+    }
+
     /**
      * @param        $message
      * @param        $trace
