@@ -1,7 +1,7 @@
 <?php
 /*
  |------------------------------------------------------------------
- | linger.iliubang.cn
+ | 注册表类
  |------------------------------------------------------------------
  | @author    : liubang 
  | @date      : 2016/3/31 14:59
@@ -14,18 +14,59 @@ namespace Linger\Core;
 
 class Registry
 {
-    protected static $g_registry = [];
+    /**
+     * @var mixed[]
+     */
+    protected $registry = [];
 
-    public static function set($key, $val)
+    /**
+     * @var null|self
+     */
+    private static $ins = null;
+
+    /**
+     * Registry constructor.
+     */
+    private function __construct()
     {
-        self::$g_registry[$key] = $val;
+
     }
 
+    public static function getInstance()
+    {
+        if (null === self::$ins) {
+            self::$ins = new self();
+        }
+        return self::$ins;
+    }
+
+    /**
+     * 向注册表中注册一个变量
+     *
+     * @param string $key
+     * @param mixed $val
+     */
+    public function set($key, $val)
+    {
+        $this->registry[$key] = $val;
+    }
+
+    /**
+     * 获取注册表
+     *
+     * @param null|string $key
+     *
+     * @return mixed|\mixed[]|null
+     */
     public function get($key = null)
     {
-        if (empty($key)) {
-            return self::$g_registry;
+        if (null === $key) {
+            return $this->registry;
         }
-        return self::$g_registry[$key];
+        if (isset($this->registry[$key])) {
+            return $this->registry[$key];
+        }
+        return null;
     }
+
 }

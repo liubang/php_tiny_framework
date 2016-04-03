@@ -24,7 +24,7 @@ class Linger
     /**
      * @var \Linger\Driver\Db\DbDriver[]
      */
-    private static $g_dao = [];
+    private static $daos = [];
 
     /**
      * 框架主文件初始化
@@ -122,11 +122,11 @@ class Linger
         $config['db_socket'] = self::C('DB_SOCKET');
         $config['db_params'] = self::C('DB_PARAMS');
         $config['db_dsn'] = self::C('DB_DSN');
-        if (!isset(self::$g_dao[$table]) || empty(self::$g_dao[$table])) {
+        if (!isset(self::$daos[$table]) || empty(self::$daos[$table])) {
             $db = new Driver\Db\MySql($config);
-            self::$g_dao[$table] = $db->connect()->forTable($table);
+            self::$daos[$table] = $db->connect()->forTable($table);
         }
-        return self::$g_dao[$table];
+        return self::$daos[$table];
     }
 
     public static function _default($name, $var = '')

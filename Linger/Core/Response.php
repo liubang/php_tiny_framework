@@ -53,7 +53,7 @@ class Response
             $view = new View();
             $view->display(Linger::C('TMPL_ACTION_404'), -1);
         }
-        die();
+        exit;
     }
 
     /**
@@ -71,9 +71,9 @@ class Response
             $view->assign('message', $message);
             $view->assign('trace', $trace);
             $view->display(Linger::C('TMPL_ACTION_ERROR'), -1);
-            die;
+            exit;
         } else {
-            die($message);
+            exit($message);
         }
     }
 

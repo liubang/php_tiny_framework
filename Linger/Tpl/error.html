@@ -27,7 +27,7 @@
                         <td>{$key}</td>
                         <td>{$val.file|default}</td>
                         <td>{$val.line|default=0}</td>
-                        <td>{$val.class|default}:{$val.function|default}()</td>
+                        <td>{$val.class|default}::{$val.function|default}()</td>
                     </tr>
                 </foreach>
             </table>

@@ -55,6 +55,11 @@ class App
     private $dispatcher = null;
 
     /**
+     * @var Registry|null
+     */
+    private $registry = null;
+
+    /**
      * App constructor.
      *
      * @param $config
@@ -64,6 +69,7 @@ class App
         self::$start = microtime(true);
         $this->config = Config::getInstance($config);
         $this->exception = Exception::getInstance();
+        $this->registry = Registry::getInstance();
         $this->request = Request::getInstance();
         $this->router = Router::getInstance();
         $this->dispatcher = Dispatcher::getInstance();
