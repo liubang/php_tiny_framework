@@ -113,6 +113,7 @@ class App
         }
         return $this;
     }
+
     /**
      * 运行程序
      */
@@ -121,6 +122,4 @@ class App
         $this->router->parseUri();
         $this->dispatcher->dispatch();
     }
-
-
 }

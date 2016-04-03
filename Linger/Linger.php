@@ -32,7 +32,6 @@ class Linger
     private static function init()
     {
         define('LINGER_ROOT', realpath(dirname(__FILE__)));
-
         spl_autoload_register(function ($class) {
             if (false !== stripos($class, 'Controller') && false === strpos($class, 'Linger\\Core')) {
                 $classPath = APP_ROOT . '/app/module/' . str_replace('\\', '/',
@@ -102,7 +101,6 @@ class Linger
                 $config->setConfig($key, $val);
             }
         }
-
     }
 
     /**

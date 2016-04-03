@@ -79,7 +79,13 @@ class Request
      */
     private function getWitchRequest()
     {
+        if ('cli' === php_sapi_name()) {
+            define('IS_CLI', true);
+            return;
+        }
+
         $reqMethod = strtolower($_SERVER['REQUEST_METHOD']);
+
         if ('post' === $reqMethod) {
             define('IS_POST', true);
             define('IS_GET', false);
@@ -88,6 +94,12 @@ class Request
                 define('IS_POST', false);
                 define('IS_GET', true);
             }
+        }
+
+        if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && 'xmlhttprequest' == strtolower($_SERVER['HTTP_X_REQUESTED_WITH'])) {
+            define('IS_AJAX', true);
+        } else {
+            define('IS_AJAX', false);
         }
     }
 
@@ -101,8 +113,10 @@ class Request
         $arr = '_' . $type;
         if (is_array($key)) {
             $this->$arr = array_merge($this->$arr, $key);
-        } else if (is_string($key)) {
-            $this->$arr[$key] = $val;
+        } else {
+            if (is_string($key)) {
+                $this->$arr[$key] = $val;
+            }
         }
     }
 

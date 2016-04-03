@@ -132,7 +132,7 @@ class Router
      * @param array|string $rouls
      * @param string|null  $ref
      */
-    public function addRout($rouls, $ref = null)
+    public function addRoute($rouls, $ref = null)
     {
         if (null === $ref) {
             if (is_array($rouls)) {
@@ -143,5 +143,20 @@ class Router
                 $this->roules[$rouls] = $ref;
             }
         }
+    }
+
+    /**
+     * @param string $rouls
+     *
+     * @return bool|string
+     */
+    public function delRoute($rouls)
+    {
+        if (is_string($rouls) && isset($this->roules[$rouls])) {
+            $ref = $this->roules[$rouls];
+            unset($this->roules[$rouls]);
+            return $ref;
+        }
+        return false;
     }
 }
