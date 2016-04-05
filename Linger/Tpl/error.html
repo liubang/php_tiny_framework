@@ -13,27 +13,27 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <p class="bt1">{$type}</p>
-        <p class="bt2">{$message}</p>
-        <nempty condition="$trace">
-            <p class="bt3">PHP Trace</p>
-            <table class="lg-table lg-table-list">
-                <tr>
-                    <th>No.</th><th>File</th><th>Line</th><th>Code</th>
-                </tr>
-                <foreach name="trace" item="val" key="key">
-                    <tr>
-                        <td>{$key}</td>
-                        <td>{$val.file|default}</td>
-                        <td>{$val.line|default=0}</td>
-                        <td>{$val.class|default}::{$val.function|default}()</td>
-                    </tr>
-                </foreach>
-            </table>
-        </nempty>
+<div class="container">
+    <p class="bt1"><?php echo $type;?></p>
+    <p class="bt2"><?php echo $message;?></p>
+    <?php if (!empty($trace)) {?>
+    <p class="bt3">PHP Trace</p>
+    <table class="lg-table lg-table-list">
+        <tr>
+            <th>No.</th><th>File</th><th>Line</th><th>Code</th>
+        </tr>
+        <?php foreach ($trace as $key => $val) { ?>
+        <tr>
+            <td><?php echo $key;?></td>
+            <td><?php echo \Linger\Linger::_default($val['file']);?></td>
+            <td><?php echo \Linger\Linger::_default($val['line'],0);?></td>
+            <td><?php echo \Linger\Linger::_default($val['class']);?>::<?php echo \Linger\Linger::_default($val['function']);?>()</td>
+        </tr>
+        <?php } ?>
+    </table>
+    <?php }?>
 
-        <p class="bt2">程序运行时间：{$time|number_format=6}(s)</p>
-    </div>
+    <p class="bt2">程序运行时间：<?php echo number_format($time,6);?>(s)</p>
+</div>
 </body>
 </html>

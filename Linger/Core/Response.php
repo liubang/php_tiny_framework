@@ -50,8 +50,7 @@ class Response
         if ($code) {
             header('Http/1.1 404 Not Found');
         } else {
-            $view = new View();
-            $view->display(Linger::C('TMPL_ACTION_404'), -1);
+            include Linger::C('TMPL_ACTION_404');
         }
         exit;
     }
@@ -62,8 +61,7 @@ class Response
         if ($code) {
             header('Http/1.1 403 Forbidden');
         } else {
-            $view = new View();
-            $view->display();
+            include Linger::C('TMPL_ACTION_403');
         }
     }
 
@@ -75,13 +73,8 @@ class Response
     public function error($message, $trace, $type = 'Exception')
     {
         if (Linger::C('DEBUG')) {
-            $view = new View();
             $time = microtime(true) - App::$start;
-            $view->assign('time', $time);
-            $view->assign('type', $type);
-            $view->assign('message', $message);
-            $view->assign('trace', $trace);
-            $view->display(Linger::C('TMPL_ACTION_ERROR'), -1);
+            include Linger::C('TMPL_ACTION_ERROR');
             exit;
         } else {
             exit($message);
