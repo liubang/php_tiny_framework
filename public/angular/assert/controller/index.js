@@ -12,14 +12,14 @@
         $scope.search = function() {
             var data = {name: $scope.name};
             user.search(data);
-            $scope.$on('user.search.success', function() {
+            $scope.$on('user.search.success', function(event) {
                 $scope.userInfo = user.userInfo;
-                //$scope.$apply();
+                $scope.$apply();
             });
-            $scope.$on('user.search.error', function() {
+            $scope.userInfo = user.userInfo;
+            $scope.$on('user.search.error', function(event) {
                 alert('查询失败!');
             })
         }
     }
-
 })(window.angular);

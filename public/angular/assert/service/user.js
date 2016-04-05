@@ -1,23 +1,32 @@
-!function(angular) {
+!function(angular, $) {
     "use strict";
     angular
         .module('app')
-        .service('app.service.user', ['$rootScope', '$http', user]);
+        .service('app.service.user', ['$rootScope', user]);
 
-    function user($rootScope, $http) {
+    function user($rootScope) {
         var service =  {
             userInfo : {},
             search : function(data) {
-                $http.post('/home/index/search', {name:'liubang'})
-                    .success(function(data, status, headers, config) {
-                        service.userInfo = data;
-                        $rootScope.$broadcast('user.search.success');
-                    })
-                    .error(function(data, status, headers, config) {
-                        $rootScope.$broadcast('user.search.error');
-                    });
+                $.ajax({
+                    url: 'http://linger.iliubang.cn/home/index/search',
+                    data : data,
+                    dataType: 'json',
+                    type: 'post',
+                    success:function(status) {
+                        if (data.status) {
+                            service.userInfo = data.data;
+                            $rootScope.$broadcast('user.search.success');
+                        } else {
+                            $rootScope.$broadcast('user.search.faild');
+                        }
+                    },
+                    error: function(msg) {
+                        $rootScope.$broadcast('user.search.error', msg);
+                    }
+                });
             }
         }
         return service;
     }
-}(window.angular);
+}(window.angular, window.$);

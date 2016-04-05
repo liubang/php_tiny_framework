@@ -91,6 +91,10 @@ class IndexController extends Controller
 
     public function searchAction()
     {
-        echo $this->request->post('name');
+        if (IS_POST) {
+            $name = $this->post('name');
+            $result = ['status' => 1, 'data' => ['name' => $name, 'id' => 1034285], 'message' => 'ok'];
+            echo json_encode($result);
+        }
     }
 }
