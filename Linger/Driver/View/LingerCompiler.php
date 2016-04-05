@@ -20,7 +20,7 @@ class LingerCompiler
      * @var LingerView
      */
     private $view = null;
-
+    
     /**
      * @var string
      */

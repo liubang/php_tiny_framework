@@ -87,4 +87,10 @@ class IndexController extends Controller
         echo $userModel->where(array('id' => 3))->update($data);
         print_r($_SESSION);
     }
+
+
+    public function searchAction()
+    {
+        echo $this->request->post('name');
+    }
 }
