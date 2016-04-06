@@ -15,6 +15,7 @@ namespace home\controller;
 use Linger\Core\Controller;
 use model\UserModel;
 use Linger\Linger;
+use library\tool\ApiClient;
 
 class IndexController extends Controller
 {
@@ -33,7 +34,8 @@ class IndexController extends Controller
     {
 
         //trigger_error('elsakg', E_USER_NOTICE);die;
-        throw new \Exception('this is a exception!');die;
+        throw new \Exception('this is a exception!');
+        die;
 
 //        $str = <<<HTML
 //            <foreach name='aaa' item='bbb'>
@@ -100,5 +102,21 @@ class IndexController extends Controller
             }
             echo json_encode($result);
         }
+    }
+
+    public function getItemReviewInfoAction()
+    {
+        $arr = [
+            'tradeType'       => 'auction',
+            'appraiserId'     => '5256107',
+            'appraisedUserId' => '5256121',
+            'appraiserType'   => 'buyer',
+            'itemId'          => '20214105'
+        ];
+        $apiClient = new ApiClient('http://neibuxinyu.kongfz.com/interface/api/tousu');
+        $rs = $apiClient->getItemReviewInfo($arr);
+
+        var_dump($rs);
+        exit;
     }
 }
