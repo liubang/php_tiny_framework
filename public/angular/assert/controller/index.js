@@ -9,17 +9,18 @@
         ]);
 
     function IndexController($scope, user) {
+        $scope.userInfo = user.userInfo;
         $scope.search = function() {
             var data = {name: $scope.name};
             user.search(data);
-            $scope.$on('user.search.success', function(event) {
+            $scope.$on('userInfo.update', function(e, d) {
+                console.log(d);
                 $scope.userInfo = user.userInfo;
-                $scope.$apply();
+                //$scope.$apply();
             });
-            $scope.userInfo = user.userInfo;
-            $scope.$on('user.search.error', function(event) {
-                alert('查询失败!');
-            })
+            $scope.$on('user.search.error', function(e) {
+                alert('error');
+            });
         }
     }
 })(window.angular);

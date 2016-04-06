@@ -2,31 +2,55 @@
     "use strict";
     angular
         .module('app')
-        .service('app.service.user', ['$rootScope', user]);
+        .service('app.service.user', ['$rootScope', '$http', user]);
 
-    function user($rootScope) {
+    function user($rootScope, $http) {
         var service =  {
-            userInfo : {},
+            userInfo: {},
             search : function(data) {
+                /*
                 $.ajax({
-                    url: 'http://linger.iliubang.cn/home/index/search',
+                    url: '/home/index/search',
                     data : data,
                     dataType: 'json',
                     type: 'post',
-                    success:function(status) {
+                    success:function(data) {
                         if (data.status) {
                             service.userInfo = data.data;
-                            $rootScope.$broadcast('user.search.success');
+                            $rootScope.$broadcast('userInfo.update');
                         } else {
-                            $rootScope.$broadcast('user.search.faild');
+                            $rootScope.$broadcast('user.search.error');
                         }
                     },
                     error: function(msg) {
-                        $rootScope.$broadcast('user.search.error', msg);
+                        return false;
                     }
                 });
+                */
+                $http({
+                    method: 'post',
+                    url: '/home/index/search',
+                    data: data,
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                    transformRequest: function(obj) {
+                        for(var p in obj) {
+                            var str = [];
+                            str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                        }
+                        return str.join('&');
+                    }
+                }).success(function(data) {
+                    if (data.status) {
+                        service.userInfo = data.data;
+                        $rootScope.$broadcast('userInfo.update', '终于弄好了');
+                    } else {
+                        $rootScope.$broadcast('user.search.error');
+                    }
+                }).error(function(data) {
+                    $rootScope.$broadcast('user.search.error');
+                });
             }
-        }
+        };
         return service;
     }
 }(window.angular, window.$);
