@@ -4,6 +4,10 @@
         .module('app')
         .config(['$httpProvider', config])
         .service('app.service.user', ['$rootScope', '$http', user]);
+    /**
+     * config $httpProvider
+     * @param $httpProvider
+     */
     function config($httpProvider) {
         $httpProvider.defaults.headers.post = {
             'Content-Type': 'application/x-www-form-urlencoded'
@@ -59,6 +63,10 @@
     function user($rootScope, $http) {
         var service =  {
             userInfo: {},
+            /**
+             * search userInfo
+             * @param data
+             */
             search : function(data) {
                 $http({
                     method: 'post',
