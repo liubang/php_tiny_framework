@@ -35,7 +35,7 @@ class IndexController extends Controller
 
         //trigger_error('elsakg', E_USER_NOTICE);die;
         throw new \Exception('this is a exception!');
-        die;
+        exit;
 
 //        $str = <<<HTML
 //            <foreach name='aaa' item='bbb'>

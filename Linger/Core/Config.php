@@ -43,13 +43,13 @@ class Config
                     $config = require $config;
                 }
             } else {
-                die($config . '文件不存在');
+                exit($config . '文件不存在');
             }
         }
         if (is_array($config)) {
             $this->g_config = array_merge(require LINGER_ROOT . '/Conf/config.php', $config);
         } else {
-            die('请传入正确的配置文件或配置数组');
+            exit('请传入正确的配置文件或配置数组');
         }
 
         $this->g_config = self::changeArrayKeyCase($this->g_config);
