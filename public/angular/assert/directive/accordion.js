@@ -4,6 +4,10 @@
         .directive('accordion', accordion)
         .directive('expander', expander);
 
+    /**
+     * accordion directive
+     * @returns {{restrict: string, replace: boolean, transclude: boolean, template: string, controller: controller}}
+     */
     function accordion() {
         return {
             restrict: 'EA',
@@ -26,6 +30,10 @@
         }
     }
 
+    /**
+     * expander directive
+     * @returns {{restrict: string, replace: boolean, transclude: boolean, require: string, scope: {title: string}, template: string, link: link}}
+     */
     function expander() {
         return {
             restrict: 'EA',
