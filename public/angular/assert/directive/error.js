@@ -1,4 +1,4 @@
-(function(angular) {
+(function (angular) {
     angular
         .module('app')
         .directive('error', error);

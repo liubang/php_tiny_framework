@@ -15,6 +15,7 @@
             user.search(data);
             $scope.$on('userInfo.update', function(e, d) {
                 console.log(d);
+                $scope.error = false;
                 $scope.userInfo = user.userInfo;
                 //$scope.$apply();
             });

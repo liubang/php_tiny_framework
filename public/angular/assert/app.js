@@ -18,6 +18,10 @@
                 templateUrl: 'tmp/list.html',
                 controller: 'app.controller.list'
             })
+            .when('/testDirective', {
+                templateUrl: 'tmp/testDirective.html',
+                controller: 'app.controller.test.directive'
+            })
             .otherwise({
                 redirectTo: '/'
             });

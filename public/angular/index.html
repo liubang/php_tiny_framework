@@ -6,6 +6,22 @@
     <script src="/angular/js/angular.min.js"></script>
     <script src="/angular/js/angular-route.min.js"></script>
     <script src="/js/jquery.min.js"></script>
+    <style>
+        .expander {
+            border: 1px solid black;
+            width: 250px;
+        }
+        .expander>.title {
+            background-color: black;
+            color: white;
+            padding: .1em .3em;
+            cursor: pointer;
+        }
+
+        .expander>.body {
+            padding: .1em .3em;
+        }
+    </style>
 </head>
 <body ng-app="app">
 
@@ -16,7 +32,9 @@
 <script src="/angular/assert/app.js"></script>
 <script src="/angular/assert/controller/index.js"></script>
 <script src="/angular/assert/controller/list.js"></script>
+<script src="/angular/assert/controller/test.directive.js"></script>
 <script src="/angular/assert/service/user.js"></script>
 <script src="/angular/assert/directive/error.js"></script>
+<script src="/angular/assert/directive/accordion.js"></script>
 </body>
 </html>
