@@ -93,7 +93,11 @@ class IndexController extends Controller
     {
         if (IS_POST) {
             $name = $this->post('name');
-            $result = ['status' => 1, 'data' => ['name' => $name, 'id' => 1034285], 'message' => 'ok'];
+            if ('error' !== $name) {
+                $result = ['status' => 1, 'data' => ['name' => $name, 'id' => 1034285], 'message' => 'ok'];
+            } else {
+                $result = ['status' => 0, 'data' => [], 'message' => 'test error'];
+            }
             echo json_encode($result);
         }
     }

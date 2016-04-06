@@ -1,13 +1,12 @@
-!function(angular) {
+(function(angular) {
     "use strict";
     angular
         .module('app')
         .controller('app.controller.list', [
             '$scope',
-            list]
-        );
-
-    function list($scope) {
-        alert('this is list page')
+            listController
+        ]);
+    function listController($scope) {
+        $scope.title = 'hello liubang';
     }
-}(window.angular);
+})(window.angular);

@@ -5,10 +5,10 @@
         .controller('app.controller.index', [
             '$scope',
             'app.service.user',
-            IndexController
+            indexController
         ]);
 
-    function IndexController($scope, user) {
+    function indexController($scope, user) {
         $scope.userInfo = user.userInfo;
         $scope.search = function() {
             var data = {name: $scope.name};
@@ -19,7 +19,8 @@
                 //$scope.$apply();
             });
             $scope.$on('user.search.error', function(e) {
-                alert('error');
+                $scope.error = true;
+                $scope.userInfo = user.userInfo;
             });
         }
     }
