@@ -90,7 +90,9 @@ class IndexController extends Controller
         print_r($_SESSION);
     }
 
-
+    /**
+     * 测试angularjs请求后端
+     */
     public function searchAction()
     {
         if (IS_POST) {
@@ -104,6 +106,9 @@ class IndexController extends Controller
         }
     }
 
+    /**
+     * 测试信誉系统接口
+     */
     public function getItemReviewInfoAction()
     {
         $arr = [
