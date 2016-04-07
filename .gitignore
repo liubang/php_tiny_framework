@@ -1,9 +1,8 @@
 .buildpath
 .project
 .settings
-
 .DS_Store
 nbproject
-.idea
+.idea/
 public/angular/node_modules/
 public/tmp/
