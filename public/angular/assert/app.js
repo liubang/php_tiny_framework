@@ -22,6 +22,10 @@
                 templateUrl: 'tmp/testDirective.html',
                 controller: 'app.controller.test.directive'
             })
+            .when('/testTab', {
+                templateUrl: 'tmp/testTab.html',
+                controller: 'app.controller.test.tab'
+            })
             .otherwise({
                 redirectTo: '/'
             });

@@ -1,13 +1,13 @@
 (function(angular) {
     angular
         .module('app')
-        .directive('accordion', accordion)
+        .directive('accordion', ['$http',accordion])
         .directive('expander', expander);
     /**
      * accordion directive
      * @returns {{restrict: string, replace: boolean, transclude: boolean, template: string, controller: controller}}
      */
-    function accordion() {
+    function accordion($http) {
         return {
             restrict: 'EA',
             replace: true,
