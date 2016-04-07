@@ -9,13 +9,15 @@ gulp.task('minifyjs', function() {
         .pipe(concat('all.js'))
         .pipe(gulp.dest('dist'))
         .pipe(uglify())
-        .pipe(rename('all.min.js'))
+        .pipe(rename({suffix: '.min'}))
         .pipe(gulp.dest('dist'));
 });
 
 gulp.task('minifycss', function() {
     return gulp.src('css/*.css')
         .pipe(minifycss())
+        .pipe(gulp.dest('css/min'))
+        .pipe(rename({suffix: '.min'}))
         .pipe(gulp.dest('css/min'));
 });
 
