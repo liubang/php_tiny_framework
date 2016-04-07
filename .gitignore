@@ -1,0 +1,9 @@
+.buildpath
+.project
+.settings
+
+.DS_Store
+nbproject
+.idea
+public/angular/node_modules/
+public/tmp/
