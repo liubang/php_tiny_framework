@@ -3,7 +3,6 @@
         .module('app')
         .directive('accordion', accordion)
         .directive('expander', expander);
-
     /**
      * accordion directive
      * @returns {{restrict: string, replace: boolean, transclude: boolean, template: string, controller: controller}}
@@ -22,10 +21,10 @@
                             expander.showMe = false;
                         }
                     });
-                }
+                };
                 this.addExpander = function(expander) {
                     expanders.push(expander);
-                }
+                };
             }
         }
     }
