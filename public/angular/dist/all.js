@@ -32,6 +32,82 @@
     }
 })(window.angular);
 (function(angular) {
+    "use strict";
+    angular
+        .module('app')
+        .controller('app.controller.index', [
+            '$scope',
+            'app.service.user',
+            indexController
+        ]);
+
+    function indexController($scope, user) {
+        $scope.userInfo = user.userInfo;
+        $scope.search = function() {
+            var data = {name: $scope.name};
+            user.search(data);
+            $scope.$on('userInfo.update', function(e, d) {
+                console.log(d);
+                $scope.error = false;
+                $scope.userInfo = user.userInfo;
+                //$scope.$apply();
+            });
+            $scope.$on('user.search.error', function(e) {
+                $scope.error = true;
+                $scope.userInfo = user.userInfo;
+            });
+        }
+    }
+})(window.angular);
+(function(angular) {
+    "use strict";
+    angular
+        .module('app')
+        .controller('app.controller.list', [
+            '$scope',
+            listController
+        ]);
+    function listController($scope) {
+        $scope.title = 'hello liubang';
+    }
+})(window.angular);
+(function(angular) {
+    angular
+        .module('app')
+        .controller('app.controller.test.directive', ['$scope', directiveController]);
+
+    function directiveController($scope) {
+        $scope.expanders = [{
+            title: 'Click me to expand',
+            text: 'Hi there folks, I am the content that was hidden but is now shown.'
+        }, {
+            title: 'Click this',
+            text: 'I am even better text than you have seen previously'
+        }, {
+            title: 'Test',
+            text: 'test'
+        }];
+    }
+})(window.angular);
+(function(angular) {
+    angular
+        .module('app')
+        .controller('app.controller.test.tab', ['$scope', tabController]);
+
+    function tabController($scope) {
+        $scope.tabs = [{
+            id: 1,
+            title: 'Click me to expand',
+        }, {
+            id: 2,
+            title: 'Click this',
+        }, {
+            id: 3,
+            title: 'Test',
+        }];
+    }
+})(window.angular);
+(function(angular) {
     angular
         .module('app')
         .directive('accordion', ['$http',accordion])
@@ -197,82 +273,6 @@
 
 })(window.angular);
 
-(function(angular) {
-    "use strict";
-    angular
-        .module('app')
-        .controller('app.controller.index', [
-            '$scope',
-            'app.service.user',
-            indexController
-        ]);
-
-    function indexController($scope, user) {
-        $scope.userInfo = user.userInfo;
-        $scope.search = function() {
-            var data = {name: $scope.name};
-            user.search(data);
-            $scope.$on('userInfo.update', function(e, d) {
-                console.log(d);
-                $scope.error = false;
-                $scope.userInfo = user.userInfo;
-                //$scope.$apply();
-            });
-            $scope.$on('user.search.error', function(e) {
-                $scope.error = true;
-                $scope.userInfo = user.userInfo;
-            });
-        }
-    }
-})(window.angular);
-(function(angular) {
-    "use strict";
-    angular
-        .module('app')
-        .controller('app.controller.list', [
-            '$scope',
-            listController
-        ]);
-    function listController($scope) {
-        $scope.title = 'hello liubang';
-    }
-})(window.angular);
-(function(angular) {
-    angular
-        .module('app')
-        .controller('app.controller.test.directive', ['$scope', directiveController]);
-
-    function directiveController($scope) {
-        $scope.expanders = [{
-            title: 'Click me to expand',
-            text: 'Hi there folks, I am the content that was hidden but is now shown.'
-        }, {
-            title: 'Click this',
-            text: 'I am even better text than you have seen previously'
-        }, {
-            title: 'Test',
-            text: 'test'
-        }];
-    }
-})(window.angular);
-(function(angular) {
-    angular
-        .module('app')
-        .controller('app.controller.test.tab', ['$scope', tabController]);
-
-    function tabController($scope) {
-        $scope.tabs = [{
-            id: 1,
-            title: 'Click me to expand',
-        }, {
-            id: 2,
-            title: 'Click this',
-        }, {
-            id: 3,
-            title: 'Test',
-        }];
-    }
-})(window.angular);
 (function(angular) {
     "use strict";
     angular
