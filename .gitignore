@@ -5,4 +5,5 @@
 nbproject
 .idea/
 public/angular/node_modules/
+public/buyer/node_modules/
 public/tmp/
