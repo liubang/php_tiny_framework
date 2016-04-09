@@ -123,7 +123,6 @@ class Request
      * @param string   $key
      * @param string   $callable
      * @param null|mix $default
-     *
      * @return array|mixed|null
      */
     public function get($key = '', $callable = 'htmlspecialchars', $default = null)
@@ -144,10 +143,9 @@ class Request
     }
 
     /**
-     * @param string   $key
-     * @param string   $callable
-     * @param null|mix $default
-     *
+     * @param string $key
+     * @param string $callable
+     * @param mixed  $default
      * @return null
      */
     public function getRequest($key = '', $callable = 'htmlspecialchars', $default = null)
@@ -168,10 +166,9 @@ class Request
     }
 
     /**
-     * @param string   $key
-     * @param string   $callable
-     * @param null|mix $default
-     *
+     * @param string $key
+     * @param string $callable
+     * @param mixed  $default
      * @return null
      */
     public function post($key = '', $callable = 'htmlspecialchars', $default = null)
@@ -195,7 +192,6 @@ class Request
      * 获取上传的文件信息
      *
      * @param string $key
-     *
      * @return array|bool
      */
     public function file($key = '')

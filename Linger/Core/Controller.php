@@ -71,12 +71,14 @@ class Controller
         if (empty($cacheTime)) {
             $cacheTime = Linger::C('TPL_CACHE_TIME');
         }
-        if (!empty($cachePath)) {
-            if (!is_dir(dirname($cachePath))) {
+        if (! empty($cachePath)) {
+            if (! is_dir(dirname($cachePath))) {
                 $cachePath = Linger::C('TPL_CACHE_PATH') . '/' . $cachePath;
             }
         } else {
-            $cachePath = rtrim(Linger::C('TPL_CACHE_PATH'),'/') . '/' . MODULE . '_' . CONTROLLER . '_' . ACTION . '_' . substr(md5($_SERVER['REQUEST_URI']), 0, 8) . '.html';
+            $cachePath = rtrim(Linger::C('TPL_CACHE_PATH'),
+                    '/') . '/' . MODULE . '_' . CONTROLLER . '_' . ACTION . '_' . substr(md5($_SERVER['REQUEST_URI']),
+                    0, 8) . '.html';
         }
         if ('' === $tmpl) {
             $tmpl = strtolower(CURRTMPL) . '.html';
