@@ -12,6 +12,8 @@
 
 namespace app;
 
+use plugin\UserPlugin;
+
 class Bootstrap
 {
     public function _initFromSite(\Linger\Core\Dispatcher $dispatcher)
