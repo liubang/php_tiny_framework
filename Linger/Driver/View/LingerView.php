@@ -11,6 +11,7 @@
  */
 
 namespace Linger\Driver\View;
+
 use Linger\Linger;
 
 class LingerView extends LingerViewAbstract
@@ -29,10 +30,9 @@ class LingerView extends LingerViewAbstract
      * @param string $cachePath
      * @param string $contentType
      * @param bool   $show
-     *
      * @return null
      */
-    public function display($tplFile, $cacheTime = -1, $cachePath = '', $contentType = 'text/html', $show=true)
+    public function display($tplFile, $cacheTime = -1, $cachePath = '', $contentType = 'text/html', $show = true)
     {
         if ($cacheTime > 0 && empty($cachePath)) {
             die('请配置缓存目录！');
@@ -51,10 +51,11 @@ class LingerView extends LingerViewAbstract
                 }
             }
         }
-        if (!$content) {
-            $this->compileFile = Linger::C('TPL_COMP_PATH') . MODULE . '_' . CONTROLLER . '_' . ACTION . '_' . substr(md5($this->tmplFile), 0, 8) . '.php';
+        if (! $content) {
+            $this->compileFile = Linger::C('TPL_COMP_PATH') . MODULE . '_' . CONTROLLER . '_' . ACTION . '_' . substr(md5($this->tmplFile),
+                    0, 8) . '.php';
             $this->compile();
-            if (!empty($this->vars)) {
+            if (! empty($this->vars)) {
                 extract($this->vars, EXTR_OVERWRITE);
             }
             ob_start();
@@ -66,7 +67,7 @@ class LingerView extends LingerViewAbstract
         }
         if ($show) {
             $charset = Linger::C('TPL_CHARSET') ? Linger::C('TPL_CHARSET') : 'UTF-8';
-            if (!headers_sent()) {
+            if (! headers_sent()) {
                 header("Content-Type: {$contentType}; charset={$charset}");
             }
             echo $content;
@@ -80,7 +81,6 @@ class LingerView extends LingerViewAbstract
      * @param int    $cacheTime
      * @param string $cachePath
      * @param string $contentType
-     *
      * @return null
      */
     public function render($tplFile = '', $cacheTime = -1, $cachePath = '', $contentType = 'text/html')
@@ -95,7 +95,7 @@ class LingerView extends LingerViewAbstract
     public function assign($name, $value)
     {
         if (is_array($name)) {
-            foreach($name as $key => $val) {
+            foreach ($name as $key => $val) {
                 $this->vars[$key] = $val;
             }
         } else {
@@ -108,7 +108,7 @@ class LingerView extends LingerViewAbstract
      */
     private function compile()
     {
-        if (!$this->compileInvallid()) {
+        if (! $this->compileInvallid()) {
             return false;
         }
         $compiler = new LingerCompiler();

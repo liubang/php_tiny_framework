@@ -20,7 +20,7 @@ class LingerCompiler
      * @var LingerView
      */
     private $view = null;
-    
+
     /**
      * @var string
      */
@@ -57,7 +57,7 @@ class LingerCompiler
         $status = preg_match_all($preg, $this->content, $info, PREG_SET_ORDER);
         if ($status) {
             foreach ($info as $key => $val) {
-                if (!empty($val)) {
+                if (! empty($val)) {
                     $this->literal[$key] = $val[1];
                     $this->content = str_replace($val[0], '###' . $key . '###', $this->content);
                 }
@@ -77,11 +77,11 @@ class LingerCompiler
         $tagObj = new LingerTag();
         $tags = $tagObj->getTags();
         foreach ($tags as $tag => $opt) {
-            if (!isset($opt['block']) || !isset($opt['level'])) {
+            if (! isset($opt['block']) || ! isset($opt['level'])) {
                 continue;
             }
             for ($i = 0; $i <= $opt['level']; $i++) {
-                if (!$tagObj->parseTag($tag, $this->content)) {
+                if (! $tagObj->parseTag($tag, $this->content)) {
                     break;
                 }
             }
@@ -99,7 +99,7 @@ class LingerCompiler
         if ($status) {
             foreach ($info as $value) {
                 $var = '$';
-                if (!empty($value[1])) {
+                if (! empty($value[1])) {
                     $data = explode('.', $value[1]);
                     foreach ($data as $n => $m) {
                         if ($n == 0) {
@@ -109,7 +109,7 @@ class LingerCompiler
                         }
                     }
                 }
-                if (!empty($value[2])) {
+                if (! empty($value[2])) {
                     $funcAlias = Linger::C('TMPL_ALIASES_FUNC');
                     $funcs = explode('|', $value[2]);
                     foreach ($funcs as $func) {
@@ -128,7 +128,7 @@ class LingerCompiler
                         $var = $function . '(' . $args . ')';
                     }
                 }
-                if (!empty($var)) {
+                if (! empty($var)) {
                     $replace = "<?php echo $var;?>";
                     $this->content = str_replace($value[0], $replace, $this->content);
                 }
@@ -142,7 +142,7 @@ class LingerCompiler
         $status = preg_match_all($preg, $this->content, $info, PREG_SET_ORDER);
         if ($status) {
             foreach ($info as $v) {
-                if (!empty($v[1])) {
+                if (! empty($v[1])) {
                     $replace = "<?php echo {$v[1]}; ?>";
                     $this->content = str_replace($v[0], $replace, $this->content);
                 }

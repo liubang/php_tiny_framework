@@ -27,7 +27,7 @@ class Model
     /**
      * @var array
      */
-    protected $_auto  = [];
+    protected $_auto = [];
 
     /**
      * Model constructor.

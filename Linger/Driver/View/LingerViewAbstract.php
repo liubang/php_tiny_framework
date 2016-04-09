@@ -35,6 +35,7 @@ abstract class LingerViewAbstract
 
     /**
      * 模板变量
+     *
      * @var array
      */
     protected $vars = [];
@@ -79,7 +80,6 @@ abstract class LingerViewAbstract
      * @param $cachePath
      * @param $contentType
      * @param $show
-     *
      * @return mixed
      */
     abstract function display($tplFile, $cacheTime, $cachePath, $contentType, $show);
@@ -91,13 +91,13 @@ abstract class LingerViewAbstract
      * @param $cacheTime
      * @param $cachePath
      * @param $contentType
-     *
      * @return mixed
      */
     abstract function render($tplFile, $cacheTime, $cachePath, $contentType);
 
     /**
      * 获取模板文件
+     *
      * @return string
      */
     public function getTmpFile()
@@ -107,6 +107,7 @@ abstract class LingerViewAbstract
 
     /**
      * 获取编译后的文件
+     *
      * @return string
      */
     public function getCompileFile()
@@ -116,6 +117,7 @@ abstract class LingerViewAbstract
 
     /**
      * 获取模板路径
+     *
      * @return string
      */
     public function getTmplPath()

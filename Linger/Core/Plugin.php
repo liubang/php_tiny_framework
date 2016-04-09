@@ -27,24 +27,28 @@ abstract class Pligin
 
     /**
      * 开始路由前
+     *
      * @return mixed
      */
     abstract function routerStartup();
 
     /**
      * 路由结束
+     *
      * @return mixed
      */
     abstract function routerShutdown();
 
     /**
      * 分发路由前
+     *
      * @return mixed
      */
     abstract function dispatchStartup();
 
     /**
      * 分发路由结束
+     *
      * @return mixed
      */
     abstract function dispatchShutdown();

@@ -59,7 +59,6 @@ class Config
      * @param      $file
      * @param bool $processSections
      * @param int  $scannerMode
-     *
      * @return array|mixed
      */
     private static function parseIniFile($file, $processSections = false, $scannerMode = INI_SCANNER_NORMAL)
@@ -67,7 +66,7 @@ class Config
         $explodeStr = '.';
         $escapeChar = "'";
         $data = parse_ini_file($file, $processSections, $scannerMode);
-        if (!$processSections) {
+        if (! $processSections) {
             $data = array($data);
         }
         foreach ($data as $sectionKey => $section) {
@@ -77,7 +76,7 @@ class Config
                         $subKeys = explode($explodeStr, $key);
                         $subs = &$data[$sectionKey];
                         foreach ($subKeys as $subKey) {
-                            if (!isset($subs[$subKey])) {
+                            if (! isset($subs[$subKey])) {
                                 $subs[$subKey] = '';
                             }
                             $subs = &$subs[$subKey];
@@ -92,7 +91,7 @@ class Config
                 }
             }
         }
-        if (!$processSections) {
+        if (! $processSections) {
             $data = $data[0];
         }
         return $data;
@@ -100,7 +99,6 @@ class Config
 
     /**
      * @param $config
-     *
      * @return array
      */
     private static function changeArrayKeyCase($config)
@@ -115,7 +113,6 @@ class Config
 
     /**
      * @param $config
-     *
      * @return Config|null
      */
     public static function getInstance($config = [])
@@ -130,7 +127,6 @@ class Config
      * 获取配置项目
      *
      * @param string $key
-     *
      * @return array
      */
     public function getConfig($key = '')

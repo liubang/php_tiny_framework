@@ -25,6 +25,7 @@ class LingerViewSimple extends LingerViewAbstract
      * @param null   $cachePath
      * @param string $contentType
      * @param bool   $show
+     * @return void
      */
     public function display($tplFile, $cacheTime = -1, $cachePath = null, $contentType = 'text/html', $show = true)
     {
@@ -42,7 +43,6 @@ class LingerViewSimple extends LingerViewAbstract
      * @param int    $cacheTime
      * @param null   $cachePath
      * @param string $contentType
-     *
      * @return mixed
      */
     public function render($tplFile, $cacheTime = -1, $cachePath = null, $contentType = 'text/html')

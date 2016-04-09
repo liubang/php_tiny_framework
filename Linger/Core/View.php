@@ -39,10 +39,12 @@ class View
             if ('linger' === $viewDriver) {
                 $this->viewObj = new LingerView();
             }
-        } else if (is_subclass_of($viewClass, '\\Linger\\Driver\\View\\LingerViewAbstract')) {
-            $this->viewObj = new $viewClass;
         } else {
-            return false;
+            if (is_subclass_of($viewClass, '\\Linger\\Driver\\View\\LingerViewAbstract')) {
+                $this->viewObj = new $viewClass;
+            } else {
+                return false;
+            }
         }
         if (empty($tmplPath)) {
             $tmplPath = APP_ROOT . '/' . APP_NAME . '/module/' . MODULE . '/view';
@@ -66,7 +68,6 @@ class View
      * @param null   $cachePath
      * @param string $contentType
      * @param bool   $show
-     *
      * @return mixed
      */
     public function display($tplFile, $cacheTime = -1, $cachePath = null, $contentType = 'text/html', $show = true)
@@ -79,7 +80,6 @@ class View
      * @param int    $cacheTime
      * @param null   $cachePath
      * @param string $contentType
-     *
      * @return mixed
      */
     public function render($tplFile, $cacheTime = -1, $cachePath = null, $contentType = 'text/html')

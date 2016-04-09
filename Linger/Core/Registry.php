@@ -44,7 +44,7 @@ class Registry
      * 向注册表中注册一个变量
      *
      * @param string $key
-     * @param mixed $val
+     * @param mixed  $val
      */
     public function set($key, $val)
     {
@@ -55,7 +55,6 @@ class Registry
      * 获取注册表
      *
      * @param null|string $key
-     *
      * @return mixed|\mixed[]|null
      */
     public function get($key = null)

@@ -11,6 +11,7 @@
  */
 
 namespace Linger\Core;
+
 use Linger\Linger;
 
 class Dispatcher
@@ -53,15 +54,15 @@ class Dispatcher
         if (strpos(MODULE, '.')) {
             $this->response->_404(true);
         }
-        if (!class_exists($class)) {
+        if (! class_exists($class)) {
             $this->response->_404();
         }
         $allowModule = Linger::C('MODULE_ALLOW_LIST');
-        if (!in_array(MODULE, $allowModule)) {
+        if (! in_array(MODULE, $allowModule)) {
             $this->response->_403(true);
         }
         $controllerObj = new $class();
-        if (!method_exists($controllerObj, ACTION)) {
+        if (! method_exists($controllerObj, ACTION)) {
             $this->response->_404();
         }
         call_user_func_array(array($controllerObj, ACTION), array());

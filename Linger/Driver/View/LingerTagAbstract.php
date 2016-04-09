@@ -60,7 +60,6 @@ abstract class LingerTagAbstract
      *
      * @param $tag
      * @param $viewContent
-     *
      * @return bool
      */
     public function parseTag($tag, &$viewContent)
@@ -94,7 +93,6 @@ abstract class LingerTagAbstract
      * 解析模板标签属性
      *
      * @param $attrStr
-     *
      * @return array|bool
      */
     public function parseTagAttr($attrStr)
@@ -116,7 +114,6 @@ abstract class LingerTagAbstract
      * 解析模板标签属性值
      *
      * @param $attrVal
-     *
      * @return mixed
      */
     public function parseAttrValue($attrVal)
@@ -151,6 +148,7 @@ abstract class LingerTagAbstract
 
     /**
      * 获取自定义标签
+     *
      * @return array
      */
     public function getTags()

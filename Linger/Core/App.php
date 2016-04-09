@@ -78,7 +78,6 @@ class App
 
     /**
      * @param array|string $config
-     *
      * @return App
      */
     public static function getInstance($config)
@@ -91,9 +90,9 @@ class App
 
     /**
      * 程序执行bootstrap
-     *
      * 在app的目录下如果定义了app\Bootstrap类,则会在程序分配路由前执行bootstrap中的
      * 所有_init开头的方法.
+     *
      * @return $this
      */
     public function bootstrap()

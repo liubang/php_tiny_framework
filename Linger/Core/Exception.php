@@ -47,16 +47,16 @@ class Exception
         $trace = $e->getTrace();
         $message = $e->getMessage();
         foreach ($trace as $k => $v) {
-            if (!isset($v['file'])) {
+            if (! isset($v['file'])) {
                 $trace[$k]['file'] = '';
             }
-            if (!isset($v['line'])) {
+            if (! isset($v['line'])) {
                 $trace[$k]['line'] = 0;
             }
-            if (!isset($v['class'])) {
+            if (! isset($v['class'])) {
                 $trace[$k]['class'] = '';
             }
-            if (!isset($v['function'])) {
+            if (! isset($v['function'])) {
                 $trace[$k]['function'] = '';
             }
         }
