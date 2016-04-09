@@ -24,6 +24,7 @@ return [
     'DB_DSN'              => '',
 
     //---system config---//
+    'LINGER_ENVIRON'      => 'product',
     'DEBUG'               => 0,
     'DEFAULT_MODULE'      => 'index',
     'DEFAULT_CONTROLLER'  => 'index',

@@ -14,18 +14,23 @@ namespace app;
 
 class Bootstrap
 {
-    public function _initFromSite(\Linger\Core\App $app, \Linger\Core\Router $router)
+    public function _initFromSite(\Linger\Core\Dispatcher $dispatcher)
     {
 
     }
 
-    public function _initSession(\Linger\Core\App $app, \Linger\Core\Router $router)
+    public function _initSession(\Linger\Core\Dispatcher $dispatcher)
     {
         session_start();
     }
 
-    public function _initRegistPlugin(\Linger\Core\App $app, \Linger\Core\Router $router)
+    public function _initRegistPlugin(\Linger\Core\Dispatcher $dispatcher)
     {
 
+    }
+
+    public function _initPlugin(\Linger\Core\Dispatcher $dispatcher) {
+        $user = new UserPlugin();
+        $dispatcher->registerPlugin($user);
     }
 }

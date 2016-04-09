@@ -14,6 +14,8 @@ namespace Linger\Core;
 
 class Registry
 {
+    const REGIST_ARR = true;
+
     /**
      * @var mixed[]
      */
@@ -45,10 +47,15 @@ class Registry
      *
      * @param string $key
      * @param mixed  $val
+     * @param bool   $isArr
      */
-    public function set($key, $val)
+    public function set($key, $val, $isArr = false)
     {
-        $this->registry[$key] = $val;
+        if ($isArr) {
+            $this->registry[$key][] = $val;
+        } else {
+            $this->registry[$key] = $val;
+        }
     }
 
     /**

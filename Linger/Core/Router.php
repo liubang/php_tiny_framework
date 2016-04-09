@@ -34,11 +34,6 @@ class Router
     private static $ins = null;
 
     /**
-     * @var \Linger\Core\Dispatcher
-     */
-    private $dispatcher = null;
-
-    /**
      * @var \Linger\Core\Request
      */
     private $request = null;
@@ -49,7 +44,6 @@ class Router
     private function __construct()
     {
         $this->roules = Linger::C('ROUTE');
-        $this->dispatcher = Dispatcher::getInstance();
         $this->request = Request::getInstance();
     }
 

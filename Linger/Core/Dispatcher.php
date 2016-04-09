@@ -26,12 +26,16 @@ class Dispatcher
      */
     private $response = null;
 
+
+    private $registry = null;
+
     /**
      * Dispatcher constructor.
      */
     private function __construct()
     {
         $this->response = Response::getInstance();
+        $this->registry = Registry::getInstance();
     }
 
     /**
@@ -66,5 +70,15 @@ class Dispatcher
             $this->response->_404();
         }
         call_user_func_array(array($controllerObj, ACTION), array());
+    }
+
+    /**
+     * @param \Linger\Core\Pligin $plugin
+     */
+    public function registerPlugin($plugin)
+    {
+        if (is_subclass_of($plugin, '\\Linger\\Core\\Plugin')) {
+            $this->registry->set('plugins', $plugin, Registry::REGIST_ARR);
+        }
     }
 }

@@ -12,44 +12,33 @@
 
 namespace Linger\Core;
 
-use Linger\Linger;
-
 abstract class Pligin
 {
-    protected $app = null;
-
-    protected $router = null;
-
-    public function __construct()
-    {
-        $this->app = Linger::getApp();
-    }
-
     /**
-     * 开始路由前
-     *
+     * @param Request  $request
+     * @param Response $response
      * @return mixed
      */
-    abstract function routerStartup();
+    abstract function routerStartup(Request $request, Response $response);
 
     /**
-     * 路由结束
-     *
+     * @param Request  $request
+     * @param Response $response
      * @return mixed
      */
-    abstract function routerShutdown();
+    abstract function routerShutdown(Request $request, Response $response);
 
     /**
-     * 分发路由前
-     *
+     * @param Request  $request
+     * @param Response $response
      * @return mixed
      */
-    abstract function dispatchStartup();
+    abstract function dispatchStartup(Request $request, Response $response);
 
     /**
-     * 分发路由结束
-     *
+     * @param Request  $request
+     * @param Response $response
      * @return mixed
      */
-    abstract function dispatchShutdown();
+    abstract function dispatchShutdown(Request $request, Response $response);
 }

@@ -33,19 +33,25 @@ class Linger
     {
         define('LINGER_ROOT', realpath(dirname(__FILE__)));
         spl_autoload_register(function ($class) {
-            if (false !== stripos($class, 'Controller') && false === strpos($class, 'Linger\\Core')) {
-                $classPath = APP_ROOT . '/'.APP_NAME.'/module/' . str_replace('\\', '/',
-                        substr($class, 0, strlen($class) - 10)) . '.php';
-            } else if (false !== stripos($class, 'Model') && false === strpos($class, 'Linger\\Core')) {
-                $classPath = APP_ROOT . '/'.APP_NAME.'/' . str_replace('\\', '/',
-                        substr($class, 0, strlen($class) - 5)) . '.php';
-            } else if (false !== stripos($class, 'library') && false === strpos($class, 'Linger\\Core')) {
-                $classPath = APP_ROOT . '/'.APP_NAME.'/' . str_replace('\\', '/', $class) . '.php';
-            }else if (false !== strpos($class, 'Linger\\Core')) {
-                $classPath = LINGER_ROOT . str_replace('Linger', '', str_replace('\\', '/', $class)) . '.php';
+            if (false === strpos($class, 'Linger\\Core')) {
+                if (false !== stripos($class, 'Controller')) {
+                    $classPath = APP_ROOT . '/' . APP_NAME . '/module/' . str_replace('\\', '/',
+                            substr($class, 0, strlen($class) - 10)) . '.php';
+                } elseif (false !== stripos($class, 'Model')) {
+                    $classPath = APP_ROOT . '/' . APP_NAME . '/' . str_replace('\\', '/',
+                            substr($class, 0, strlen($class) - 5)) . '.php';
+                } elseif (false !== stripos($class, 'library')) {
+                    $classPath = APP_ROOT . '/' . APP_NAME . '/' . str_replace('\\', '/', $class) . '.php';
+                } elseif (false !== stripos($class, 'plugin')) {
+                    $classPath = APP_ROOT . '/' . APP_NAME . '/' . str_replace('\\', '/',
+                            substr($class, 0, strlen($class) - 6)) . '.php';
+                } else {
+                    $classPath = APP_ROOT . '/' . str_replace('\\', '/', $class) . '.php';
+                }
             } else {
-                $classPath = APP_ROOT . '/' . str_replace('\\', '/', $class) . '.php';
+                $classPath = LINGER_ROOT . str_replace('Linger', '', str_replace('\\', '/', $class)) . '.php';
             }
+
             if (file_exists($classPath)) {
                 self::incFiles($classPath);
             }
@@ -54,7 +60,6 @@ class Linger
 
     /**
      * @param array|string $config
-     *
      * @return App
      */
     public static function app($config)
@@ -65,7 +70,6 @@ class Linger
 
     /**
      * @param $filePath
-     *
      * @return bool
      */
     public static function incFiles($filePath)
@@ -84,7 +88,6 @@ class Linger
      *
      * @param string $key
      * @param string $val
-     *
      * @return array|string
      */
     public static function C($key = '', $val = '')
@@ -103,7 +106,6 @@ class Linger
 
     /**
      * @param $table
-     *
      * @return Driver\Db\DbDriver
      */
     public static function M($table)
@@ -118,7 +120,7 @@ class Linger
         $config['db_socket'] = self::C('DB_SOCKET');
         $config['db_params'] = self::C('DB_PARAMS');
         $config['db_dsn'] = self::C('DB_DSN');
-        if (!isset(self::$daos[$table]) || empty(self::$daos[$table])) {
+        if (! isset(self::$daos[$table]) || empty(self::$daos[$table])) {
             $db = new Driver\Db\MySql($config);
             self::$daos[$table] = $db->connect()->forTable($table);
         }
@@ -127,7 +129,7 @@ class Linger
 
     public static function _default($name, $var = '')
     {
-        if (empty($name) || !isset($name)) {
+        if (empty($name) || ! isset($name)) {
             return $var;
         }
         return $name;

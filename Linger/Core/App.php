@@ -105,7 +105,7 @@ class App
                 foreach ($initFuncs as $func) {
                     if (substr($func, 0, 5) === '_init') {
                         call_user_func_array(array($this->bootstrap, $func),
-                            array('app' => $this, 'router' => $this->router));
+                            array($this->dispatcher));
                     }
                 }
             }
@@ -120,5 +120,10 @@ class App
     {
         $this->router->parseUri();
         $this->dispatcher->dispatch();
+    }
+
+    public function environ()
+    {
+        return $this->config->getConfig('LINGER_ENVIRON');
     }
 }
