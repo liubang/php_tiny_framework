@@ -26,11 +26,6 @@ class Bootstrap
         session_start();
     }
 
-    public function _initRegistPlugin(\Linger\Core\Dispatcher $dispatcher)
-    {
-
-    }
-
     public function _initPlugin(\Linger\Core\Dispatcher $dispatcher)
     {
         $user = new UserPlugin();
