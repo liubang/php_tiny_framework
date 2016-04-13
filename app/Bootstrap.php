@@ -33,8 +33,8 @@ class Bootstrap
 
     public function _initPlugin(\Linger\Core\Dispatcher $dispatcher)
     {
-//        $user = new UserPlugin();
-//        var_dump($user);die;
+        $user = new UserPlugin();
+        var_dump($user);die;
 //        $dispatcher->registerPlugin($user);
     }
 }
