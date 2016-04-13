@@ -389,7 +389,6 @@ label, input, select, option, textarea {
     height: auto;
     overflow: hidden;
     padding-top: 6px;
-    display: none;
 }
 .lg-tab .lg-tab-content .lg-tab-content-area:first-child {
     display:block;

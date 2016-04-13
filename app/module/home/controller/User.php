@@ -16,8 +16,33 @@ use Linger\Core\Controller;
 
 class UserController extends Controller
 {
-    public function indexAction()
+    public function _init()
     {
-        print_r($_SESSION);
+        parent::_init();
+    }
+
+    public function searchAction()
+    {
+        $post = $this->post();
+
+        $userId = $post['userId'];
+        $action = $post['action'];
+
+        if ('toUser' === $action) {
+            
+        }
+
+        if ('fromOther' === $action) {
+
+        }
+
+        $result = [
+            'status' => 1,
+            'data' => $post,
+            'message' => ''
+        ];
+
+        echo json_encode($result);
     }
 }
+
