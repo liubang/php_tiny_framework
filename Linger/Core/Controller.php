@@ -2,6 +2,7 @@
 /*
  |------------------------------------------------------------------
  | controller 基类,所有的自定义controller都要继承该类
+ | 主要将一些链式调用做了简化
  |------------------------------------------------------------------
  | @author    : liubang 
  | @date      : 16/3/24 上午12:01
@@ -101,31 +102,58 @@ class Controller
         $this->view->render($tmpl, $cacheTime, $cachePath, $contentType);
     }
 
+    /**
+     * @return Request
+     */
     public function getRequest()
     {
         return $this->request;
     }
 
+    /**
+     * @return Response
+     */
     public function getResponse()
     {
         return $this->response;
     }
 
+    /**
+     * @param string $key
+     * @param string $callable
+     * @param null   $default
+     * @return array|mixed|null
+     */
     public function get($key = '', $callable = 'htmlspecialchars', $default = null)
     {
         return $this->request->get($key, $callable, $default);
     }
 
+    /**
+     * @param string $key
+     * @param string $callable
+     * @param null   $default
+     * @return null
+     */
     public function post($key = '', $callable = 'htmlspecialchars', $default = null)
     {
         return $this->request->post($key, $callable, $default);
     }
 
+    /**
+     * @param string $key
+     * @param string $callable
+     * @param null   $default
+     * @return mixed
+     */
     public function request($key = '', $callable = 'htmlspecialchars', $default = null)
     {
         return $this->request->request($key, $callable, $default);
     }
 
+    /**
+     * @param bool $code
+     */
     public function _404($code = false)
     {
         $this->response->_404($code);
