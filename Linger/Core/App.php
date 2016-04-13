@@ -121,9 +121,4 @@ class App
         $this->router->parseUri();
         $this->dispatcher->dispatch();
     }
-
-    public function environ()
-    {
-        return $this->config->getConfig('LINGER_ENVIRON');
-    }
 }

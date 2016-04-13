@@ -111,14 +111,19 @@ class Controller
         return $this->response;
     }
 
-    public function get($key = '')
+    public function get($key = '', $callable = 'htmlspecialchars', $default = null)
     {
-        return $this->request->get($key);
+        return $this->request->get($key, $callable, $default);
     }
 
-    public function post($key = '')
+    public function post($key = '', $callable = 'htmlspecialchars', $default = null)
     {
-        return $this->request->post($key);
+        return $this->request->post($key, $callable, $default);
+    }
+
+    public function request($key = '', $callable = 'htmlspecialchars', $default = null)
+    {
+        return $this->request->request($key, $callable, $default);
     }
 
     public function _404($code = false)

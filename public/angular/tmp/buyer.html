@@ -10,66 +10,43 @@
         <div class="lg-tab-content">
             <div class="lg-tab-content-area" ng-show="tab==1">
                 <table class="lg-form lg-table lg-table-form">
-                    <thead>
                     <tr>
-                        <td colspan="2">文章发表</td>
+                        <td>appraisednickname</td>
+                        <td>appraisernickname</td>
+                        <td>tradeid</td>
+                        <td>tradetype</td>
+                        <td>rating</td>
+                        <td>content</td>
                     </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <th>列表框</th>
-                        <td>
-                            <select name="pid" id="">
-                                <option value="1">LingerPHP</option>
-                                <option value="2">Linger.js</option>
-                            </select>
-                        </td>
+                    <tr ng-repeat="review in reviews">
+                        <td>{{review.appraisednickname}}</td>
+                        <td>{{review.appraisernickname}}</td>
+                        <td>{{review.tradeid}}</td>
+                        <td>{{review.tradetype}}</td>
+                        <td>{{review.rating}}</td>
+                        <td>{{review.content}}</td>
                     </tr>
-                    <tr>
-                        <th>文本框</th>
-                        <td>
-                            <input type="text">
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>文本域</th>
-                        <td>
-                            <textarea name="" cols="30" rows="10"></textarea>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>单选框</th>
-                        <td>
-                            <label>
-                                <input type="radio" name="sex" value="boy" >
-                                男
-                            </label>
-                            <label>
-                                <input type="radio" name="sex" value="girl" >
-                                女
-                            </label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>复选框</th>
-                        <td>
-                            <label><input type="checkbox" name="haha" >
-                                你好</label>
-                            <label><input type="checkbox" name="haha" >
-                                我也好</label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2" class="lg-text-center">
-                            <input type="button" value="提交" class="lg-btn lg-btn-primary">
-                            <input type="reset" value="重置" class="lg-btn lg-btn-danger">
-                        </td>
-                    </tr>
-                    </tbody>
                 </table>
             </div>
             <div class="lg-tab-content-area" ng-show="tab==2">
-                <h1>{{id}}</h1>
+                <table class="lg-form lg-table lg-table-form">
+                    <tr>
+                        <td>appraisednickname</td>
+                        <td>appraisernickname</td>
+                        <td>tradeid</td>
+                        <td>tradetype</td>
+                        <td>rating</td>
+                        <td>content</td>
+                    </tr>
+                    <tr ng-repeat="review in reviews">
+                        <td>{{review.appraisednickname}}</td>
+                        <td>{{review.appraisernickname}}</td>
+                        <td>{{review.tradeid}}</td>
+                        <td>{{review.tradetype}}</td>
+                        <td>{{review.rating}}</td>
+                        <td>{{review.content}}</td>
+                    </tr>
+                </table>
             </div>
         </div>
     </div>

@@ -13,28 +13,31 @@
 namespace plugin;
 
 use Linger\Core\Pligin;
-use Linger\Core\Request;
-use Linger\Core\Response;
 
 class UserPlugin extends Pligin
 {
 
-    function routerStartup(Request $request, Response $response)
+    public function __construct()
+    {
+        echo 111;die;
+    }
+
+    function routerStartup(\Linger\Core\Request $request, \Linger\Core\Response $response)
     {
         echo 'route start';
     }
 
-    function routerShutdown(Request $request, Response $response)
+    function routerShutdown(\Linger\Core\Request $request, \Linger\Core\Response $response)
     {
         echo 'route shutdown';
     }
 
-    function dispatchStartup(Request $request, Response $response)
+    function dispatchStartup(\Linger\Core\Request $request, \Linger\Core\Response $response)
     {
         echo 'dispatch start';
     }
 
-    function dispatchShutdown(Request $request, Response $response)
+    function dispatchShutdown(\Linger\Core\Request $request, \Linger\Core\Response $response)
     {
         echo 'dispatch shutdown';
     }

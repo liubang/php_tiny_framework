@@ -12,7 +12,8 @@
 error_reporting(E_ALL);
 define('APP_ROOT', realpath(dirname(__FILE__) . '/../'));
 define('APP_NAME', 'app');
+define('ENV', 'dev');
 require APP_ROOT . '/Linger/Linger.php';
 //$app = Linger\Linger::app(APP_ROOT . '/app/conf/config.ini');
-$app = Linger\Linger::app(APP_ROOT . '/app/conf/config.php');
+$app = Linger\Linger::app(APP_ROOT . '/app/conf/config.'.ENV.'.php');
 $app->bootstrap()->run();

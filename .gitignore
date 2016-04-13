@@ -7,3 +7,4 @@ nbproject
 public/angular/node_modules/
 public/buyer/node_modules/
 public/tmp/
+app/conf/config.dev.php

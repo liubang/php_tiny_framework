@@ -74,6 +74,8 @@
             }).error(function() {
                 alert('查询失败');
             });
-        }
+        };
+
+        $scope.changeTabAndSearch(1, 'toUser');
     }
 })(window.angular);

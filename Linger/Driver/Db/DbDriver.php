@@ -145,7 +145,7 @@ abstract class DbDriver
             $this->options[PDO::ATTR_EMULATE_PREPARES] = false;
         }
 
-        $this->linkId = md5($this->config['dsn'] . serialize($this->options));
+        $this->linkId = md5($this->config['db_dsn'] . serialize($this->options));
 
         if (isset($this->links[$this->linkId]) && $this->links[$this->linkId] instanceof PDO) {
             return $this;
