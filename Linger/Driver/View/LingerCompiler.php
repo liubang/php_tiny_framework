@@ -31,6 +31,12 @@ class LingerCompiler
      */
     private $literal = [];
 
+    /**
+     * \brief start compiler
+     *
+     * @param \Linger\Driver\View\LingerViewAbstract $view
+     * @throws \Exception
+     */
     public function run($view)
     {
         $this->view = $view;
@@ -51,6 +57,9 @@ class LingerCompiler
         }
     }
 
+    /**
+     * \brief gets the contents that dose'nt require parsing, and is stored in an array.
+     */
     private function getNoParseContent()
     {
         $preg = '#<literal>(.*?)</literal>#isU';
@@ -65,6 +74,9 @@ class LingerCompiler
         }
     }
 
+    /**
+     * \brief revert the contents without parsing.
+     */
     private function replaceNoParseContent()
     {
         foreach ($this->literal as $k => $content) {
@@ -72,6 +84,9 @@ class LingerCompiler
         }
     }
 
+    /**
+     * \brief parse all custom tags.
+     */
     private function parseTags()
     {
         $tagObj = new LingerTag();
@@ -89,7 +104,8 @@ class LingerCompiler
     }
 
     /**
-     * 解析变量 {$a}, {$a.b}, {$a|date=y-m-d,###}
+     * \brief parse variations.
+     *      e.g. {$a}, {$a.b}, {$a|date=y-m-d,###}
      */
     private function parseVars()
     {
@@ -136,6 +152,9 @@ class LingerCompiler
         }
     }
 
+    /**
+     * \brief parse all functions.
+     */
     private function parseFunc()
     {
         $preg = '/\{\:(.*)\}/isU';
