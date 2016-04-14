@@ -109,7 +109,7 @@ class Dispatcher
     }
 
     /**
-     * @param \Linger\Core\Pligin $plugin
+     * @param \Linger\Core\Plugin $plugin
      */
     public function registerPlugin($plugin)
     {

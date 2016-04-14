@@ -19,21 +19,18 @@ class UserPlugin extends Plugin
 
     public function routerStartup(\Linger\Core\Request $request, \Linger\Core\Response $response)
     {
-        echo 'route start';
+
     }
 
     public function routerShutdown(\Linger\Core\Request $request, \Linger\Core\Response $response)
     {
-        echo 'route shutdown';
     }
     
     public function dispatchStartup(\Linger\Core\Request $request, \Linger\Core\Response $response)
     {
-        echo 'dispatch start';
     }
 
     public function dispatchShutdown(\Linger\Core\Request $request, \Linger\Core\Response $response)
     {
-        echo 'dispatch shutdown';
     }
 }

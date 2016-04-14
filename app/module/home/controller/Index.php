@@ -32,9 +32,7 @@ class IndexController extends Controller
 
     public function indexAction()
     {
-        //trigger_error('elsakg', E_USER_NOTICE);die;
-        throw new \Exception('this is a exception!');
-        exit;
+        echo 'hello linger!!';
 
 //        $str = <<<HTML
 //            <foreach name='aaa' item='bbb'>

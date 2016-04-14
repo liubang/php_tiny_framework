@@ -104,8 +104,10 @@ class App
                 $this->bootstrap = new $bootstrapClass();
                 foreach ($initFuncs as $func) {
                     if (substr($func, 0, 5) === '_init') {
-                        call_user_func_array(array($this->bootstrap, $func),
-                            array($this->dispatcher));
+                        call_user_func_array(
+                            array($this->bootstrap, $func),
+                            array($this->dispatcher)
+                        );
                     }
                 }
             }
