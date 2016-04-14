@@ -118,7 +118,16 @@ class App
      */
     public function run()
     {
-        $this->router->parseUri();
+        /**
+         * capture requests
+         */
+        $this->request->capture();
+
+        /**
+         * dispatch request
+         */
         $this->dispatcher->dispatch();
+
+        $this->response->send();
     }
 }

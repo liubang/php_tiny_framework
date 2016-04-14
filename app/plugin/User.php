@@ -12,9 +12,9 @@
 
 namespace plugin;
 
-use Linger\Core\Pligin;
+use Linger\Core\Plugin;
 
-class UserPlugin extends Pligin
+class UserPlugin extends Plugin
 {
 
     public function routerStartup(\Linger\Core\Request $request, \Linger\Core\Response $response)

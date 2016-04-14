@@ -51,15 +51,7 @@ class Request
      */
     private function __construct()
     {
-        $this->getWitchRequest();
-        $this->_get = $_GET;
-        $this->_post = $_POST;
-        $this->_file = $_FILES;
-        $this->_request = $_REQUEST;
-        unset($_GET);
-        unset($_POST);
-        unset($_FILES);
-        unset($_REQUEST);
+
     }
 
     /**
@@ -71,6 +63,22 @@ class Request
             self::$ins = new self();
         }
         return self::$ins;
+    }
+
+    /**
+     * capture the custom request
+     */
+    public function capture()
+    {
+        $this->getWitchRequest();
+        $this->_get = $_GET;
+        $this->_post = $_POST;
+        $this->_file = $_FILES;
+        $this->_request = $_REQUEST;
+        unset($_GET);
+        unset($_POST);
+        unset($_FILES);
+        unset($_REQUEST);
     }
 
     /**

@@ -12,7 +12,7 @@
 
 namespace Linger\Core;
 
-abstract class Pligin
+abstract class Plugin
 {
     /**
      * @param Request  $request

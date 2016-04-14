@@ -21,19 +21,30 @@ class Dispatcher
      */
     private static $ins = null;
 
+    private $route = null;
+
     /**
      * @var \Linger\Core\Response
      */
     private $response = null;
 
-
+    /**
+     * @var Registry|null
+     */
     private $registry = null;
+
+    /**
+     * @var Request|null
+     */
+    private $request = null;
 
     /**
      * Dispatcher constructor.
      */
     private function __construct()
     {
+        $this->request = Request::getInstance();
+        $this->route = Router::getInstance();
         $this->response = Response::getInstance();
         $this->registry = Registry::getInstance();
     }
@@ -54,6 +65,26 @@ class Dispatcher
      */
     public function dispatch()
     {
+        /**
+         * call routerStartup plugins
+         */
+        $this->callPlugins('routerStartup');
+
+        /**
+         * parse request uri and route
+         */
+        $this->route->parseUri();
+
+        /**
+         * call routerShutdown plugins
+         */
+        $this->callPlugins('routerShutdown');
+
+        /**
+         * call dispatchStartup plugins
+         */
+        $this->callPlugins('dispatchStartup');
+
         $class = MODULE . '\\controller\\' . CONTROLLER;
         if (strpos(MODULE, '.')) {
             $this->response->_404(true);
@@ -70,6 +101,11 @@ class Dispatcher
             $this->response->_404();
         }
         call_user_func_array(array($controllerObj, ACTION), array());
+
+        /**
+         * call dispatchShutdown plugins
+         */
+        $this->callPlugins('dispatchShutdown');
     }
 
     /**
@@ -80,5 +116,31 @@ class Dispatcher
         if (is_subclass_of($plugin, '\\Linger\\Core\\Plugin')) {
             $this->registry->set('plugins', $plugin, Registry::REGIST_ARR);
         }
+    }
+
+    /**
+     * run plugins
+     *
+     * @param      $level
+     * @param null $plugin
+     * @return bool
+     */
+    private function callPlugins($level, $plugin = null)
+    {
+        $plugins = $this->registry->get('plugins');
+
+        if (! empty($plugins)) {
+            if (! empty($plugin)) {
+                if (isset($plugins[$plugin])) {
+                    $plugins[$plugin]->$level($this->request, $this->response);
+                }
+            } else {
+                foreach ($plugins as $plugin) {
+                    $plugin->$level($this->request, $this->response);
+                }
+            }
+        }
+
+        return true;
     }
 }

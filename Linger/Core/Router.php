@@ -34,6 +34,11 @@ class Router
     private static $ins = null;
 
     /**
+     * @var Config|null
+     */
+    private $config = null;
+
+    /**
      * @var \Linger\Core\Request
      */
     private $request = null;
@@ -43,7 +48,8 @@ class Router
      */
     private function __construct()
     {
-        $this->roules = Linger::C('ROUTE');
+        $this->config = Config::getInstance();
+        $this->roules = $this->config->getConfig('ROUTE');
         $this->request = Request::getInstance();
     }
 
@@ -66,7 +72,7 @@ class Router
      */
     public function parseUri()
     {
-        $model = Linger::C('URL_MODEL');
+        $model = $this->config->getConfig('URL_MODEL');
         if (2 === $model) {
             $this->uri = trim(preg_replace('/^(?:index\.php|\/index\.php)?(.*?)/i', '\1', $_SERVER['REQUEST_URI']),
                 '/');

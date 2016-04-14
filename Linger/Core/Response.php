@@ -17,6 +17,11 @@ use Linger\Linger;
 class Response
 {
     /**
+     * @var int
+     */
+    private $statusCode;
+
+    /**
      * @var self
      */
     private static $ins = null;
@@ -26,6 +31,7 @@ class Response
      */
     private function __construct()
     {
+
     }
 
     /**
@@ -80,6 +86,15 @@ class Response
         } else {
             exit($message);
         }
+    }
+
+    //TODO send response.
+    public function send()
+    {
+//        if (! headers_sent()) {
+//            header("Http/1.1 200 Ok");
+//
+//        }
     }
 
 }
