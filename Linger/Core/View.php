@@ -70,7 +70,7 @@ class View
     }
 
     /**
-     * @param        $tplFile
+     * @param string $tplFile
      * @param int    $cacheTime
      * @param null   $cachePath
      * @param string $contentType
@@ -87,7 +87,7 @@ class View
     }
 
     /**
-     * @param        $tplFile
+     * @param string $tplFile
      * @param int    $cacheTime
      * @param null   $cachePath
      * @param string $contentType
