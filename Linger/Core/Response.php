@@ -37,11 +37,6 @@ class Response
     private $headers = [];
 
     /**
-     * @var ResponseCookie[]
-     */
-    private $cookies = [];
-
-    /**
      * @var bool
      */
     private $sent = false;
@@ -173,11 +168,10 @@ class Response
     /**
      * send our HTTP headers
      *
-     * @param bool $cookis_also
      * @param bool $override
      * @return $this
      */
-    public function sendHeaders($cookis_also = true, $override = false)
+    public function sendHeaders($override = false)
     {
         if (headers_sent() && ! $override) {
             return $this;
@@ -189,38 +183,6 @@ class Response
         // Iterate through our Headers data collection and send each header
         foreach ($this->headers as $key => $value) {
             header($key . ': ' . $value, false);
-        }
-
-        if ($cookis_also) {
-            $this->sendCookies($override);
-        }
-
-        return $this;
-    }
-
-    /**
-     * send our HTTP response cookie
-     *
-     * @param bool $override
-     * @return $this
-     */
-    public function sendCookies($override = false)
-    {
-        if (headers_sent() && ! $override) {
-            return $this;
-        }
-
-        // iterate through our Cookies data and set each cookie natively.
-        foreach ($this->cookies as $cookie) {
-            setcookie(
-                $cookie->getName(),
-                $cookie->getValue(),
-                $cookie->getExpire(),
-                $cookie->getPath(),
-                $cookie->getDomain(),
-                $cookie->getSecure(),
-                $cookie->getHttpOnly()
-            );
         }
 
         return $this;
@@ -318,29 +280,6 @@ class Response
     {
         $this->headers[$key] = $value;
         return $this;
-    }
-
-    /**
-     * set response cookie
-     *
-     * @param      $name
-     * @param null $value
-     * @param null $expire
-     * @param null $path
-     * @param null $domain
-     * @param bool $secure
-     * @param bool $httpOnly
-     */
-    public function cookie(
-        $name,
-        $value = null,
-        $expire = null,
-        $path = null,
-        $domain = null,
-        $secure = false,
-        $httpOnly = false
-    ) {
-        $this->cookies[] = new ResponseCookie($name, $value, $expire, $path, $domain, $secure, $httpOnly);
     }
 
     /**
