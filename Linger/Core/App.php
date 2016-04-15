@@ -116,7 +116,7 @@ class App
     }
 
     /**
-     * 运行程序
+     * run program
      */
     public function run()
     {
@@ -130,6 +130,9 @@ class App
          */
         $this->dispatcher->dispatch();
 
+        /**
+         * send response
+         */
         $this->response->send();
     }
 }

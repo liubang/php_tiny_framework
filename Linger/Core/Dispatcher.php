@@ -21,6 +21,9 @@ class Dispatcher
      */
     private static $ins = null;
 
+    /**
+     * @var Router|null
+     */
     private $route = null;
 
     /**
