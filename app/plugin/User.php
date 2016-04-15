@@ -32,5 +32,6 @@ class UserPlugin extends Plugin
 
     public function dispatchShutdown(\Linger\Core\Request $request, \Linger\Core\Response $response)
     {
+
     }
 }
