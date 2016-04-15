@@ -39,7 +39,7 @@ class Response
     /**
      * @var ResponseCookie[]
      */
-    private $cookies;
+    private $cookies = [];
 
     /**
      * @var bool
@@ -62,13 +62,6 @@ class Response
     private function __construct()
     {
         $this->config = Config::getInstance();
-        $this->cookies = new ResponseCookie(
-            $this->config->getConfig('COOKIE_NAME'),
-            $this->config->getConfig('COOKIE_PATH'),
-            $this->config->getConfig('COOKIE_DOMAIN'),
-            $this->config->getConfig('COOKIE_SECURE'),
-            $this->config->getConfig('COOKIE_HTTP_ONLY')
-        );
     }
 
     /**
@@ -205,12 +198,19 @@ class Response
         return $this;
     }
 
+    /**
+     * send our HTTP response cookie
+     *
+     * @param bool $override
+     * @return $this
+     */
     public function sendCookies($override = false)
     {
         if (headers_sent() && ! $override) {
             return $this;
         }
 
+        // iterate through our Cookies data and set each cookie natively.
         foreach ($this->cookies as $cookie) {
             setcookie(
                 $cookie->getName(),
@@ -260,6 +260,7 @@ class Response
         }
 
         $this->send();
+
         return $this;
     }
 
@@ -307,6 +308,8 @@ class Response
     }
 
     /**
+     * to set the header
+     *
      * @param $key
      * @param $value
      * @return $this
@@ -318,6 +321,31 @@ class Response
     }
 
     /**
+     * set response cookie
+     *
+     * @param      $name
+     * @param null $value
+     * @param null $expire
+     * @param null $path
+     * @param null $domain
+     * @param bool $secure
+     * @param bool $httpOnly
+     */
+    public function cookie(
+        $name,
+        $value = null,
+        $expire = null,
+        $path = null,
+        $domain = null,
+        $secure = false,
+        $httpOnly = false
+    ) {
+        $this->cookies[] = new ResponseCookie($name, $value, $expire, $path, $domain, $secure, $httpOnly);
+    }
+
+    /**
+     * tell the browser not to cache the response.
+     *
      * @return $this
      */
     public function noCache()
@@ -326,5 +354,4 @@ class Response
         $this->header('Cache-Control', 'no-store, no-cache');
         return $this;
     }
-
 }
