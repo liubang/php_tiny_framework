@@ -67,7 +67,7 @@ class Controller
      * @param string $contentType
      * @param bool   $show
      */
-    public function display($tmpl = '', $cacheTime = null, $cachePath = '', $contentType = 'text/html', $show = true)
+    public function display($tmpl = '', $cacheTime = null, $cachePath = '', $contentType = 'text/html', $show = false)
     {
         if (empty($cacheTime)) {
             $cacheTime = Linger::C('TPL_CACHE_TIME');

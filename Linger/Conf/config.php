@@ -52,4 +52,11 @@ return [
     'TPL_CACHE_PATH'      => APP_ROOT . '/public/tmp/cache/',
     'TPL_COMP_PATH'       => APP_ROOT . '/public/tmp/compile/',
     'TPL_CHARSET'         => 'UTF-8',
+
+    //---cookie---//
+    'COOKIE_NAME'         => 'LINGER_FRAME_COOKIE',
+    'COOKIE_PATH'         => '/',
+    'COOKIE_DOMAIN'       => NULL,
+    'COOKIE_SECURE'       => false,
+    'COOKIE_HTTP_ONLY'    => false
 ];

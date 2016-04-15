@@ -34,7 +34,7 @@ class Response
     /**
      * @var array
      */
-    private $headers;
+    private $headers = [];
 
     /**
      * @var ResponseCookie[]
@@ -52,11 +52,23 @@ class Response
     private static $ins = null;
 
     /**
+     * @var Config|null
+     */
+    private $config = null;
+
+    /**
      * Response constructor.
      */
     private function __construct()
     {
-
+        $this->config = Config::getInstance();
+        $this->cookies = new ResponseCookie(
+            $this->config->getConfig('COOKIE_NAME'),
+            $this->config->getConfig('COOKIE_PATH'),
+            $this->config->getConfig('COOKIE_DOMAIN'),
+            $this->config->getConfig('COOKIE_SECURE'),
+            $this->config->getConfig('COOKIE_HTTP_ONLY')
+        );
     }
 
     /**
@@ -127,7 +139,7 @@ class Response
         }
 
         // send our response data
-        $this->sendHeaders();
+        //$this->sendHeaders();
         $this->sendBody();
 
         // mark as sent
@@ -136,9 +148,22 @@ class Response
         if (function_exists('fastcgi_finish_request')) {
             fastcgi_finish_request();
         }
-
         return $this;
+    }
 
+    /**
+     * set or get response status code
+     *
+     * @param null|string $code
+     * @return $this
+     */
+    public function code($code = null)
+    {
+        if (null !== $code) {
+            $this->statusCode = $code;
+            return $this;
+        }
+        return $this->statusCode;
     }
 
     /**
@@ -278,7 +303,7 @@ class Response
             $this->body = (string)$body;
             return $this;
         }
-        return  $this->body;
+        return $this->body;
     }
 
     /**

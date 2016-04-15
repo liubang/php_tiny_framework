@@ -32,27 +32,6 @@ class IndexController extends Controller
 
     public function indexAction()
     {
-        echo 'hello linger!!';
-
-//        $str = <<<HTML
-//            <foreach name='aaa' item='bbb'>
-//                <h1>sagdsag</h1>
-//                <ul>
-//                    <foreach name="bbb" item="cccd">
-//
-//                    </foreach>
-//                </ul>
-//            </foreach>
-//HTML;
-//        $preg = '#<(?:foreach|foreach\s+(.*))>(.*)</foreach>#isU';
-//        preg_match_all($preg, $str, $info, PREG_SET_ORDER);
-//        print_r($info);die;
-        if (IS_GET) {
-            //print_r($this->get());
-            //print_r($this->userModel->getUserInfoById(1034285));
-        }
-        //echo 'this is Home module index controller index action';
-        //echo strtolower(preg_replace('/Controller/', '', trim(strrchr(__CLASS__, '\\'),  '\\')));
         $arr = [
             ['userId' => 1034285, 'userName' => 'zhanghai'],
             ['userId' => 201502, 'userName' => '张海']

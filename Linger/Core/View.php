@@ -24,6 +24,11 @@ class View
     protected $viewObj = null;
 
     /**
+     * @var Response|null
+     */
+    private $response = null;
+
+    /**
      * View constructor.
      *
      * @param null   $viewClass
@@ -31,6 +36,8 @@ class View
      */
     public function __construct($tmplPath = '', $viewClass = null)
     {
+        $this->response = Response::getInstance();
+
         if (is_null($viewClass)) {
             $viewDriver = Linger::C('VIEW_DRIVER');
             if ('simple' === $viewDriver) {
@@ -70,9 +77,13 @@ class View
      * @param bool   $show
      * @return mixed
      */
-    public function display($tplFile, $cacheTime = -1, $cachePath = null, $contentType = 'text/html', $show = true)
+    public function display($tplFile, $cacheTime = -1, $cachePath = null, $contentType = 'text/html', $show = false)
     {
-        return $this->viewObj->display($tplFile, $cacheTime, $cachePath, $contentType, $show);
+        $content = $this->viewObj->display($tplFile, $cacheTime, $cachePath, $contentType, $show);
+        $this->response->header('Content-Type', $contentType);
+        $this->response->code('200');
+        $this->response->body($content);
+        return $this;
     }
 
     /**
