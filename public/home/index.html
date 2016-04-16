@@ -1,10 +1,17 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Document</title>
+    <script src="/home/angular.min.js"></script>
+    <script src="/js/jquery.min.js"></script>
 </head>
-<body>
-<h1>test index.html</h1>
+<body ng-app="app">
+
+<header ng-controller="app.controller.index">
+    <h1>{{userInfo.userId}}</h1>
+</header>
+
+<script src="/home/app.js"></script>
 </body>
 </html>

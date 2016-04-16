@@ -32,16 +32,18 @@ class IndexController extends Controller
 
     public function indexAction()
     {
-        $arr = [
-            ['userId' => 1034285, 'userName' => 'zhanghai'],
-            ['userId' => 201502, 'userName' => '张海']
-        ];
-        $this->assign('title', 'template test');
-        $this->assign('aaa', 'hello world');
-        $this->assign('arr', $arr);
-        $this->assign('flag', true);
-        $this->assign('time', time());
-        $this->display();
+        echo 'hello world';
+        exit;
+//        $arr = [
+//            ['userId' => 1034285, 'userName' => 'zhanghai'],
+//            ['userId' => 201502, 'userName' => '张海']
+//        ];
+//        $this->assign('title', 'template test');
+//        $this->assign('aaa', 'hello world');
+//        $this->assign('arr', $arr);
+//        $this->assign('flag', true);
+//        $this->assign('time', time());
+//        $this->display();
     }
 
 
