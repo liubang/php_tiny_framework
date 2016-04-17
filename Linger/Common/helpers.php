@@ -10,7 +10,9 @@
  |------------------------------------------------------------------
  */
 
+
 if (! function_exists('_include')) {
+
     /**
      * fast include a file, that would include the same file once time.
      *
@@ -32,6 +34,7 @@ if (! function_exists('_include')) {
 }
 
 if (! function_exists('_default')) {
+
     /**
      * if the variable of name is not empty, it will return the value of name, but return var.
      *
@@ -63,6 +66,7 @@ if (! function_exists('p')) {
 }
 
 if (! function_exists('C')) {
+
     /**
      * get or set config
      *
@@ -84,10 +88,11 @@ if (! function_exists('C')) {
 }
 
 if (! function_exists('M')) {
+
     /**
      * fast instantiates a Model object.
      *
-     * @param $table
+     * @param string $table
      * @return \Linger\Driver\Db\DbDriver
      */
     function M($table)

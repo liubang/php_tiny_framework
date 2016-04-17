@@ -85,7 +85,7 @@ abstract class DbDriver
         'db_prefix' => '',
         'db_socket' => '',
         'db_params' => [],
-        'db_dsn'    => ''
+        'db_dsn'    => '',
     ];
 
     /**
@@ -95,7 +95,7 @@ abstract class DbDriver
         PDO::ATTR_CASE              => PDO::CASE_LOWER,
         PDO::ATTR_ERRMODE           => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_ORACLE_NULLS      => PDO::NULL_NATURAL,
-        PDO::ATTR_STRINGIFY_FETCHES => false
+        PDO::ATTR_STRINGIFY_FETCHES => false,
     ];
 
     /**
@@ -115,7 +115,7 @@ abstract class DbDriver
      */
     public function __construct($config = [])
     {
-        if (!empty($config)) {
+        if (! empty($config)) {
             $this->config = array_merge($this->config, $config);
             if (is_array($this->config['db_params'])) {
                 $this->options = $this->config['db_params'] + $this->options;
@@ -125,12 +125,11 @@ abstract class DbDriver
 
     /**
      * @param array $config
-     *
      * @return $this
      */
     public function connect($config = [])
     {
-        if (!empty($config)) {
+        if (! empty($config)) {
             $this->config = array_merge($this->config, $config);
             if (is_array($this->config['db_params'])) {
                 $this->options = $this->config['db_params'] + $this->options;
@@ -187,7 +186,7 @@ abstract class DbDriver
             'order'  => '',
             'limit'  => '',
         ];
-        if (isset($this->tableFields[$this->linkId][$this->table]) && !empty($this->tableFields[$this->linkId][$this->table])) {
+        if (isset($this->tableFields[$this->linkId][$this->table]) && ! empty($this->tableFields[$this->linkId][$this->table])) {
             $this->opt['fields'] = $this->tableFields[$this->linkId][$this->table];
         }
     }
@@ -196,7 +195,6 @@ abstract class DbDriver
      * 设置当前要操作的表
      *
      * @param string $table
-     *
      * @return $this
      */
     public function forTable($table)
@@ -218,21 +216,20 @@ abstract class DbDriver
      * 执行查询sql
      *
      * @param string $sql
-     *
      * @return array|bool
      */
     public function query($sql)
     {
-        if (!$this->linkId) {
+        if (! $this->linkId) {
             return false;
         }
         $this->sql = $sql;
-        if (!empty($this->bind)) {
+        if (! empty($this->bind)) {
             $this->sql = strtr($this->sql, array_map(function ($val) {
                 return '\'' . addslashes($val) . '\'';
             }, $this->bind));
         }
-        if (!empty($this->PDOStatement)) {
+        if (! empty($this->PDOStatement)) {
             $this->free();
         }
         $this->PDOStatement = $this->links[$this->linkId]->prepare($sql);
@@ -267,21 +264,20 @@ abstract class DbDriver
      * 执行插入，修改，删除sql
      *
      * @param string $sql
-     *
      * @return bool|int|string
      */
     public function execute($sql)
     {
-        if (!$this->linkId) {
+        if (! $this->linkId) {
             return false;
         }
         $this->sql = $sql;
-        if (!empty($this->bind)) {
+        if (! empty($this->bind)) {
             $this->sql = strtr($this->sql, array_map(function ($val) {
                 return '\'' . addslashes($val) . '\'';
             }, $this->bind));
         }
-        if (!empty($this->PDOStatement)) {
+        if (! empty($this->PDOStatement)) {
             $this->free();
         }
         $this->PDOStatement = $this->links[$this->linkId]->prepare($sql);
@@ -324,7 +320,7 @@ abstract class DbDriver
      */
     public function startTrans()
     {
-        if (!$this->linkId) {
+        if (! $this->linkId) {
             return false;
         }
         if (0 === $this->trans[$this->linkId]) {
@@ -343,7 +339,7 @@ abstract class DbDriver
     {
         if ($this->trans[$this->linkId] > 0) {
             $result = $this->links[$this->linkId]->commit();
-            if (!$result) {
+            if (! $result) {
                 $this->error();
                 return false;
             }
@@ -362,7 +358,7 @@ abstract class DbDriver
         if ($this->trans[$this->linkId] > 0) {
             $result = $this->links[$this->linkId]->rollBack();
             $this->trans[$this->linkId] = 0;
-            if (!$result) {
+            if (! $result) {
                 $this->error();
                 return false;
             }
@@ -426,7 +422,6 @@ abstract class DbDriver
      * 添加数据
      *
      * @param array $data
-     *
      * @return bool|int|string
      */
     public function add($data = array())
@@ -453,7 +448,6 @@ abstract class DbDriver
      * 更新数据
      *
      * @param array $data
-     *
      * @return bool|int|string
      */
     public function update($data = array())
@@ -483,12 +477,11 @@ abstract class DbDriver
      * 删除数据
      *
      * @param string $where
-     *
      * @return bool|int|string
      */
     public function delete($where = '')
     {
-        if (!empty($where)) {
+        if (! empty($where)) {
             $this->where($where);
         }
         $sql = 'DELETE FROM ' . $this->table
@@ -502,15 +495,14 @@ abstract class DbDriver
      *
      * @param string $field
      * @param string $where
-     *
      * @return array|bool|mixed
      */
     public function getRow($field = '', $where = '')
     {
-        if (!empty($field)) {
+        if (! empty($field)) {
             $this->fields($field);
         }
-        if (!empty($where)) {
+        if (! empty($where)) {
             $this->where($where);
         }
         $this->opt['limit'] = ' LIMIT 1 ';
@@ -535,15 +527,14 @@ abstract class DbDriver
      *
      * @param string $field
      * @param string $where
-     *
      * @return array|bool
      */
     public function getOne($field = '', $where = '')
     {
-        if (!empty($field)) {
+        if (! empty($field)) {
             $this->fields($field);
         }
-        if (!empty($where)) {
+        if (! empty($where)) {
             $this->where($where);
         }
         if (stripos($this->opt['fields'], ',')) {
@@ -573,18 +564,17 @@ abstract class DbDriver
      * @param string $field
      * @param string $where
      * @param string $limit
-     *
      * @return array|bool
      */
     public function getAll($field = '', $where = '', $limit = '')
     {
-        if (!empty($field)) {
+        if (! empty($field)) {
             $this->fields($field);
         }
-        if (!empty($where)) {
+        if (! empty($where)) {
             $this->where($where);
         }
-        if (!empty($limit)) {
+        if (! empty($limit)) {
             $this->limit($limit);
         }
         $sql = 'SELECT ' . $this->opt['fields'] . ' FROM ' . $this->table
@@ -596,10 +586,9 @@ abstract class DbDriver
     }
 
     /**
-     * 设置查询字段
+     * set query fields
      *
      * @param $arr
-     *
      * @return $this
      */
     public function fields($arr)
@@ -626,7 +615,6 @@ abstract class DbDriver
      * 设置查询limit
      *
      * @param $limit
-     *
      * @return $this
      */
     public function limit($limit)
@@ -643,7 +631,6 @@ abstract class DbDriver
      * 设置查询order
      *
      * @param $order
-     *
      * @return $this
      */
     public function order($order)
@@ -667,7 +654,6 @@ abstract class DbDriver
      * 设置查询group
      *
      * @param $group
-     *
      * @return $this
      */
     public function group($group)
@@ -685,7 +671,6 @@ abstract class DbDriver
      * 设置查询where
      *
      * @param $where
-     *
      * @return $this
      */
     public function where($where)
@@ -716,7 +701,7 @@ abstract class DbDriver
      */
     public function getDb()
     {
-        if (!$this->linkId) {
+        if (! $this->linkId) {
             return $this->links[$this->linkId];
         }
         return null;
@@ -736,7 +721,7 @@ abstract class DbDriver
      */
     public function __destruct()
     {
-        if (!empty($this->PDOStatement)) {
+        if (! empty($this->PDOStatement)) {
             $this->free();
         }
         $this->close();

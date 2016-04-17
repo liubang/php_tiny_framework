@@ -11,7 +11,6 @@
  */
 
 namespace home\controller;
-
 use Linger\Core\Controller;
 use model\UserModel;
 use library\tool\ApiClient;
@@ -31,9 +30,7 @@ class IndexController extends Controller
 
     public function indexAction()
     {
-        $ser = new ApiClient('http://www.baidu.com');
-        $user = new UserModel();
-
+        echo 'hello world';
         exit;
         $arr = [
             ['userId' => 1034285, 'userName' => 'zhanghai'],
@@ -56,10 +53,13 @@ class IndexController extends Controller
         $this->display();
     }
 
+
     public function testAction()
     {
         $_SESSION['userId'] = 1034285;
+
         $userModel = M('user');
+
         $result = $userModel->fields(array('id', 'user_name', 'reg_date'))->where(array('id' => '2'))->getRow();
         print_r($result);
 
