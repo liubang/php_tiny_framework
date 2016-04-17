@@ -112,19 +112,22 @@ class Router
         } elseif (1 === $model) {
             $request = Request::getInstance();
             $req = $request->get();
-            $module = isset($req[C('URL_VAR_MODULE')]) ?
-                $req[C('URL_VAR_MODULE')] : C('DEFAULT_MODULE');
-            $controller = isset($req[C('URL_VAR_CONTROLLER')]) ?
-                $req[C('URL_VAR_CONTROLLER')] : C('DEFAULT_CONTROLLER');
-            $action = isset($req[C('URL_VAR_ACTION')]) ?
-                $req[C('URL_VAR_ACTION')] : C('DEFAULT_ACTION');
+            $m = C('URL_VAR_MODULE');
+            $c = C('URL_VAR_CONTROLLER');
+            $a = C('URL_VAR_ACTION');
+            $module = isset($req[$m]) ?
+                $req[$m] : C('DEFAULT_MODULE');
+            $controller = isset($req[$c]) ?
+                $req[$c] : C('DEFAULT_CONTROLLER');
+            $action = isset($req[$a]) ?
+                $req[$a] : C('DEFAULT_ACTION');
             define('MODULE', $module);
             define('CONTROLLER', $controller . 'Controller');
             define('ACTION', $action . 'Action');
             define('CURRTMPL', $action);
-            unset($req[C('URL_VAR_MODULE')]);
-            unset($req[C('URL_VAR_CONTROLLER')]);
-            unset($req[C('URL_VAR_ACTION')]);
+            unset($req[$m]);
+            unset($req[$c]);
+            unset($req[$a]);
             $this->request->add('get', $req);
         }
         return $this;
