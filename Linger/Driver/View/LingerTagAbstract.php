@@ -48,8 +48,8 @@ abstract class LingerTagAbstract
      */
     public function __construct()
     {
-        $this->tagLeft = Linger::C('TPL_TAG_LEFT');
-        $this->tagRight = Linger::C('TPL_TAG_RIGHT');
+        $this->tagLeft = C('TPL_TAG_LEFT');
+        $this->tagRight = C('TPL_TAG_RIGHT');
         if (method_exists($this, '__initalize')) {
             $this->__initalize();
         }

@@ -88,11 +88,11 @@ class Router
                 $req = [];
             }
             $module = count($req) > 0 ?
-                strtolower(array_shift($req)) : Linger::C('DEFAULT_MODULE');
+                strtolower(array_shift($req)) : C('DEFAULT_MODULE');
             $controller = count($req) > 0 ?
-                ucfirst(array_shift($req)) : Linger::C('DEFAULT_CONTROLLER');
+                ucfirst(array_shift($req)) : C('DEFAULT_CONTROLLER');
             $action = count($req) > 0 ?
-                lcfirst(array_shift($req)) : Linger::C('DEFAULT_ACTION');
+                lcfirst(array_shift($req)) : C('DEFAULT_ACTION');
             define('MODULE', $module);
             define('CONTROLLER', $controller . 'Controller');
             define('ACTION', $action . 'Action');
@@ -110,19 +110,19 @@ class Router
             if (1 === $model) {
                 $request = Request::getInstance();
                 $req = $request->get();
-                $module = isset($req[Linger::C('URL_VAR_MODULE')]) ?
-                    $req[Linger::C('URL_VAR_MODULE')] : Linger::C('DEFAULT_MODULE');
-                $controller = isset($req[Linger::C('URL_VAR_CONTROLLER')]) ?
-                    $req[Linger::C('URL_VAR_CONTROLLER')] : Linger::C('DEFAULT_CONTROLLER');
-                $action = isset($req[Linger::C('URL_VAR_ACTION')]) ?
-                    $req[Linger::C('URL_VAR_ACTION')] : Linger::C('DEFAULT_ACTION');
+                $module = isset($req[C('URL_VAR_MODULE')]) ?
+                    $req[C('URL_VAR_MODULE')] : C('DEFAULT_MODULE');
+                $controller = isset($req[C('URL_VAR_CONTROLLER')]) ?
+                    $req[C('URL_VAR_CONTROLLER')] : C('DEFAULT_CONTROLLER');
+                $action = isset($req[C('URL_VAR_ACTION')]) ?
+                    $req[C('URL_VAR_ACTION')] : C('DEFAULT_ACTION');
                 define('MODULE', $module);
                 define('CONTROLLER', $controller . 'Controller');
                 define('ACTION', $action . 'Action');
                 define('CURRTMPL', $action);
-                unset($req[Linger::C('URL_VAR_MODULE')]);
-                unset($req[Linger::C('URL_VAR_CONTROLLER')]);
-                unset($req[Linger::C('URL_VAR_ACTION')]);
+                unset($req[C('URL_VAR_MODULE')]);
+                unset($req[C('URL_VAR_CONTROLLER')]);
+                unset($req[C('URL_VAR_ACTION')]);
                 $this->request->add('get', $req);
             }
         }

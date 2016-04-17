@@ -39,7 +39,7 @@ class View
         $this->response = Response::getInstance();
 
         if (is_null($viewClass)) {
-            $viewDriver = Linger::C('VIEW_DRIVER');
+            $viewDriver = C('VIEW_DRIVER');
             if ('simple' === $viewDriver) {
                 $this->viewObj = new LingerViewSimple();
             }

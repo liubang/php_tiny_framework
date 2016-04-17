@@ -95,7 +95,7 @@ class Dispatcher
         if (! class_exists($class)) {
             $this->response->_404();
         }
-        $allowModule = Linger::C('MODULE_ALLOW_LIST');
+        $allowModule = C('MODULE_ALLOW_LIST');
         if (! in_array(MODULE, $allowModule)) {
             $this->response->_403(true);
         }

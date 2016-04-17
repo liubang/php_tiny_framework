@@ -33,7 +33,7 @@ class UserController extends Controller
         }
 
         $reviewTable = 'review_' . $userId % 50;
-        $review = Linger::M($reviewTable);
+        $review = M($reviewTable);
 
         if ('toUser' === $action) {
             $where = [

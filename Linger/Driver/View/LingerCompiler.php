@@ -126,7 +126,7 @@ class LingerCompiler
                     }
                 }
                 if (! empty($value[2])) {
-                    $funcAlias = Linger::C('TMPL_ALIASES_FUNC');
+                    $funcAlias = C('TMPL_ALIASES_FUNC');
                     $funcs = explode('|', $value[2]);
                     foreach ($funcs as $func) {
                         $tmp = explode('=', $func);

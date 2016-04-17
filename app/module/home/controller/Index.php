@@ -14,7 +14,6 @@ namespace home\controller;
 
 use Linger\Core\Controller;
 use model\UserModel;
-use Linger\Linger;
 use library\tool\ApiClient;
 
 class IndexController extends Controller
@@ -32,12 +31,16 @@ class IndexController extends Controller
 
     public function indexAction()
     {
-        echo 'hello world';
+        $ser = new ApiClient('http://www.baidu.com');
+        $user = new UserModel();
+
         exit;
-//        $arr = [
-//            ['userId' => 1034285, 'userName' => 'zhanghai'],
-//            ['userId' => 201502, 'userName' => '张海']
-//        ];
+        $arr = [
+            ['userId' => 1034285, 'userName' => 'zhanghai'],
+            ['userId' => 201502, 'userName' => '张海']
+        ];
+
+//        p($arr);
 //        $this->assign('title', 'template test');
 //        $this->assign('aaa', 'hello world');
 //        $this->assign('arr', $arr);
@@ -56,7 +59,7 @@ class IndexController extends Controller
     public function testAction()
     {
         $_SESSION['userId'] = 1034285;
-        $userModel = Linger::M('user');
+        $userModel = M('user');
         $result = $userModel->fields(array('id', 'user_name', 'reg_date'))->where(array('id' => '2'))->getRow();
         print_r($result);
 

@@ -70,14 +70,14 @@ class Controller
     public function display($tmpl = '', $cacheTime = null, $cachePath = '', $contentType = 'text/html', $show = false)
     {
         if (empty($cacheTime)) {
-            $cacheTime = Linger::C('TPL_CACHE_TIME');
+            $cacheTime = C('TPL_CACHE_TIME');
         }
         if (! empty($cachePath)) {
             if (! is_dir(dirname($cachePath))) {
-                $cachePath = Linger::C('TPL_CACHE_PATH') . '/' . $cachePath;
+                $cachePath = C('TPL_CACHE_PATH') . '/' . $cachePath;
             }
         } else {
-            $cachePath = rtrim(Linger::C('TPL_CACHE_PATH'),
+            $cachePath = rtrim(C('TPL_CACHE_PATH'),
                     '/') . '/' . MODULE . '_' . CONTROLLER . '_' . ACTION . '_' . substr(md5($_SERVER['REQUEST_URI']),
                     0, 8) . '.html';
         }

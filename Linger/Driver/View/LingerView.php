@@ -12,8 +12,6 @@
 
 namespace Linger\Driver\View;
 
-use Linger\Linger;
-
 class LingerView extends LingerViewAbstract
 {
     /**
@@ -52,7 +50,7 @@ class LingerView extends LingerViewAbstract
             }
         }
         if (! $content) {
-            $this->compileFile = Linger::C('TPL_COMP_PATH') . MODULE . '_' . CONTROLLER . '_' . ACTION . '_' . substr(md5($this->tmplFile),
+            $this->compileFile = C('TPL_COMP_PATH') . MODULE . '_' . CONTROLLER . '_' . ACTION . '_' . substr(md5($this->tmplFile),
                     0, 8) . '.php';
             $this->compile();
             if (! empty($this->vars)) {
@@ -66,7 +64,7 @@ class LingerView extends LingerViewAbstract
             }
         }
         if ($show) {
-            $charset = Linger::C('TPL_CHARSET') ? Linger::C('TPL_CHARSET') : 'UTF-8';
+            $charset = C('TPL_CHARSET') ? C('TPL_CHARSET') : 'UTF-8';
             if (! headers_sent()) {
                 header("Content-Type: {$contentType}; charset={$charset}");
             }
