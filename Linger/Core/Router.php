@@ -34,11 +34,6 @@ class Router
     private static $ins = null;
 
     /**
-     * @var Config|null
-     */
-    private $config = null;
-
-    /**
      * @var \Linger\Core\Request
      */
     private $request = null;
@@ -48,8 +43,7 @@ class Router
      */
     private function __construct()
     {
-        $this->config = Config::getInstance();
-        $this->roules = $this->config->getConfig('ROUTE');
+        $this->roules = C('ROUTE');
         $this->request = Request::getInstance();
     }
 
@@ -65,33 +59,42 @@ class Router
     }
 
     /**
-     * 解析路由
-     * 会优先解析在config文件中自定义的路由
+     * parse route.
      *
      * @return $this
      */
     public function parseUri()
     {
-        $model = $this->config->getConfig('URL_MODEL');
+        // get the route model.
+        $model = C('URL_MODEL');
+
         if (2 === $model) {
-            $this->uri = trim(preg_replace('/^(?:index\.php|\/index\.php)?(.*?)/i', '\1', $_SERVER['REQUEST_URI']),
-                '/');
-            foreach ($this->roules as $key => $value) {
-                if (preg_match('#' . $key . '#', $this->uri)) {
-                    $this->uri = preg_replace('#' . $key . '#', $value, $this->uri);
+
+            $this->uri = trim(str_replace('index.php', '', $_SERVER['REQUEST_URI']), '/');
+
+            if (! empty($this->roules)) {
+                foreach ($this->roules as $key => $value) {
+                    if (preg_match('#' . $key . '#', $this->uri)) {
+                        $this->uri = preg_replace('#' . $key . '#', $value, $this->uri);
+                    }
                 }
             }
-            $this->uri = preg_replace('/^(.*?)(?:\.html)/i', '\1', trim($this->uri, '/'));
+
             if (! empty($this->uri)) {
-                $req = explode('/', $this->uri);
+                // 404
+                if (strpos($this->uri, '.')) {
+                    _404(SHOW_404_PAGE);
+                } else {
+                    $req = explode('/', $this->uri);
+                }
             } else {
                 $req = [];
             }
-            $module = count($req) > 0 ?
+            $module = isset($req[0]) ?
                 strtolower(array_shift($req)) : C('DEFAULT_MODULE');
-            $controller = count($req) > 0 ?
+            $controller = isset($req[0]) ?
                 ucfirst(array_shift($req)) : C('DEFAULT_CONTROLLER');
-            $action = count($req) > 0 ?
+            $action = isset($req[0]) ?
                 lcfirst(array_shift($req)) : C('DEFAULT_ACTION');
             define('MODULE', $module);
             define('CONTROLLER', $controller . 'Controller');
@@ -106,31 +109,29 @@ class Router
                     }
                 }
             }
-        } else {
-            if (1 === $model) {
-                $request = Request::getInstance();
-                $req = $request->get();
-                $module = isset($req[C('URL_VAR_MODULE')]) ?
-                    $req[C('URL_VAR_MODULE')] : C('DEFAULT_MODULE');
-                $controller = isset($req[C('URL_VAR_CONTROLLER')]) ?
-                    $req[C('URL_VAR_CONTROLLER')] : C('DEFAULT_CONTROLLER');
-                $action = isset($req[C('URL_VAR_ACTION')]) ?
-                    $req[C('URL_VAR_ACTION')] : C('DEFAULT_ACTION');
-                define('MODULE', $module);
-                define('CONTROLLER', $controller . 'Controller');
-                define('ACTION', $action . 'Action');
-                define('CURRTMPL', $action);
-                unset($req[C('URL_VAR_MODULE')]);
-                unset($req[C('URL_VAR_CONTROLLER')]);
-                unset($req[C('URL_VAR_ACTION')]);
-                $this->request->add('get', $req);
-            }
+        } elseif (1 === $model) {
+            $request = Request::getInstance();
+            $req = $request->get();
+            $module = isset($req[C('URL_VAR_MODULE')]) ?
+                $req[C('URL_VAR_MODULE')] : C('DEFAULT_MODULE');
+            $controller = isset($req[C('URL_VAR_CONTROLLER')]) ?
+                $req[C('URL_VAR_CONTROLLER')] : C('DEFAULT_CONTROLLER');
+            $action = isset($req[C('URL_VAR_ACTION')]) ?
+                $req[C('URL_VAR_ACTION')] : C('DEFAULT_ACTION');
+            define('MODULE', $module);
+            define('CONTROLLER', $controller . 'Controller');
+            define('ACTION', $action . 'Action');
+            define('CURRTMPL', $action);
+            unset($req[C('URL_VAR_MODULE')]);
+            unset($req[C('URL_VAR_CONTROLLER')]);
+            unset($req[C('URL_VAR_ACTION')]);
+            $this->request->add('get', $req);
         }
         return $this;
     }
 
     /**
-     * 添加路由规则
+     * add a route rule.
      *
      * @param array|string $rouls
      * @param string|null  $ref
@@ -149,6 +150,8 @@ class Router
     }
 
     /**
+     * delete a route roule.
+     *
      * @param string $rouls
      * @return bool|string
      */

@@ -88,21 +88,28 @@ class Dispatcher
          */
         $this->callPlugins('dispatchStartup');
 
-        $class = MODULE . '\\controller\\' . CONTROLLER;
         if (strpos(MODULE, '.')) {
             _404(SHOW_404_PAGE);
         }
+
+        $class = MODULE . '\\controller\\' . CONTROLLER;
+
         if (! class_exists($class)) {
             _404(SHOW_404_PAGE);
         }
+
         $allowModule = C('MODULE_ALLOW_LIST');
+
         if (! in_array(MODULE, $allowModule)) {
             _403(SHOW_403_PAGE);
         }
+
         $controllerObj = new $class();
+
         if (! method_exists($controllerObj, ACTION)) {
             _404(SHOW_404_PAGE);
         }
+
         call_user_func_array(array($controllerObj, ACTION), array());
 
         /**
