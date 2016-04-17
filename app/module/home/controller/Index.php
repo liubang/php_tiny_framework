@@ -58,7 +58,7 @@ class IndexController extends Controller
     {
         $_SESSION['userId'] = 1034285;
 
-        $userModel = M('user');
+        $userModel = \M('user');
 
         $result = $userModel->fields(array('id', 'user_name', 'reg_date'))->where(array('id' => '2'))->getRow();
         print_r($result);

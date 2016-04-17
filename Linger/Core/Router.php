@@ -99,7 +99,7 @@ class Router
             define('CURRTMPL', $action);
             if (count($req) > 0) {
                 if (count($req) % 2 !== 0) {
-                    Response::getInstance()->_404();
+                    _404(SHOW_404_PAGE);
                 } else {
                     foreach ($req as $key => $val) {
                         $this->request->add('get', $key, $val);

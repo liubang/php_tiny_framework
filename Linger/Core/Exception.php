@@ -26,8 +26,13 @@ class Exception
 
     private function __construct()
     {
+        // get instance
         $this->response = Response::getInstance();
+
+        // set custom exception handler
         set_exception_handler(array($this, 'appException'));
+
+        // set custom error handler
         set_error_handler(array($this, 'appError'), E_ALL);
     }
 
@@ -60,7 +65,7 @@ class Exception
                 $trace[$k]['function'] = '';
             }
         }
-        $this->response->error($message, $trace, 'Exception');
+        error($message, $trace, 'Exception');
     }
 
     /**
@@ -76,27 +81,27 @@ class Exception
         $message = "Custom Error: [{$errno}] {$errstr} on {$errfile} [{$errline}]";
         switch ($errno) {
             case E_NOTICE:
-                $this->response->error($message, [], 'System Notice');
+                error($message, [], 'System Notice');
                 break;
             case E_USER_NOTICE:
-                $this->response->error($message, [], 'Custom Notice');
+                error($message, [], 'Custom Notice');
                 break;
             case E_WARNING:
             case E_COMPILE_WARNING:
             case E_CORE_WARNING:
-                $this->response->error($message, [], 'System Warning');
+                error($message, [], 'System Warning');
                 break;
             case E_USER_WARNING:
-                $this->response->error($message, [], 'Custom Warning');
+                error($message, [], 'Custom Warning');
                 break;
             case E_USER_ERROR:
-                $this->response->error($message, [], 'Custom Error');
+                error($message, [], 'Custom Error');
                 break;
             case E_ERROR:
             case E_COMPILE_ERROR:
             case E_CORE_ERROR:
             default :
-                $this->response->error($message, [], 'System Error');
+                error($message, [], 'System Error');
                 break;
         }
     }

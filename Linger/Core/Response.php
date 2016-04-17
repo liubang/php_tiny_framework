@@ -12,8 +12,6 @@
 
 namespace Linger\Core;
 
-use Linger\Linger;
-
 class Response
 {
     /**
@@ -73,47 +71,6 @@ class Response
     }
 
     /**
-     * 返回404状态或404页面
-     *
-     * @param bool $code
-     */
-    public function _404($code = false)
-    {
-        if ($code) {
-            header('Http/1.1 404 Not Found');
-        } else {
-            include C('TMPL_ACTION_404');
-        }
-        exit;
-    }
-
-    //TODO 403 page
-    public function _403($code = false)
-    {
-        if ($code) {
-            header('Http/1.1 403 Forbidden');
-        } else {
-            include C('TMPL_ACTION_403');
-        }
-    }
-
-    /**
-     * @param        $message
-     * @param        $trace
-     * @param string $type
-     */
-    public function error($message, $trace, $type = 'Exception')
-    {
-        if (C('DEBUG')) {
-            $time = microtime(true) - App::$start;
-            include C('TMPL_ACTION_ERROR');
-            exit;
-        } else {
-            exit($message);
-        }
-    }
-
-    /**
      * send the response
      *
      * @param bool $override
@@ -127,7 +84,7 @@ class Response
         }
 
         // send our response data
-        //$this->sendHeaders();
+        $this->sendHeaders();
         $this->sendBody();
 
         // mark as sent

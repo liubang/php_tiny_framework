@@ -10,6 +10,12 @@
  |------------------------------------------------------------------
  */
 
+use Linger\Driver\Db\MySql;
+use Linger\Core\App;
+use Linger\Core\Response;
+
+const SHOW_404_PAGE = 1;
+const SHOW_403_PAGE = 1;
 
 if (! function_exists('_include')) {
 
@@ -52,6 +58,7 @@ if (! function_exists('_default')) {
 }
 
 if (! function_exists('p')) {
+
     /**
      * print formated array.
      *
@@ -114,9 +121,73 @@ if (! function_exists('M')) {
             $config['db_socket'] = C('DB_SOCKET');
             $config['db_params'] = C('DB_PARAMS');
             $config['db_dsn'] = C('DB_DSN');
-            $db = new \Linger\Driver\Db\MySql($config);
+            $db = new MySql($config);
             $g_model[$table] = $db->connect()->forTable($table);
         }
         return $g_model[$table];
+    }
+}
+
+if (! function_exists('error')) {
+
+    /**
+     * response error page.
+     *
+     * @param string $message
+     * @param array  $trace
+     * @param string $type
+     */
+    function error($message, $trace, $type = 'Exception')
+    {
+        if (C('DEBUG')) {
+            $time = microtime(true) - App::$start;
+            include C('TMPL_ACTION_ERROR');
+            exit;
+        } else {
+            exit($message);
+        }
+    }
+}
+
+if (! function_exists('_404')) {
+
+    /**
+     * fast response 404 status or custom 404 page.
+     *
+     * @param bool $showPage
+     * @throws \HttpResponseException
+     */
+    function _404($showPage = false)
+    {
+        if (! $showPage) {
+            $response = Response::getInstance();
+            $response->code(404);
+            $response->send();
+        } else {
+            include C('TMPL_ACTION_404');
+            exit;
+        }
+    }
+}
+
+
+if (! function_exists('_403')) {
+
+    /**
+     * fast response 403 status or custom 403 page.
+     *
+     * @param bool $showPage
+     * @throws \HttpResponseException
+     */
+    function _403($showPage = false)
+    {
+        if (! $showPage) {
+            $response = Response::getInstance();
+            $response->code(403);
+            $response->send();
+        } else {
+            include C('TMPL_ACTION_403');
+            exit;
+        }
     }
 }

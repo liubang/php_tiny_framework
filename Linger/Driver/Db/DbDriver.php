@@ -234,7 +234,7 @@ abstract class DbDriver
         }
         $this->PDOStatement = $this->links[$this->linkId]->prepare($sql);
         if (false === $this->PDOStatement) {
-            $this->error();
+            error($this->PDOStatement->errorInfo(),[]);
             return false;
         }
         foreach ($this->bind as $key => $value) {
@@ -249,13 +249,13 @@ abstract class DbDriver
             $result = $this->PDOStatement->execute();
             $this->resetOpt();
             if (false === $result) {
-                $this->error();
+                error($this->PDOStatement->errorInfo(),[]);
                 return false;
             } else {
                 return $this->getResult();
             }
         } catch (\PDOException $e) {
-            $this->error();
+            error($e->getMessage(), $e->getTrace());
             return false;
         }
     }
@@ -282,7 +282,7 @@ abstract class DbDriver
         }
         $this->PDOStatement = $this->links[$this->linkId]->prepare($sql);
         if (false === $this->PDOStatement) {
-            $this->error();
+            error($this->PDOStatement->errorInfo(),[]);
             return false;
         }
         foreach ($this->bind as $key => $value) {
@@ -297,7 +297,7 @@ abstract class DbDriver
             $result = $this->PDOStatement->execute();
             $this->resetOpt();
             if (false === $result) {
-                $this->error();
+                error($this->PDOStatement->errorInfo(),[]);
                 return false;
             } else {
                 $this->affectedRows = $this->PDOStatement->rowCount();
@@ -308,7 +308,7 @@ abstract class DbDriver
                 return $this->affectedRows;
             }
         } catch (\PDOException $e) {
-            $this->error();
+            error($e->getMessage(), $e->getTrace());
             return false;
         }
     }
@@ -338,10 +338,10 @@ abstract class DbDriver
     public function commit()
     {
         if ($this->trans[$this->linkId] > 0) {
-            $result = $this->links[$this->linkId]->commit();
-            if (! $result) {
-                $this->error();
-                return false;
+            try {
+                $this->links[$this->linkId]->commit();
+            } catch (\Exception $e) {
+                error($e->getMessage(), $e->getTrace());
             }
             $this->trans[$this->linkId] = 0;
         }
@@ -356,12 +356,12 @@ abstract class DbDriver
     public function rollback()
     {
         if ($this->trans[$this->linkId] > 0) {
-            $result = $this->links[$this->linkId]->rollBack();
-            $this->trans[$this->linkId] = 0;
-            if (! $result) {
-                $this->error();
-                return false;
+            try {
+                $this->links[$this->linkId]->rollBack();
+            } catch (\Exception $e) {
+                error($e->getMessage(), $e->getTrace());
             }
+            $this->trans[$this->linkId] = 0;
         }
         return true;
     }
@@ -378,33 +378,12 @@ abstract class DbDriver
     }
 
     /**
-     * 关闭数据库连接
+     * close db link.
      */
     public function close()
     {
         $this->links[$this->linkId] = null;
         $this->linkId = null;
-    }
-
-    /**
-     * 错误处理
-     *
-     * @return string
-     */
-    public function error()
-    {
-        if ($this->PDOStatement) {
-            $msg = $this->PDOStatement->errorInfo();
-            $this->error = $msg[1] . ':' . $msg[2];
-        } else {
-            $this->error = '';
-        }
-        if ('' !== $this->sql) {
-            $this->error .= PHP_EOL . '[SQL]:' . $this->sql;
-        }
-
-        echo $this->error;
-        return $this->error;
     }
 
     /**
@@ -538,7 +517,7 @@ abstract class DbDriver
             $this->where($where);
         }
         if (stripos($this->opt['fields'], ',')) {
-            $this->error('error!');
+            error('This method can only query a field, but a number of fields are presented.', []);
             return false;
         }
         $this->opt['limit'] = ' LIMIT 1 ';

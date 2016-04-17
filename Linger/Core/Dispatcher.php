@@ -90,18 +90,18 @@ class Dispatcher
 
         $class = MODULE . '\\controller\\' . CONTROLLER;
         if (strpos(MODULE, '.')) {
-            $this->response->_404(true);
+            _404(SHOW_404_PAGE);
         }
         if (! class_exists($class)) {
-            $this->response->_404();
+            _404(SHOW_404_PAGE);
         }
         $allowModule = C('MODULE_ALLOW_LIST');
         if (! in_array(MODULE, $allowModule)) {
-            $this->response->_403(true);
+            _403(SHOW_403_PAGE);
         }
         $controllerObj = new $class();
         if (! method_exists($controllerObj, ACTION)) {
-            $this->response->_404();
+            _404(SHOW_404_PAGE);
         }
         call_user_func_array(array($controllerObj, ACTION), array());
 

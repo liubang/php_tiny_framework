@@ -150,12 +150,5 @@ class Controller
     {
         return $this->request->request($key, $callable, $default);
     }
-
-    /**
-     * @param bool $code
-     */
-    public function _404($code = false)
-    {
-        $this->response->_404($code);
-    }
+    
 }
