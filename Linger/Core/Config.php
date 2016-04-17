@@ -31,34 +31,14 @@ class Config
      *
      * @param $config
      */
-    private function __construct($config)
+    private function __construct()
     {
-        if (is_string($config)) {
-            if (is_file($config)) {
-                $ext = substr($config, strlen($config) - 4);
-                if ($ext === '.ini') {
-                    $config = self::parseIniFile($config);
-                }
-                if ($ext === '.php') {
-                    $config = require $config;
-                }
-            } else {
-                exit($config . '文件不存在');
-            }
-        }
-        if (is_array($config)) {
-            $this->g_config = array_merge(require LINGER_ROOT . '/Conf/config.php', $config);
-        } else {
-            exit('请传入正确的配置文件或配置数组');
-        }
-
-        $this->g_config = self::changeArrayKeyCase($this->g_config);
     }
 
     /**
-     * @param      $file
-     * @param bool $processSections
-     * @param int  $scannerMode
+     * @param string $file
+     * @param bool   $processSections
+     * @param int    $scannerMode
      * @return array|mixed
      */
     private static function parseIniFile($file, $processSections = false, $scannerMode = INI_SCANNER_NORMAL)
@@ -113,12 +93,41 @@ class Config
 
     /**
      * @param $config
+     * @return $this
+     */
+    public function loadConfig($config)
+    {
+        if (is_string($config)) {
+            if (is_file($config)) {
+                $ext = substr($config, strlen($config) - 4);
+                if ($ext === '.ini') {
+                    $config = self::parseIniFile($config);
+                }
+                if ($ext === '.php') {
+                    $config = require $config;
+                }
+            } else {
+                exit($config . '文件不存在');
+            }
+        }
+        if (is_array($config)) {
+            $this->g_config = array_merge(require LINGER_ROOT . '/Conf/config.php', $config);
+        } else {
+            exit('请传入正确的配置文件或配置数组');
+        }
+
+        $this->g_config = self::changeArrayKeyCase($this->g_config);
+
+        return $this;
+    }
+
+    /**
      * @return Config|null
      */
-    public static function getInstance($config = [])
+    public static function getInstance()
     {
         if (null === self::$ins) {
-            self::$ins = new self($config);
+            self::$ins = new self();
         }
         return self::$ins;
     }

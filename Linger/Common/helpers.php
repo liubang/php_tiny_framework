@@ -17,6 +17,26 @@ use Linger\Core\Response;
 const SHOW_404_PAGE = 1;
 const SHOW_403_PAGE = 1;
 
+if (! function_exists('app')) {
+
+    /**
+     * @param null $config
+     * @return \Linger\Core\App|null
+     */
+    function app($config = null)
+    {
+        static $g_app = null;
+
+        if (null === $g_app) {
+            if (null === $config) {
+                return null;
+            }
+            $g_app = App::getInstance($config);
+        }
+        return $g_app;
+    }
+}
+
 if (! function_exists('_include')) {
 
     /**

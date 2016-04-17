@@ -67,7 +67,7 @@ class App
     private function __construct($config)
     {
         self::$start = microtime(true);
-        $this->config = Config::getInstance($config);
+        $this->config = Config::getInstance()->loadConfig($config);
         $this->exception = Exception::getInstance();
         $this->registry = Registry::getInstance();
         $this->request = Request::getInstance();
@@ -120,19 +120,13 @@ class App
      */
     public function run()
     {
-        /**
-         * capture requests
-         */
+        // capture requests
         $this->request->capture();
 
-        /**
-         * dispatch request
-         */
+        // dispatch request
         $this->dispatcher->dispatch();
 
-        /**
-         * send response
-         */
+        //send response
         $this->response->send();
     }
 }

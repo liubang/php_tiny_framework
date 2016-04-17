@@ -9,10 +9,13 @@
  | @license   : MIT (http://opensource.org/licenses/MIT)
  |------------------------------------------------------------------
  */
+
 error_reporting(E_ALL);
+
 define('APP_ROOT', realpath(dirname(__FILE__) . '/../'));
+
 define('APP_NAME', 'app');
-define('ENV', 'dev');
+
 require APP_ROOT . '/Linger/Linger.php';
-$app = Linger\Linger::app(APP_ROOT . '/app/conf/config.'.ENV.'.php');
-$app->bootstrap()->run();
+
+app(APP_ROOT . '/app/conf/config.dev.php')->bootstrap()->run();

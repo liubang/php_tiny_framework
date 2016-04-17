@@ -58,8 +58,6 @@ class Response
     }
 
     /**
-     * 单例模式
-     *
      * @return Response
      */
     public static function getInstance()

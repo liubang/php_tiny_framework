@@ -13,8 +13,6 @@
 
 namespace Linger\Core;
 
-use Linger\Linger;
-
 class Controller
 {
     /**
@@ -150,5 +148,5 @@ class Controller
     {
         return $this->request->request($key, $callable, $default);
     }
-    
+
 }

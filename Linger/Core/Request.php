@@ -111,8 +111,8 @@ class Request
     }
 
     /**
-     * @param        $type
-     * @param        $key
+     * @param string $type
+     * @param string $key
      * @param string $val
      */
     public function add($type, $key, $val = '')
@@ -120,10 +120,8 @@ class Request
         $arr = '_' . $type;
         if (is_array($key)) {
             $this->$arr = array_merge($this->$arr, $key);
-        } else {
-            if (is_string($key)) {
-                $this->$arr[$key] = $val;
-            }
+        } elseif (is_string($key)) {
+            $this->$arr[$key] = $val;
         }
     }
 
@@ -156,7 +154,7 @@ class Request
      * @param mixed  $default
      * @return null
      */
-    public function getRequest($key = '', $callable = 'htmlspecialchars', $default = null)
+    public function request($key = '', $callable = 'htmlspecialchars', $default = null)
     {
         if (empty($key)) {
             return array_map($callable, $this->_request);
