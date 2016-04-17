@@ -14,8 +14,8 @@ use Linger\Driver\Db\MySql;
 use Linger\Core\App;
 use Linger\Core\Response;
 
-const SHOW_404_PAGE = 1;
-const SHOW_403_PAGE = 1;
+defined('SHOW_404_PAGE') || define('SHOW_404_PAGE', 1);
+defined('SHOW_403_PAGE') || define('SHOW_403_PAGE', 1);
 
 if (! function_exists('app')) {
 
@@ -174,7 +174,7 @@ if (! function_exists('_404')) {
     /**
      * fast response 404 status or custom 404 page.
      *
-     * @param bool $showPage
+     * @param bool|null SHOW_404_PAGE
      * @throws \HttpResponseException
      */
     function _404($showPage = false)
@@ -196,7 +196,7 @@ if (! function_exists('_403')) {
     /**
      * fast response 403 status or custom 403 page.
      *
-     * @param bool $showPage
+     * @param bool|null SHOW_403_PAGE
      * @throws \HttpResponseException
      */
     function _403($showPage = false)

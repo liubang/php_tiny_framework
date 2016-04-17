@@ -40,7 +40,7 @@
         <h1>this is true</h1>
     </if>
     <h1>{$time|date='Y-m-d H:i:s', ###}</h1>
-    <h1>{:Linger\Linger::C('DB_HOST')}</h1>
+    <h1>{:C('DB_HOST')}</h1>
     <include file="footer.html" />
 </body>
 </html>

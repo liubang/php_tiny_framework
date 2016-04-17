@@ -15,10 +15,6 @@ use Linger\Core\Controller;
 
 class IndexController extends Controller
 {
-    public function _init()
-    {
-        parent::_init();
-    }
 
     public function indexAction()
     {
@@ -29,13 +25,12 @@ class IndexController extends Controller
 //            ['userId' => 201502, 'userName' => '张海']
 //        ];
 //
-////        p($arr);
-////        $this->assign('title', 'template test');
-////        $this->assign('aaa', 'hello world');
-////        $this->assign('arr', $arr);
-////        $this->assign('flag', true);
-////        $this->assign('time', time());
-////        $this->display();
+//        $this->assign('title', 'template test');
+//        $this->assign('aaa', 'hello world');
+//        $this->assign('arr', $arr);
+//        $this->assign('flag', true);
+//        $this->assign('time', time());
+//        $this->display();
     }
 
 //    /**

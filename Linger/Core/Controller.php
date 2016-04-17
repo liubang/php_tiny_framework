@@ -37,10 +37,7 @@ class Controller
         }
     }
 
-    /**
-     * init 方法
-     */
-    public function _init()
+    protected function _init()
     {
         $this->view = new View();
         $this->request = Request::getInstance();

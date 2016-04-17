@@ -10,8 +10,7 @@
  |------------------------------------------------------------------
  */
 
-define('LINGER_ROOT', realpath(dirname(__FILE__)));
-
+defined('LINGER_ROOT') || define('LINGER_ROOT', realpath(dirname(__FILE__)));
 require LINGER_ROOT . '/Common/helpers.php';
 
 spl_autoload_register(function ($class) {

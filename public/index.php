@@ -10,7 +10,7 @@
  |------------------------------------------------------------------
  */
 
-error_reporting(E_ALL);
+//error_reporting(E_ALL);
 
 define('APP_ROOT', realpath(dirname(__FILE__) . '/../'));
 
