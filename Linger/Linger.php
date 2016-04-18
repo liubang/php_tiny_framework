@@ -16,16 +16,13 @@ require LINGER_ROOT . '/Common/helpers.php';
 spl_autoload_register(function ($class) {
     if (false === strpos($class, 'Linger\\Core')) {
         if (false !== stripos($class, 'Controller')) {
-            $classPath = APP_ROOT . '/' . APP_NAME . '/module/' . str_replace('\\', '/',
-                    substr($class, 0, strlen($class) - 10)) . '.php';
+            $classPath = APP_ROOT . '/' . APP_NAME . '/module/' . str_replace('\\', '/', $class) . '.php';
         } elseif (false !== stripos($class, 'Model')) {
-            $classPath = APP_ROOT . '/' . APP_NAME . '/' . str_replace('\\', '/',
-                    substr($class, 0, strlen($class) - 5)) . '.php';
+            $classPath = APP_ROOT . '/' . APP_NAME . '/' . str_replace('\\', '/', $class) . '.php';
         } elseif (false !== stripos($class, 'library')) {
             $classPath = APP_ROOT . '/' . APP_NAME . '/' . str_replace('\\', '/', $class) . '.php';
         } elseif (false !== stripos($class, 'plugin')) {
-            $classPath = APP_ROOT . '/' . APP_NAME . '/' . str_replace('\\', '/',
-                    substr($class, 0, strlen($class) - 6)) . '.php';
+            $classPath = APP_ROOT . '/' . APP_NAME . '/' . str_replace('\\', '/', $class) . '.php';
         } else {
             $classPath = APP_ROOT . '/' . str_replace('\\', '/', $class) . '.php';
         }
@@ -36,4 +33,5 @@ spl_autoload_register(function ($class) {
     if (file_exists($classPath)) {
         _include($classPath);
     }
+
 });
