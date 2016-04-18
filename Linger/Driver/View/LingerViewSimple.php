@@ -20,7 +20,7 @@ class LingerViewSimple extends LingerViewAbstract
     }
 
     /**
-     * @param        $tplFile
+     * @param string $tplFile
      * @param int    $cacheTime
      * @param null   $cachePath
      * @param string $contentType
