@@ -16,11 +16,6 @@ use plugin\UserPlugin;
 
 class Bootstrap
 {
-    public function _initFromSite(\Linger\Core\Dispatcher $dispatcher)
-    {
-
-    }
-
     public function _initSession(\Linger\Core\Dispatcher $dispatcher)
     {
         session_start();
