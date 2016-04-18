@@ -13,13 +13,13 @@
 namespace model;
 
 use Linger\Core\Model;
-use library\tool\ApiClient;
+//use library\tool\ApiClient;
 
 class UserModel extends Model
 {
     public function __construct()
     {
-        new ApiClient('http://xinyu.kongfz.com');
+//        new ApiClient('http://xinyu.kongfz.com');
         parent::__construct();
     }
     

@@ -32,20 +32,4 @@ class IndexController extends Controller
 //        $this->assign('time', time());
 //        $this->display();
     }
-
-//    /**
-//     * 测试angularjs请求后端
-//     */
-//    public function searchAction()
-//    {
-//        if (IS_POST) {
-//            $name = $this->post('name');
-//            if ('error' !== $name && !empty($name)) {
-//                $result = ['status' => 1, 'data' => ['name' => $name, 'id' => 1034285], 'message' => 'ok'];
-//            } else {
-//                $result = ['status' => 0, 'data' => [], 'message' => 'test error'];
-//            }
-//            echo json_encode($result);
-//        }
-//    }
 }
