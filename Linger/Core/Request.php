@@ -42,6 +42,11 @@ class Request
     private $_request = [];
 
     /**
+     * @var string|null
+     */
+    private $_content = null;
+
+    /**
      * @var self
      */
     private static $ins = null;
@@ -51,7 +56,6 @@ class Request
      */
     private function __construct()
     {
-
     }
 
     /**
@@ -126,9 +130,9 @@ class Request
     }
 
     /**
-     * @param string   $key
-     * @param string   $callable
-     * @param null|mix $default
+     * @param string     $key
+     * @param string     $callable
+     * @param null|mixed $default
      * @return array|mixed|null
      */
     public function get($key = '', $callable = 'htmlspecialchars', $default = null)
@@ -210,5 +214,31 @@ class Request
         } else {
             return false;
         }
+    }
+
+    /**
+     * get the request body content.
+     *
+     * @param bool $asResource if true, a resource will be returned
+     * @return resource|string the request body content or a resource to read the body stream.
+     * @throws \Exception
+     */
+    public function content($asResource = false)
+    {
+        if (false === $this->_content || (true === $asResource && null !== $this->_content)) {
+            throw new \Exception('content() can only be called once when using the resource return type.');
+        }
+
+        if (true === $asResource) {
+            $this->_content = false;
+
+            return fopen('php://input', 'rb');
+        }
+
+        if (null === $this->_content) {
+            $this->_content = file_get_contents('php://input');
+        }
+
+        return $this->_content;
     }
 }
