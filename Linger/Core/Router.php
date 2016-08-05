@@ -29,12 +29,12 @@ class Router
     /**
      * @var self
      */
-    private static $ins = null;
+    private static $ins = NULL;
 
     /**
      * @var \Linger\Core\Request
      */
-    private $request = null;
+    private $request = NULL;
 
     /**
      * Router constructor.
@@ -50,7 +50,7 @@ class Router
      */
     public static function getInstance()
     {
-        if (null === self::$ins) {
+        if (NULL === self::$ins) {
             self::$ins = new self();
         }
         return self::$ins;
@@ -95,7 +95,7 @@ class Router
             $action = isset($req[0]) ?
                 lcfirst(array_shift($req)) : C('DEFAULT_ACTION');
             define('MODULE', $module);
-            define('CONTROLLER', $controller . 'Controller');
+            define('CONTROLLER', ucfirst($controller) . 'Controller');
             define('ACTION', $action . 'Action');
             define('CURRTMPL', $action);
             if (count($req) > 0) {
@@ -120,7 +120,7 @@ class Router
             $action = isset($req[$a]) ?
                 $req[$a] : C('DEFAULT_ACTION');
             define('MODULE', $module);
-            define('CONTROLLER', $controller . 'Controller');
+            define('CONTROLLER', ucfirst($controller) . 'Controller');
             define('ACTION', $action . 'Action');
             define('CURRTMPL', $action);
             unset($req[$m]);
@@ -137,9 +137,9 @@ class Router
      * @param array|string $rouls
      * @param string|null  $ref
      */
-    public function addRoute($rouls, $ref = null)
+    public function addRoute($rouls, $ref = NULL)
     {
-        if (null === $ref) {
+        if (NULL === $ref) {
             if (is_array($rouls)) {
                 $this->roules = array_merge($this->roules, $rouls);
             }
@@ -154,6 +154,7 @@ class Router
      * delete a route roule.
      *
      * @param string $rouls
+     *
      * @return bool|string
      */
     public function delRoute($rouls)
@@ -163,6 +164,6 @@ class Router
             unset($this->roules[$rouls]);
             return $ref;
         }
-        return false;
+        return FALSE;
     }
 }
