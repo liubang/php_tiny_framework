@@ -28,8 +28,6 @@ class Config
 
     /**
      * Config constructor.
-     *
-     * @param $config
      */
     private function __construct()
     {
