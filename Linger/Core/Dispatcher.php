@@ -17,27 +17,27 @@ class Dispatcher
     /**
      * @var self
      */
-    private static $ins = null;
+    private static $ins = NULL;
 
     /**
      * @var Router|null
      */
-    private $route = null;
+    private $route = NULL;
 
     /**
      * @var \Linger\Core\Response
      */
-    private $response = null;
+    private $response = NULL;
 
     /**
      * @var Registry|null
      */
-    private $registry = null;
+    private $registry = NULL;
 
     /**
      * @var Request|null
      */
-    private $request = null;
+    private $request = NULL;
 
     /**
      * Dispatcher constructor.
@@ -55,7 +55,7 @@ class Dispatcher
      */
     public static function getInstance()
     {
-        if (null === self::$ins) {
+        if (NULL === self::$ins) {
             self::$ins = new self();
         }
         return self::$ins;
@@ -92,19 +92,19 @@ class Dispatcher
 
         $class = MODULE . '\\controller\\' . CONTROLLER;
 
-        if (! class_exists($class)) {
+        if (!class_exists($class)) {
             _404(SHOW_404_PAGE);
         }
 
         $allowModule = C('MODULE_ALLOW_LIST');
 
-        if (! in_array(MODULE, $allowModule)) {
+        if (!in_array(MODULE, $allowModule)) {
             _403(SHOW_403_PAGE);
         }
 
         $controllerObj = new $class();
 
-        if (! method_exists($controllerObj, ACTION)) {
+        if (!method_exists($controllerObj, ACTION)) {
             _404(SHOW_404_PAGE);
         }
 
@@ -131,14 +131,15 @@ class Dispatcher
      *
      * @param      $level
      * @param null $plugin
+     *
      * @return bool
      */
-    private function callPlugins($level, $plugin = null)
+    private function callPlugins($level, $plugin = NULL)
     {
         $plugins = $this->registry->get('plugins');
 
-        if (! empty($plugins)) {
-            if (! empty($plugin)) {
+        if (!empty($plugins)) {
+            if (!empty($plugin)) {
                 if (isset($plugins[$plugin])) {
                     $plugins[$plugin]->$level($this->request, $this->response);
                 }
@@ -149,6 +150,6 @@ class Dispatcher
             }
         }
 
-        return true;
+        return TRUE;
     }
 }

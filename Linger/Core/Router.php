@@ -54,7 +54,7 @@ class Router
 
             $this->uri = trim(str_replace('index.php', '', $_SERVER['REQUEST_URI']), '/');
 
-            if (! empty($this->roules)) {
+            if (!empty($this->roules)) {
                 foreach ($this->roules as $key => $value) {
                     if (preg_match('#' . $key . '#', $this->uri)) {
                         $this->uri = preg_replace('#' . $key . '#', $value, $this->uri);
@@ -62,7 +62,7 @@ class Router
                 }
             }
 
-            if (! empty($this->uri)) {
+            if (!empty($this->uri)) {
                 // 404
                 if (strpos($this->uri, '.')) {
                     _404(SHOW_404_PAGE);
