@@ -20,17 +20,18 @@ class Config
      * @var array
      */
     private $g_config = array();
-
-    /**
-     * @var self|null
-     */
-    private static $ins = null;
+//
+//    /**
+//     * @var self|null
+//     */
+//    private static $ins = null;
 
     /**
      * Config constructor.
      */
-    private function __construct()
+    public function __construct()
     {
+
     }
 
     /**
@@ -118,17 +119,17 @@ class Config
 
         return $this;
     }
-
-    /**
-     * @return Config|null
-     */
-    public static function getInstance()
-    {
-        if (null === self::$ins) {
-            self::$ins = new self();
-        }
-        return self::$ins;
-    }
+//
+//    /**
+//     * @return Config|null
+//     */
+//    public static function getInstance()
+//    {
+//        if (null === self::$ins) {
+//            self::$ins = new self();
+//        }
+//        return self::$ins;
+//    }
 
     /**
      * 获取配置项目

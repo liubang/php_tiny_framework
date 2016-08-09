@@ -27,11 +27,6 @@ class Router
     private $uri = '';
 
     /**
-     * @var self
-     */
-    private static $ins = NULL;
-
-    /**
      * @var \Linger\Core\Request
      */
     private $request = NULL;
@@ -39,21 +34,10 @@ class Router
     /**
      * Router constructor.
      */
-    private function __construct()
+    public function __construct()
     {
         $this->roules = C('ROUTE');
-        $this->request = Request::getInstance();
-    }
-
-    /**
-     * @return Router
-     */
-    public static function getInstance()
-    {
-        if (NULL === self::$ins) {
-            self::$ins = new self();
-        }
-        return self::$ins;
+        $this->request = App::factory('Linger\\Core\\Request');
     }
 
     /**
@@ -108,7 +92,7 @@ class Router
                 }
             }
         } elseif (1 === $model) {
-            $request = Request::getInstance();
+            $request = App::factory('Linger\\Core\\Request');
             $req = $request->get();
             $m = C('URL_VAR_MODULE');
             $c = C('URL_VAR_CONTROLLER');

@@ -12,7 +12,6 @@
 
 use Linger\Driver\Db\MySql;
 use Linger\Core\App;
-use Linger\Core\Response;
 
 defined('SHOW_404_PAGE') || define('SHOW_404_PAGE', 1);
 defined('SHOW_403_PAGE') || define('SHOW_403_PAGE', 1);
@@ -32,7 +31,7 @@ if (! function_exists('app')) {
             if (NULL === $config) {
                 return NULL;
             }
-            $g_app = App::getInstance($config);
+            $g_app = App::factory('Linger\\Core\\App', $config);
         }
         return $g_app;
     }
@@ -107,7 +106,7 @@ if (! function_exists('C')) {
      */
     function C($key = NULL, $val = NULL)
     {
-        $config = \Linger\Core\Config::getInstance();
+        $config = App::factory("Linger\\Core\\Config");
         if (NULL === $key) {
             return $config->getConfig();
         } elseif (NULL === $val) {
@@ -186,7 +185,7 @@ if (! function_exists('_404')) {
     function _404($showPage = FALSE)
     {
         if (! $showPage) {
-            $response = Response::getInstance();
+            $response = App::factory('Linger\\Core\\Response');
             $response->code(404);
             $response->send();
         } else {
@@ -209,7 +208,7 @@ if (! function_exists('_403')) {
     function _403($showPage = FALSE)
     {
         if (! $showPage) {
-            $response = Response::getInstance();
+            $response = App::factory('Linger\\Core\\Response');
             $response->code(403);
             $response->send();
         } else {

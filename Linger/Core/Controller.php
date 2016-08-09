@@ -40,8 +40,8 @@ class Controller
     protected function _init()
     {
         $this->view = new View();
-        $this->request = Request::getInstance();
-        $this->response = Response::getInstance();
+        $this->request = App::factory('Linger\\Core\\Request');
+        $this->response = App::factory('Linger\\Core\\Response');
     }
 
     /**
