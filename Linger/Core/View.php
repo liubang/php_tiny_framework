@@ -35,7 +35,7 @@ class View
      */
     public function __construct($tmplPath = '', $viewClass = null)
     {
-        $this->response = Response::getInstance();
+        $this->response = App::factory('Linger\\Core\\Response');
 
         if (is_null($viewClass)) {
             $viewDriver = C('VIEW_DRIVER');

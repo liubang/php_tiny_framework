@@ -22,24 +22,11 @@ class Registry
     protected $registry = [];
 
     /**
-     * @var null|self
-     */
-    private static $ins = null;
-
-    /**
      * Registry constructor.
      */
-    private function __construct()
+    public function __construct()
     {
 
-    }
-
-    public static function getInstance()
-    {
-        if (null === self::$ins) {
-            self::$ins = new self();
-        }
-        return self::$ins;
     }
 
     /**

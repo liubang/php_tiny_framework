@@ -10,7 +10,8 @@
  |------------------------------------------------------------------
  */
 
-//error_reporting(E_ALL);
+
+error_reporting(E_ALL);
 
 define('APP_ROOT', realpath(dirname(__FILE__) . '/../'));
 
@@ -18,4 +19,4 @@ define('APP_NAME', 'app');
 
 require APP_ROOT . '/Linger/Linger.php';
 
-app(APP_ROOT . '/app/conf/config.dev.php')->bootstrap()->run();
+app(APP_ROOT . '/app/conf/config.php')->bootstrap()->run();

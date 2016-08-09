@@ -30,9 +30,9 @@ class App
     private $router = null;
 
     /**
-     * @var self
+     * @var \Linger\Core\*[]
      */
-    private static $ins = null;
+    private static $_ins = [];
 
     /**
      * @var \app\Bootstrap
@@ -67,25 +67,35 @@ class App
     private function __construct($config)
     {
         self::$start = microtime(true);
-        $this->config = Config::getInstance()->loadConfig($config);
-        $this->exception = Exception::getInstance();
-        $this->registry = Registry::getInstance();
-        $this->request = Request::getInstance();
-        $this->router = Router::getInstance();
-        $this->dispatcher = Dispatcher::getInstance();
-        $this->response = Response::getInstance();
+        $this->config = self::factory("Linger\\Core\\Config")->loadConfig($config);
+        $this->exception = self::factory("Linger\\Core\\Exception");
+        $this->registry = self::factory("Linger\\Core\\Registry");
+        $this->request = self::factory("Linger\\Core\\Request");
+        $this->router = self::factory("Linger\\Core\\Router");
+        $this->dispatcher = self::factory("Linger\\Core\\Dispatcher");
+        $this->response = self::factory("Linger\\Core\\Response");
     }
 
+
     /**
-     * @param array|string $config
-     * @return App
+     * @param $class
+     * @return mixed
+     * @throws \Exception
      */
-    public static function getInstance($config)
+    public static function factory($class, $args = NULL)
     {
-        if (null === self::$ins) {
-            self::$ins = new self($config);
+        $key = md5($class);
+        if (isset(static::$_ins[$key]) && !empty(static::$_ins[$key])) {
+            return static::$_ins[$key];
         }
-        return self::$ins;
+
+        if (\class_exists($class)) {
+            static::$_ins[$key] = new $class($args);
+            return static::$_ins[$key];
+        } else {
+            throw new \Exception("{$class}不存在");
+            exit;
+        }
     }
 
     /**

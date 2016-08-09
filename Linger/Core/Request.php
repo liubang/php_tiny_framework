@@ -46,27 +46,13 @@ class Request
      */
     private $_content = null;
 
-    /**
-     * @var self
-     */
-    private static $ins = null;
 
     /**
      * Request constructor.
      */
-    private function __construct()
+    public function __construct()
     {
-    }
 
-    /**
-     * @return Request
-     */
-    public static function getInstance()
-    {
-        if (null === self::$ins) {
-            self::$ins = new self();
-        }
-        return self::$ins;
     }
 
     /**

@@ -42,12 +42,12 @@ class Dispatcher
     /**
      * Dispatcher constructor.
      */
-    private function __construct()
+    public function __construct()
     {
-        $this->request = Request::getInstance();
-        $this->route = Router::getInstance();
-        $this->response = Response::getInstance();
-        $this->registry = Registry::getInstance();
+        $this->request = App::factory('Linger\\Core\\Request');
+        $this->route = App::factory('Linger\\Core\\Router');
+        $this->response = App::factory('Linger\\Core\\Response');
+        $this->registry = App::factory('Linger\\Core\\Registry');
     }
 
     /**

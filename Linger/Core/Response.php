@@ -39,10 +39,6 @@ class Response
      */
     private $sent = false;
 
-    /**
-     * @var self
-     */
-    private static $ins = null;
 
     /**
      * @var Config|null
@@ -52,21 +48,11 @@ class Response
     /**
      * Response constructor.
      */
-    private function __construct()
+    public function __construct()
     {
-        $this->config = Config::getInstance();
+        $this->config = App::factory("Linger\\Core\\Config");
     }
 
-    /**
-     * @return Response
-     */
-    public static function getInstance()
-    {
-        if (null === self::$ins) {
-            self::$ins = new self();
-        }
-        return self::$ins;
-    }
 
     /**
      * send the response
