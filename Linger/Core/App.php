@@ -22,12 +22,12 @@ class App
     /**
      * @var Exception|null
      */
-    private $exception = null;
+    private $exception = NULL;
 
     /**
      * @var Router
      */
-    private $router = null;
+    private $router = NULL;
 
     /**
      * @var \Linger\Core\*[]
@@ -37,36 +37,36 @@ class App
     /**
      * @var \app\Bootstrap
      */
-    private $bootstrap = null;
+    private $bootstrap = NULL;
 
     /**
      * @var \Linger\Core\Request
      */
-    private $request = null;
+    private $request = NULL;
 
     /**
      * @var \Linger\Core\Response
      */
-    private $response = null;
+    private $response = NULL;
 
     /**
      * @var \Linger\Core\Dispatcher
      */
-    private $dispatcher = null;
+    private $dispatcher = NULL;
 
     /**
      * @var Registry|null
      */
-    private $registry = null;
+    private $registry = NULL;
 
     /**
      * App constructor.
      *
      * @param $config
      */
-    private function __construct($config)
+    public function __construct($config)
     {
-        self::$start = microtime(true);
+        self::$start = microtime(TRUE);
         $this->config = self::factory("Linger\\Core\\Config")->loadConfig($config);
         $this->exception = self::factory("Linger\\Core\\Exception");
         $this->registry = self::factory("Linger\\Core\\Registry");
@@ -78,11 +78,13 @@ class App
 
 
     /**
-     * @param $class
+     * @param string $class
+     * @param array  $args
+     *
      * @return mixed
      * @throws \Exception
      */
-    public static function factory($class, $args = NULL)
+    public static function factory($class, $args = [])
     {
         $key = md5($class);
         if (isset(static::$_ins[$key]) && !empty(static::$_ins[$key])) {
@@ -90,7 +92,8 @@ class App
         }
 
         if (\class_exists($class)) {
-            static::$_ins[$key] = new $class($args);
+            $c = new \ReflectionClass($class);
+            static::$_ins[$key] = $c->newInstanceArgs($args);
             return static::$_ins[$key];
         } else {
             throw new \Exception("{$class}不存在");

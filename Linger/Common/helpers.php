@@ -31,7 +31,7 @@ if (! function_exists('app')) {
             if (NULL === $config) {
                 return NULL;
             }
-            $g_app = App::factory('Linger\\Core\\App', $config);
+            $g_app = App::factory('Linger\\Core\\App', [$config]);
         }
         return $g_app;
     }
