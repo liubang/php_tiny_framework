@@ -67,7 +67,7 @@ class App
     public function __construct($config)
     {
         self::$start = microtime(TRUE);
-        $this->config = self::factory("Linger\\Core\\Config")->loadConfig($config);
+        $this->config = self::factory("Linger\\Core\\Config", [$config]);
         $this->exception = self::factory("Linger\\Core\\Exception");
         $this->registry = self::factory("Linger\\Core\\Registry");
         $this->request = self::factory("Linger\\Core\\Request");
