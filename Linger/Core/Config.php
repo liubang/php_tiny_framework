@@ -40,7 +40,7 @@ class Config
     {
         $explodeStr = '.';
         $escapeChar = "'";
-        $data = parse_ini_file($file, $processSections, $scannerMode);
+        $data = \parse_ini_file($file, $processSections, $scannerMode);
         if (! $processSections) {
             $data = array($data);
         }

@@ -67,8 +67,8 @@ class Response
         // mark as sent
         $this->sent = true;
 
-        if (function_exists('fastcgi_finish_request')) {
-            fastcgi_finish_request();
+        if (\function_exists('fastcgi_finish_request')) {
+            \fastcgi_finish_request();
         }
         return $this;
     }
@@ -96,7 +96,7 @@ class Response
      */
     protected function httpStatusLine()
     {
-        return sprintf('HTTP/%s %s', $this->protocolVersion, $this->statusCode);
+        return \sprintf('HTTP/%s %s', $this->protocolVersion, $this->statusCode);
     }
 
     /**
@@ -107,16 +107,16 @@ class Response
      */
     public function sendHeaders($override = false)
     {
-        if (headers_sent() && ! $override) {
+        if (\headers_sent() && ! $override) {
             return $this;
         }
 
         // send our HTTP status line
-        header($this->httpStatusLine());
+        \header($this->httpStatusLine());
 
         // Iterate through our Headers data collection and send each header
         foreach ($this->headers as $key => $value) {
-            header($key . ': ' . $value, false);
+            \header($key . ': ' . $value, false);
         }
 
         return $this;
@@ -146,7 +146,7 @@ class Response
     {
         $this->body('');
         $this->noCache();
-        $json = json_encode($obj);
+        $json = \json_encode($obj);
         if (null !== $jsonp_prefix) {
             $this->header('Content-Type', 'text/javascript');
             $this->body("$jsonp_prefix($json)");
@@ -186,7 +186,7 @@ class Response
         $this->header('Content-Disposition', 'attachment; filename="' . $filename . '"');
 
         $this->send();
-        readfile($path);
+        \readfile($path);
         return $this;
     }
 

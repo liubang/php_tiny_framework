@@ -169,14 +169,14 @@ class App
      */
     public function bootstrap()
     {
-        if (file_exists(APP_ROOT . '/' . APP_NAME . '/Bootstrap.php')) {
+        if (\file_exists(APP_ROOT . '/' . APP_NAME . '/Bootstrap.php')) {
             $bootstrapClass = '\\' . APP_NAME . '\\Bootstrap';
-            if (class_exists($bootstrapClass)) {
-                $initFuncs = get_class_methods('\\' . APP_NAME . '\\Bootstrap');
+            if (\class_exists($bootstrapClass)) {
+                $initFuncs = \get_class_methods('\\' . APP_NAME . '\\Bootstrap');
                 $this->bootstrap = new $bootstrapClass();
                 foreach ($initFuncs as $func) {
                     if (substr($func, 0, 5) === '_init') {
-                        call_user_func_array(
+                        \call_user_func_array(
                             array($this->bootstrap, $func),
                             array($this->dispatcher)
                         );

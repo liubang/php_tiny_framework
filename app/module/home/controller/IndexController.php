@@ -18,8 +18,6 @@ class IndexController extends Controller
 
     public function indexAction()
     {
-//        echo 'hello world';
-//        exit;
         $arr = [
             ['userId' => 1034285, 'userName' => 'zhanghai'],
             ['userId' => 201502, 'userName' => '张海']
@@ -30,9 +28,10 @@ class IndexController extends Controller
         $this->assign('arr', $arr);
         $this->assign('flag', true);
         $this->assign('time', time());
-        _403(true);
-//        $this->getResponse()->code('500');
-//        $this->getResponse()->header('liubang', 'hh');
+        //$this->getResponse()->code('500');
+        //$this->getResponse()->header('liubang', 'hh');
+        $this->getResponse()->json($arr);
+        $this->getResponse()->json($arr, 'callback');
         $this->display();
     }
 }
