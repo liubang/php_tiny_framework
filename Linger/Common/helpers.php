@@ -149,27 +149,6 @@ if (!function_exists('M')) {
     }
 }
 
-if (!function_exists('error')) {
-
-    /**
-     * response error page.
-     *
-     * @param string $message
-     * @param array  $trace
-     * @param string $type
-     */
-    function error($message, $trace, $type = 'Exception')
-    {
-        if (C('DEBUG')) {
-            $time = microtime(TRUE) - App::$start;
-            include C('TMPL_ACTION_ERROR');
-            exit;
-        } else {
-            exit($message);
-        }
-    }
-}
-
 if (!function_exists('_404')) {
 
     /**
