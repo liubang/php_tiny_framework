@@ -66,6 +66,7 @@ class App
      */
     public function __construct($config)
     {
+        //record the start time
         self::$start = microtime(TRUE);
         $this->config = self::factory("Linger\\Core\\Config", $config);
         $this->exception = self::factory("Linger\\Core\\Exception");
@@ -175,11 +176,8 @@ class App
                 $initFuncs = \get_class_methods('\\' . APP_NAME . '\\Bootstrap');
                 $this->bootstrap = new $bootstrapClass();
                 foreach ($initFuncs as $func) {
-                    if (substr($func, 0, 5) === '_init') {
-                        \call_user_func_array(
-                            array($this->bootstrap, $func),
-                            array($this->dispatcher)
-                        );
+                    if (\substr($func, 0, 5) === '_init') {
+                        $this->bootstrap->$func($this->dispatcher);
                     }
                 }
             }
