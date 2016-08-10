@@ -13,6 +13,7 @@
 use Linger\Driver\Db\MySql;
 use Linger\Core\App;
 
+
 defined('SHOW_404_PAGE') || define('SHOW_404_PAGE', 1);
 defined('SHOW_403_PAGE') || define('SHOW_403_PAGE', 1);
 
