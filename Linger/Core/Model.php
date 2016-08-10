@@ -12,7 +12,7 @@
 
 namespace Linger\Core;
 
-class Model
+abstract class Model
 {
     /**
      * @var string

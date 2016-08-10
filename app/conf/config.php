@@ -26,6 +26,6 @@ return array(
         'home.html'        => 'home/index/index',
         'list/(\d+)\.html' => 'home/index/list/id/\1',
     ),
-    'TPL_CACHE_TIME'     => 2,
+    'TPL_CACHE_TIME'     => 1000,
     'URL_MODEL'          => 2,
 );

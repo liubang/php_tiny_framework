@@ -28,31 +28,53 @@ class Exception
     }
 
     /**
+     * handle error
+     *
+     * @param string $message
+     * @param array  $trace
+     * @param string $type
+     */
+    public static function error($message, $trace, $type = 'Exception')
+    {
+        $config = \app()->getConfig();
+        if ($config->get('DEBUG')) {
+            $time = microtime(TRUE) - App::$start;
+            include $config->get('TMPL_ACTION_ERROR');
+            exit;
+        } else {
+            exit($message);
+        }
+    }
+
+    /**
+     * auto handle app exception
+     *
      * @param \Exception $e
      */
     public function appException($e)
     {
         $trace = $e->getTrace();
+
         $message = $e->getMessage();
-        foreach ($trace as $k => $v) {
-            if (! isset($v['file'])) {
-                $trace[$k]['file'] = '';
+        foreach ($trace as $k => &$v) {
+            if (!isset($v['file'])) {
+                $v['file'] = '';
             }
-            if (! isset($v['line'])) {
-                $trace[$k]['line'] = 0;
+            if (!isset($v['line'])) {
+                $v['line'] = 0;
             }
-            if (! isset($v['class'])) {
-                $trace[$k]['class'] = '';
+            if (!isset($v['class'])) {
+                $v['class'] = '';
             }
-            if (! isset($v['function'])) {
-                $trace[$k]['function'] = '';
+            if (!isset($v['function'])) {
+                $v['function'] = '';
             }
         }
-        error($message, $trace, 'Exception');
+        self::error($message, $trace, 'Exception');
     }
 
     /**
-     * 错误处理
+     * auto handle app error
      *
      * @param $errno
      * @param $errstr
@@ -61,30 +83,30 @@ class Exception
      */
     public function appError($errno, $errstr, $errfile, $errline)
     {
-        $message = "Custom Error: [{$errno}] {$errstr} on {$errfile} [{$errline}]";
+        $message = "[{$errno}] {$errstr} on {$errfile} [{$errline}]";
         switch ($errno) {
             case E_NOTICE:
-                error($message, [], 'System Notice');
+                self::error($message, [], 'System Notice');
                 break;
             case E_USER_NOTICE:
-                error($message, [], 'Custom Notice');
+                self::error($message, [], 'Custom Notice');
                 break;
             case E_WARNING:
             case E_COMPILE_WARNING:
             case E_CORE_WARNING:
-                error($message, [], 'System Warning');
+                self::error($message, [], 'System Warning');
                 break;
             case E_USER_WARNING:
-                error($message, [], 'Custom Warning');
+                self::error($message, [], 'Custom Warning');
                 break;
             case E_USER_ERROR:
-                error($message, [], 'Custom Error');
+                self::error($message, [], 'Custom Error');
                 break;
             case E_ERROR:
             case E_COMPILE_ERROR:
             case E_CORE_ERROR:
             default :
-                error($message, [], 'System Error');
+                self::error($message, [], 'System Error');
                 break;
         }
     }

@@ -1,7 +1,7 @@
 <?php
 /*
  |------------------------------------------------------------------
- | 管理全局配置类
+ | linger.iliubang.cn
  |------------------------------------------------------------------
  | @author    : liubang 
  | @date      : 16/3/26 下午11:09
@@ -40,14 +40,14 @@ class Config
     {
         $explodeStr = '.';
         $escapeChar = "'";
-        $data = parse_ini_file($file, $processSections, $scannerMode);
+        $data = \parse_ini_file($file, $processSections, $scannerMode);
         if (! $processSections) {
             $data = array($data);
         }
         foreach ($data as $sectionKey => $section) {
             foreach ($section as $key => $value) {
-                if (strpos($key, $explodeStr)) {
-                    if (substr($key, 0, 1) !== $escapeChar) {
+                if (\strpos($key, $explodeStr)) {
+                    if (\substr($key, 0, 1) !== $escapeChar) {
                         $subKeys = explode($explodeStr, $key);
                         $subs = &$data[$sectionKey];
                         foreach ($subKeys as $subKey) {
@@ -92,9 +92,9 @@ class Config
      */
     public function loadConfig($config)
     {
-        if (is_string($config)) {
-            if (is_file($config)) {
-                $ext = substr($config, strlen($config) - 4);
+        if (\is_string($config)) {
+            if (\is_file($config)) {
+                $ext = \substr($config, strlen($config) - 4);
                 if ($ext === '.ini') {
                     $config = self::parseIniFile($config);
                 }
@@ -105,8 +105,8 @@ class Config
                 exit($config . '文件不存在');
             }
         }
-        if (is_array($config)) {
-            $this->g_config = array_merge(require LINGER_ROOT . '/Conf/config.php', $config);
+        if (\is_array($config)) {
+            $this->g_config = \array_merge(require LINGER_ROOT . '/Conf/config.php', $config);
         } else {
             exit('请传入正确的配置文件或配置数组');
         }
@@ -127,10 +127,10 @@ class Config
         if (empty($key)) {
             return $this->g_config;
         }
-        $key = strtolower($key);
-        if (strpos($key, '.')) {
+        $key = \strtolower($key);
+        if (\strpos($key, '.')) {
             $val = $this->g_config;
-            $keys = explode('.', $key);
+            $keys = \explode('.', $key);
             foreach ($keys as $key) {
                 if (isset($val[$key])) {
                     $val = $val[$key];
@@ -154,7 +154,7 @@ class Config
         if (empty($val)) {
             $this->g_config = self::changeArrayKeyCase($key);
         } else {
-            $key = strtolower($key);
+            $key = \strtolower($key);
             $this->g_config[$key] = $val;
         }
     }

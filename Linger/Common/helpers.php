@@ -149,27 +149,6 @@ if (!function_exists('M')) {
     }
 }
 
-if (!function_exists('error')) {
-
-    /**
-     * response error page.
-     *
-     * @param string $message
-     * @param array  $trace
-     * @param string $type
-     */
-    function error($message, $trace, $type = 'Exception')
-    {
-        if (C('DEBUG')) {
-            $time = microtime(TRUE) - App::$start;
-            include C('TMPL_ACTION_ERROR');
-            exit;
-        } else {
-            exit($message);
-        }
-    }
-}
-
 if (!function_exists('_404')) {
 
     /**
@@ -182,7 +161,7 @@ if (!function_exists('_404')) {
     function _404($showPage = FALSE)
     {
         if (!$showPage) {
-            $response = App::factory('Linger\\Core\\Response');
+            $response = app()->getResponse();
             $response->code(404);
             $response->send();
         } else {
@@ -205,7 +184,7 @@ if (!function_exists('_403')) {
     function _403($showPage = FALSE)
     {
         if (!$showPage) {
-            $response = App::factory('Linger\\Core\\Response');
+            $response = app()->getResponse();
             $response->code(403);
             $response->send();
         } else {

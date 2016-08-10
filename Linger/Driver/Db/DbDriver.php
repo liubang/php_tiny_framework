@@ -24,12 +24,12 @@ abstract class DbDriver
     /**
      * @var string
      */
-    protected $linkId = null;
+    protected $linkId = NULL;
 
     /**
      * @var \PDOStatement
      */
-    protected $PDOStatement = null;
+    protected $PDOStatement = NULL;
 
     /**
      * @var int[]
@@ -49,7 +49,7 @@ abstract class DbDriver
     /**
      * @var int
      */
-    protected $lastInsertId = null;
+    protected $lastInsertId = NULL;
 
     /**
      * @var int
@@ -95,7 +95,7 @@ abstract class DbDriver
         PDO::ATTR_CASE              => PDO::CASE_LOWER,
         PDO::ATTR_ERRMODE           => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_ORACLE_NULLS      => PDO::NULL_NATURAL,
-        PDO::ATTR_STRINGIFY_FETCHES => false,
+        PDO::ATTR_STRINGIFY_FETCHES => FALSE,
     ];
 
     /**
@@ -115,7 +115,7 @@ abstract class DbDriver
      */
     public function __construct($config = [])
     {
-        if (! empty($config)) {
+        if (!empty($config)) {
             $this->config = array_merge($this->config, $config);
             if (is_array($this->config['db_params'])) {
                 $this->options = $this->config['db_params'] + $this->options;
@@ -125,11 +125,12 @@ abstract class DbDriver
 
     /**
      * @param array $config
+     *
      * @return $this
      */
     public function connect($config = [])
     {
-        if (! empty($config)) {
+        if (!empty($config)) {
             $this->config = array_merge($this->config, $config);
             if (is_array($this->config['db_params'])) {
                 $this->options = $this->config['db_params'] + $this->options;
@@ -141,7 +142,7 @@ abstract class DbDriver
         }
 
         if (version_compare(PHP_VERSION, '5.3.6', '<=')) {
-            $this->options[PDO::ATTR_EMULATE_PREPARES] = false;
+            $this->options[PDO::ATTR_EMULATE_PREPARES] = FALSE;
         }
 
         $this->linkId = md5($this->config['db_dsn'] . serialize($this->options));
@@ -161,21 +162,22 @@ abstract class DbDriver
     }
 
     /**
-     * 解析PDO连接用的dsn
+     * parse dsn
      *
      * @return string
      */
     abstract protected function parseDsn();
 
     /**
-     * 解析当前表的表结构
+     * parse structure of current table.
      *
      * @return self
      */
     abstract protected function parseTableFields();
 
     /**
-     * 每次执行完sql后，重置查询选项，避免单例模式下多次查询之间的干扰
+     * reset query options after every sql was executed or queried,
+     * avoid interference between multiple queries.
      */
     protected function resetOpt()
     {
@@ -186,15 +188,16 @@ abstract class DbDriver
             'order'  => '',
             'limit'  => '',
         ];
-        if (isset($this->tableFields[$this->linkId][$this->table]) && ! empty($this->tableFields[$this->linkId][$this->table])) {
+        if (isset($this->tableFields[$this->linkId][$this->table]) && !empty($this->tableFields[$this->linkId][$this->table])) {
             $this->opt['fields'] = $this->tableFields[$this->linkId][$this->table];
         }
     }
 
     /**
-     * 设置当前要操作的表
+     * set witch table to operate.
      *
      * @param string $table
+     *
      * @return $this
      */
     public function forTable($table)
@@ -205,37 +208,38 @@ abstract class DbDriver
     }
 
     /**
-     * 释放资源
+     * free PDOStatement resource.
      */
     public function free()
     {
-        $this->PDOStatement = null;
+        $this->PDOStatement = NULL;
     }
 
     /**
-     * 执行查询sql
+     * query sql
      *
      * @param string $sql
+     *
      * @return array|bool
      */
     public function query($sql)
     {
-        if (! $this->linkId) {
-            return false;
+        if (!$this->linkId) {
+            return FALSE;
         }
         $this->sql = $sql;
-        if (! empty($this->bind)) {
+        if (!empty($this->bind)) {
             $this->sql = strtr($this->sql, array_map(function ($val) {
                 return '\'' . addslashes($val) . '\'';
             }, $this->bind));
         }
-        if (! empty($this->PDOStatement)) {
+        if (!empty($this->PDOStatement)) {
             $this->free();
         }
         $this->PDOStatement = $this->links[$this->linkId]->prepare($sql);
-        if (false === $this->PDOStatement) {
-            error($this->PDOStatement->errorInfo(),[]);
-            return false;
+        if (FALSE === $this->PDOStatement) {
+            \Linger\Core\Exception::error($this->PDOStatement->errorInfo(), []);
+            return FALSE;
         }
         foreach ($this->bind as $key => $value) {
             if (is_array($value)) {
@@ -248,42 +252,43 @@ abstract class DbDriver
         try {
             $result = $this->PDOStatement->execute();
             $this->resetOpt();
-            if (false === $result) {
-                error($this->PDOStatement->errorInfo(),[]);
-                return false;
+            if (FALSE === $result) {
+                \Linger\Core\Exception::error($this->PDOStatement->errorInfo(), []);
+                return FALSE;
             } else {
                 return $this->getResult();
             }
         } catch (\PDOException $e) {
-            error($e->getMessage(), $e->getTrace());
-            return false;
+            \Linger\Core\Exception::error($e->getMessage(), $e->getTrace());
+            return FALSE;
         }
     }
 
     /**
-     * 执行插入，修改，删除sql
+     * execute sql
      *
      * @param string $sql
+     *
      * @return bool|int|string
      */
     public function execute($sql)
     {
-        if (! $this->linkId) {
-            return false;
+        if (!$this->linkId) {
+            return FALSE;
         }
         $this->sql = $sql;
-        if (! empty($this->bind)) {
+        if (!empty($this->bind)) {
             $this->sql = strtr($this->sql, array_map(function ($val) {
                 return '\'' . addslashes($val) . '\'';
             }, $this->bind));
         }
-        if (! empty($this->PDOStatement)) {
+        if (!empty($this->PDOStatement)) {
             $this->free();
         }
         $this->PDOStatement = $this->links[$this->linkId]->prepare($sql);
-        if (false === $this->PDOStatement) {
-            error($this->PDOStatement->errorInfo(),[]);
-            return false;
+        if (FALSE === $this->PDOStatement) {
+            \Linger\Core\Exception::error($this->PDOStatement->errorInfo(), []);
+            return FALSE;
         }
         foreach ($this->bind as $key => $value) {
             if (is_array($value)) {
@@ -296,9 +301,9 @@ abstract class DbDriver
         try {
             $result = $this->PDOStatement->execute();
             $this->resetOpt();
-            if (false === $result) {
-                error($this->PDOStatement->errorInfo(),[]);
-                return false;
+            if (FALSE === $result) {
+                \Linger\Core\Exception::error($this->PDOStatement->errorInfo(), []);
+                return FALSE;
             } else {
                 $this->affectedRows = $this->PDOStatement->rowCount();
                 if (preg_match('/^\s*(INSERT\s+INTO|REPLACE\s+INTO)\s+/i', $sql)) {
@@ -308,30 +313,30 @@ abstract class DbDriver
                 return $this->affectedRows;
             }
         } catch (\PDOException $e) {
-            error($e->getMessage(), $e->getTrace());
-            return false;
+            \Linger\Core\Exception::error($e->getMessage(), $e->getTrace());
+            return FALSE;
         }
     }
 
     /**
-     * 开启事务
+     * start transaction
      *
      * @return bool
      */
     public function startTrans()
     {
-        if (! $this->linkId) {
-            return false;
+        if (!$this->linkId) {
+            return FALSE;
         }
         if (0 === $this->trans[$this->linkId]) {
             $this->links[$this->linkId]->beginTransaction();
         }
         $this->trans[$this->linkId] = 1;
-        return true;
+        return TRUE;
     }
 
     /**
-     * 提交事务
+     * commit transaction
      *
      * @return bool
      */
@@ -341,15 +346,15 @@ abstract class DbDriver
             try {
                 $this->links[$this->linkId]->commit();
             } catch (\Exception $e) {
-                error($e->getMessage(), $e->getTrace());
+                \Linger\Core\Exception::error($e->getMessage(), $e->getTrace());
             }
             $this->trans[$this->linkId] = 0;
         }
-        return true;
+        return TRUE;
     }
 
     /**
-     * 回滚事务
+     * rollback transaction
      *
      * @return bool
      */
@@ -359,15 +364,15 @@ abstract class DbDriver
             try {
                 $this->links[$this->linkId]->rollBack();
             } catch (\Exception $e) {
-                error($e->getMessage(), $e->getTrace());
+                \Linger\Core\Exception::error($e->getMessage(), $e->getTrace());
             }
             $this->trans[$this->linkId] = 0;
         }
-        return true;
+        return TRUE;
     }
 
     /**
-     * 获取查询结果
+     * get query set
      *
      * @return array
      */
@@ -382,12 +387,12 @@ abstract class DbDriver
      */
     public function close()
     {
-        $this->links[$this->linkId] = null;
-        $this->linkId = null;
+        $this->links[$this->linkId] = NULL;
+        $this->linkId = NULL;
     }
 
     /**
-     * 绑定sql预处理变量
+     * binding preprocessing variables.
      *
      * @param string $key
      * @param mix    $val
@@ -398,9 +403,10 @@ abstract class DbDriver
     }
 
     /**
-     * 添加数据
+     * add data to table
      *
      * @param array $data
+     *
      * @return bool|int|string
      */
     public function add($data = array())
@@ -409,7 +415,7 @@ abstract class DbDriver
         $values = '';
         if (empty($data)) {
             if (empty($this->bind)) {
-                return false;
+                return FALSE;
             }
             $values = implode(',', array_keys($this->bind));
             $keys = preg_replace("/:/", '', $values);
@@ -424,9 +430,10 @@ abstract class DbDriver
     }
 
     /**
-     * 更新数据
+     * update data from table
      *
      * @param array $data
+     *
      * @return bool|int|string
      */
     public function update($data = array())
@@ -434,7 +441,7 @@ abstract class DbDriver
         $str = '';
         if (empty($data)) {
             if (empty($this->bind)) {
-                return false;
+                return FALSE;
             }
             $keys = array_keys($this->bind);
             foreach ($keys as $k => $v) {
@@ -453,14 +460,15 @@ abstract class DbDriver
     }
 
     /**
-     * 删除数据
+     * delete data from table
      *
      * @param string $where
+     *
      * @return bool|int|string
      */
     public function delete($where = '')
     {
-        if (! empty($where)) {
+        if (!empty($where)) {
             $this->where($where);
         }
         $sql = 'DELETE FROM ' . $this->table
@@ -470,18 +478,19 @@ abstract class DbDriver
     }
 
     /**
-     * 获取一行数据
+     * get a row of data
      *
      * @param string $field
      * @param string $where
+     *
      * @return array|bool|mixed
      */
     public function getRow($field = '', $where = '')
     {
-        if (! empty($field)) {
+        if (!empty($field)) {
             $this->fields($field);
         }
-        if (! empty($where)) {
+        if (!empty($where)) {
             $this->where($where);
         }
         $this->opt['limit'] = ' LIMIT 1 ';
@@ -491,34 +500,35 @@ abstract class DbDriver
 
         $result = $this->query($sql);
 
-        if (false !== $result) {
+        if (FALSE !== $result) {
             if (empty($result)) {
                 return array();
             } else {
                 return $result[0];
             }
         }
-        return false;
+        return FALSE;
     }
 
     /**
-     * 获取一个字段数据
+     * get a field of data
      *
      * @param string $field
      * @param string $where
+     *
      * @return array|bool
      */
     public function getOne($field = '', $where = '')
     {
-        if (! empty($field)) {
+        if (!empty($field)) {
             $this->fields($field);
         }
-        if (! empty($where)) {
+        if (!empty($where)) {
             $this->where($where);
         }
         if (stripos($this->opt['fields'], ',')) {
-            error('This method can only query a field, but a number of fields are presented.', []);
-            return false;
+            \Linger\Core\Exception::error('This method can only query a field, but a number of fields are presented.', []);
+            return FALSE;
         }
         $this->opt['limit'] = ' LIMIT 1 ';
         $sql = 'SELECT ' . $this->opt['fields'] . ' FROM ' . $this->table
@@ -527,33 +537,34 @@ abstract class DbDriver
             . $this->opt['order']
             . $this->opt['limit'];
         $result = $this->query($sql);
-        if (false !== $result) {
+        if (FALSE !== $result) {
             if (empty($result)) {
                 return array();
             } else {
                 return $result[0][$this->opt['fields']];
             }
         }
-        return false;
+        return FALSE;
     }
 
     /**
-     * 获取所有满足条件的数据
+     * get all data that meets the conditions.
      *
      * @param string $field
      * @param string $where
      * @param string $limit
+     *
      * @return array|bool
      */
     public function getAll($field = '', $where = '', $limit = '')
     {
-        if (! empty($field)) {
+        if (!empty($field)) {
             $this->fields($field);
         }
-        if (! empty($where)) {
+        if (!empty($where)) {
             $this->where($where);
         }
-        if (! empty($limit)) {
+        if (!empty($limit)) {
             $this->limit($limit);
         }
         $sql = 'SELECT ' . $this->opt['fields'] . ' FROM ' . $this->table
@@ -568,6 +579,7 @@ abstract class DbDriver
      * set query fields
      *
      * @param $arr
+     *
      * @return $this
      */
     public function fields($arr)
@@ -591,9 +603,10 @@ abstract class DbDriver
     }
 
     /**
-     * 设置查询limit
+     * set limit condition
      *
      * @param $limit
+     *
      * @return $this
      */
     public function limit($limit)
@@ -607,9 +620,10 @@ abstract class DbDriver
     }
 
     /**
-     * 设置查询order
+     * set order condition
      *
      * @param $order
+     *
      * @return $this
      */
     public function order($order)
@@ -630,9 +644,10 @@ abstract class DbDriver
     }
 
     /**
-     * 设置查询group
+     * set group by condition
      *
      * @param $group
+     *
      * @return $this
      */
     public function group($group)
@@ -647,9 +662,10 @@ abstract class DbDriver
     }
 
     /**
-     * 设置查询where
+     * set where condition
      *
      * @param $where
+     *
      * @return $this
      */
     public function where($where)
@@ -674,20 +690,20 @@ abstract class DbDriver
     }
 
     /**
-     * 获取当前连接的PDO实例
+     * get current linked  PDO resource
      *
      * @return null|PDO
      */
     public function getDb()
     {
-        if (! $this->linkId) {
+        if (!$this->linkId) {
             return $this->links[$this->linkId];
         }
-        return null;
+        return NULL;
     }
 
     /**
-     * 打印调试信息
+     * print debug info
      */
     public function debug()
     {
@@ -695,12 +711,10 @@ abstract class DbDriver
         echo '执行语句为：' . $this->sql . '<br />';
     }
 
-    /**
-     * 析构函数
-     */
+
     public function __destruct()
     {
-        if (! empty($this->PDOStatement)) {
+        if (!empty($this->PDOStatement)) {
             $this->free();
         }
         $this->close();

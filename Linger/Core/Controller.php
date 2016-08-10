@@ -1,8 +1,7 @@
 <?php
 /*
  |------------------------------------------------------------------
- | controller 基类,所有的自定义controller都要继承该类
- | 主要将一些链式调用做了简化
+ | linger.iliubang.cn
  |------------------------------------------------------------------
  | @author    : liubang 
  | @date      : 16/3/24 上午12:01
@@ -13,7 +12,7 @@
 
 namespace Linger\Core;
 
-class Controller
+abstract class Controller
 {
     /**
      * @var \Linger\Core\View
