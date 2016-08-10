@@ -21,15 +21,8 @@ class Controller
     protected $view = null;
 
     /**
-     * @var \Linger\Core\Request
+     * Controller constructor.
      */
-    protected $request = null;
-
-    /**
-     * @var \Linger\Core\Response
-     */
-    protected $response = null;
-
     public function __construct()
     {
         if (method_exists($this, '_init')) {
@@ -37,11 +30,10 @@ class Controller
         }
     }
 
+
     protected function _init()
     {
         $this->view = new View();
-        $this->request = App::factory('Linger\\Core\\Request');
-        $this->response = App::factory('Linger\\Core\\Response');
     }
 
     /**
@@ -102,7 +94,7 @@ class Controller
      */
     public function getRequest()
     {
-        return $this->request;
+        return app()->getRequest();
     }
 
     /**
@@ -110,7 +102,7 @@ class Controller
      */
     public function getResponse()
     {
-        return $this->response;
+        return app()->getResponse();
     }
 
     /**
@@ -121,7 +113,7 @@ class Controller
      */
     public function get($key = '', $callable = 'htmlspecialchars', $default = null)
     {
-        return $this->request->get($key, $callable, $default);
+        return app()->getRequest()->get($key, $callable, $default);
     }
 
     /**
@@ -132,7 +124,7 @@ class Controller
      */
     public function post($key = '', $callable = 'htmlspecialchars', $default = null)
     {
-        return $this->request->post($key, $callable, $default);
+        return app()->getRequest()->post($key, $callable, $default);
     }
 
     /**
@@ -143,7 +135,7 @@ class Controller
      */
     public function request($key = '', $callable = 'htmlspecialchars', $default = null)
     {
-        return $this->request->request($key, $callable, $default);
+        return app()->getRequest()->request($key, $callable, $default);
     }
 
 }

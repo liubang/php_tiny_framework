@@ -14,52 +14,15 @@ namespace Linger\Core;
 
 class Dispatcher
 {
-    /**
-     * @var self
-     */
-    private static $ins = null;
-
-    /**
-     * @var Router|null
-     */
-    private $route = null;
-
-    /**
-     * @var \Linger\Core\Response
-     */
-    private $response = null;
-
-    /**
-     * @var Registry|null
-     */
-    private $registry = null;
-
-    /**
-     * @var Request|null
-     */
-    private $request = null;
 
     /**
      * Dispatcher constructor.
      */
     public function __construct()
     {
-        $this->request = App::factory('Linger\\Core\\Request');
-        $this->route = App::factory('Linger\\Core\\Router');
-        $this->response = App::factory('Linger\\Core\\Response');
-        $this->registry = App::factory('Linger\\Core\\Registry');
+
     }
 
-    /**
-     * @return Dispatcher
-     */
-    public static function getInstance()
-    {
-        if (null === self::$ins) {
-            self::$ins = new self();
-        }
-        return self::$ins;
-    }
 
     /**
      * 分发请求
@@ -74,7 +37,7 @@ class Dispatcher
         /**
          * parse request uri and route
          */
-        $this->route->parseUri();
+        app()->getRouter()->parseUri();
 
         /**
          * call routerShutdown plugins
@@ -92,19 +55,19 @@ class Dispatcher
 
         $class = MODULE . '\\controller\\' . CONTROLLER;
 
-        if (! class_exists($class)) {
+        if (!class_exists($class)) {
             _404(SHOW_404_PAGE);
         }
 
         $allowModule = C('MODULE_ALLOW_LIST');
 
-        if (! in_array(MODULE, $allowModule)) {
+        if (!in_array(MODULE, $allowModule)) {
             _403(SHOW_403_PAGE);
         }
 
         $controllerObj = new $class();
 
-        if (! method_exists($controllerObj, ACTION)) {
+        if (!method_exists($controllerObj, ACTION)) {
             _404(SHOW_404_PAGE);
         }
 
@@ -122,33 +85,34 @@ class Dispatcher
     public function registerPlugin($plugin)
     {
         if (is_subclass_of($plugin, '\\Linger\\Core\\Plugin')) {
-            $this->registry->set('plugins', $plugin, Registry::REGIST_ARR);
+            app()->getRegistry()->set('plugins', $plugin, Registry::REGIST_ARR);
         }
     }
 
     /**
      * run plugins
      *
-     * @param      $level
-     * @param null $plugin
+     * @param string $level
+     * @param null   $plugin
+     *
      * @return bool
      */
-    private function callPlugins($level, $plugin = null)
+    private function callPlugins($level, $plugin = NULL)
     {
-        $plugins = $this->registry->get('plugins');
+        $plugins = app()->getRegistry()->get('plugins');
 
-        if (! empty($plugins)) {
-            if (! empty($plugin)) {
+        if (!empty($plugins)) {
+            if (!empty($plugin)) {
                 if (isset($plugins[$plugin])) {
-                    $plugins[$plugin]->$level($this->request, $this->response);
+                    $plugins[$plugin]->$level(app()->getRequest(), app()->getResponse());
                 }
             } else {
                 foreach ($plugins as $plugin) {
-                    $plugin->$level($this->request, $this->response);
+                    $plugin->$level(app()->getRequest(), app()->getResponse());
                 }
             }
         }
 
-        return true;
+        return TRUE;
     }
 }

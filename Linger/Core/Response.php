@@ -39,18 +39,11 @@ class Response
      */
     private $sent = false;
 
-
-    /**
-     * @var Config|null
-     */
-    private $config = null;
-
     /**
      * Response constructor.
      */
     public function __construct()
     {
-        $this->config = App::factory("Linger\\Core\\Config");
     }
 
 
@@ -198,7 +191,7 @@ class Response
     }
 
     /**
-     * @param null $body
+     * @param null|String $body
      * @return $this|string
      */
     public function body($body = null)
@@ -213,8 +206,8 @@ class Response
     /**
      * to set the header
      *
-     * @param $key
-     * @param $value
+     * @param String $key
+     * @param String $value
      * @return $this
      */
     public function header($key, $value)

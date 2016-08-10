@@ -20,18 +20,14 @@ class Config
      * @var array
      */
     private $g_config = array();
-//
-//    /**
-//     * @var self|null
-//     */
-//    private static $ins = null;
 
-    /**
-     * Config constructor.
-     */
-    public function __construct()
+
+
+    public function __construct($config = NULL)
     {
-
+        if (NULL !== $config) {
+            $this->loadConfig($config);
+        }
     }
 
     /**
@@ -119,17 +115,6 @@ class Config
 
         return $this;
     }
-//
-//    /**
-//     * @return Config|null
-//     */
-//    public static function getInstance()
-//    {
-//        if (null === self::$ins) {
-//            self::$ins = new self();
-//        }
-//        return self::$ins;
-//    }
 
     /**
      * 获取配置项目
@@ -137,7 +122,7 @@ class Config
      * @param string $key
      * @return array
      */
-    public function getConfig($key = '')
+    public function get($key = '')
     {
         if (empty($key)) {
             return $this->g_config;
@@ -164,7 +149,7 @@ class Config
      * @param string $key
      * @param string $val
      */
-    public function setConfig($key, $val = '')
+    public function set($key, $val = '')
     {
         if (empty($val)) {
             $this->g_config = self::changeArrayKeyCase($key);

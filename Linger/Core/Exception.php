@@ -14,19 +14,12 @@ namespace Linger\Core;
 
 class Exception
 {
-    /**
-     * @var Response|null
-     */
-    private $response = null;
 
     /**
      * Exception constructor.
      */
     public function __construct()
     {
-        // get instance
-        $this->response = App::factory('Linger\\Core\\Response');
-
         // set custom exception handler
         set_exception_handler(array($this, 'appException'));
 

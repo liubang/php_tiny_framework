@@ -26,18 +26,21 @@ class Router
      */
     private $uri = '';
 
-    /**
-     * @var \Linger\Core\Request
-     */
-    private $request = NULL;
 
     /**
      * Router constructor.
      */
     public function __construct()
     {
+    }
+
+
+    /**
+     * init route rules.
+     */
+    public function iniRoute()
+    {
         $this->roules = C('ROUTE');
-        $this->request = App::factory('Linger\\Core\\Request');
     }
 
     /**
@@ -54,7 +57,7 @@ class Router
 
             $this->uri = trim(str_replace('index.php', '', $_SERVER['REQUEST_URI']), '/');
 
-            if (! empty($this->roules)) {
+            if (!empty($this->roules)) {
                 foreach ($this->roules as $key => $value) {
                     if (preg_match('#' . $key . '#', $this->uri)) {
                         $this->uri = preg_replace('#' . $key . '#', $value, $this->uri);
@@ -62,7 +65,7 @@ class Router
                 }
             }
 
-            if (! empty($this->uri)) {
+            if (!empty($this->uri)) {
                 // 404
                 if (strpos($this->uri, '.')) {
                     _404(SHOW_404_PAGE);
@@ -87,7 +90,7 @@ class Router
                     _404(SHOW_404_PAGE);
                 } else {
                     foreach ($req as $key => $val) {
-                        $this->request->add('get', $key, $val);
+                        app()->getRequest()->add('get', $key, $val);
                     }
                 }
             }
@@ -110,7 +113,7 @@ class Router
             unset($req[$m]);
             unset($req[$c]);
             unset($req[$a]);
-            $this->request->add('get', $req);
+            app()->getRequest()->add('get', $req);
         }
         return $this;
     }
