@@ -13,7 +13,7 @@
 
 namespace Linger\Core;
 
-class Controller
+abstract class Controller
 {
     /**
      * @var \Linger\Core\View
