@@ -30,6 +30,9 @@ class IndexController extends Controller
         $this->assign('arr', $arr);
         $this->assign('flag', true);
         $this->assign('time', time());
+        _403(true);
+//        $this->getResponse()->code('500');
+//        $this->getResponse()->header('liubang', 'hh');
         $this->display();
     }
 }

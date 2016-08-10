@@ -182,7 +182,7 @@ if (!function_exists('_404')) {
     function _404($showPage = FALSE)
     {
         if (!$showPage) {
-            $response = App::factory('Linger\\Core\\Response');
+            $response = app()->getResponse();
             $response->code(404);
             $response->send();
         } else {
@@ -205,7 +205,7 @@ if (!function_exists('_403')) {
     function _403($showPage = FALSE)
     {
         if (!$showPage) {
-            $response = App::factory('Linger\\Core\\Response');
+            $response = app()->getResponse();
             $response->code(403);
             $response->send();
         } else {
