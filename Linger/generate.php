@@ -55,7 +55,7 @@ function initDirAndFiles($basedir, $arr)
         if (is_string($val)) {
             if (false !== strpos($val, '.')) {
                 mkdir(realpath(dirname($file)), 0777, true);
-                
+
             }
         }
     }
