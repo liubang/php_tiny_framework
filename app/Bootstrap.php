@@ -16,10 +16,10 @@ namespace app;
 
 class Bootstrap
 {
-//    public function _initSession(\Linger\Core\Dispatcher $dispatcher)
-//    {
-//        session_start();
-//    }
+    public function _initSession(\Linger\Core\Dispatcher $dispatcher)
+    {
+        session_start();
+    }
 //
 //    public function _initPlugin(\Linger\Core\Dispatcher $dispatcher)
 //    {

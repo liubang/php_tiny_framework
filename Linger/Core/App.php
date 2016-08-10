@@ -20,6 +20,11 @@ class App
     public static $start;
 
     /**
+     * @var \Linger\Core\*[]
+     */
+    private static $_ins = [];
+
+    /**
      * @var Exception|null
      */
     private $exception = NULL;
@@ -28,11 +33,6 @@ class App
      * @var Router
      */
     private $router = NULL;
-
-    /**
-     * @var \Linger\Core\*[]
-     */
-    private static $_ins = [];
 
     /**
      * @var \app\Bootstrap
