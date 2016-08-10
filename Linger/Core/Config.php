@@ -122,7 +122,7 @@ class Config
      * @param string $key
      * @return array
      */
-    public function getConfig($key = '')
+    public function get($key = '')
     {
         if (empty($key)) {
             return $this->g_config;
@@ -149,7 +149,7 @@ class Config
      * @param string $key
      * @param string $val
      */
-    public function setConfig($key, $val = '')
+    public function set($key, $val = '')
     {
         if (empty($val)) {
             $this->g_config = self::changeArrayKeyCase($key);

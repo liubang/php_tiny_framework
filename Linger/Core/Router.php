@@ -26,18 +26,21 @@ class Router
      */
     private $uri = '';
 
-    /**
-     * @var \Linger\Core\Request
-     */
-    private $request = NULL;
 
     /**
      * Router constructor.
      */
     public function __construct()
     {
+    }
+
+
+    /**
+     * init route rules.
+     */
+    public function iniRoute()
+    {
         $this->roules = C('ROUTE');
-        $this->request = App::factory('Linger\\Core\\Request');
     }
 
     /**
@@ -87,7 +90,7 @@ class Router
                     _404(SHOW_404_PAGE);
                 } else {
                     foreach ($req as $key => $val) {
-                        $this->request->add('get', $key, $val);
+                        app()->getRequest()->add('get', $key, $val);
                     }
                 }
             }
@@ -110,7 +113,7 @@ class Router
             unset($req[$m]);
             unset($req[$c]);
             unset($req[$a]);
-            $this->request->add('get', $req);
+            app()->getRequest()->add('get', $req);
         }
         return $this;
     }

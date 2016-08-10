@@ -25,15 +25,7 @@ if (!function_exists('app')) {
      */
     function app($config = NULL)
     {
-        static $g_app = NULL;
-
-        if (NULL === $g_app) {
-            if (NULL === $config) {
-                return NULL;
-            }
-            $g_app = App::factory('Linger\\Core\\App', [$config]);
-        }
-        return $g_app;
+        return App::factory('Linger\\Core\\App', $config);
     }
 }
 
@@ -106,13 +98,17 @@ if (!function_exists('C')) {
      */
     function C($key = NULL, $val = NULL)
     {
-        $config = App::factory("Linger\\Core\\Config");
+        /**
+         * @var \Linger\Core\Router
+         */
+        $config = app()->getConfig();
+
         if (NULL === $key) {
-            return $config->getConfig();
+            return $config->get();
         } elseif (NULL === $val) {
-            return $config->getConfig($key);
+            return $config->get($key);
         } else {
-            $config->setConfig($key, $val);
+            $config->set($key, $val);
         }
     }
 }

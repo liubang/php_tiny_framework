@@ -23,11 +23,6 @@ class View
     protected $viewObj = null;
 
     /**
-     * @var Response|null
-     */
-    private $response = null;
-
-    /**
      * View constructor.
      *
      * @param null   $viewClass
@@ -35,8 +30,6 @@ class View
      */
     public function __construct($tmplPath = '', $viewClass = null)
     {
-        $this->response = App::factory('Linger\\Core\\Response');
-
         if (is_null($viewClass)) {
             $viewDriver = C('VIEW_DRIVER');
             if ('simple' === $viewDriver) {
@@ -79,9 +72,9 @@ class View
     public function display($tplFile, $cacheTime = -1, $cachePath = null, $contentType = 'text/html', $show = false)
     {
         $content = $this->viewObj->display($tplFile, $cacheTime, $cachePath, $contentType, $show);
-        $this->response->header('Content-Type', $contentType);
-        $this->response->code('200');
-        $this->response->body($content);
+        app()->getResponse()->header('Content-Type', $contentType);
+        app()->getResponse()->code('200');
+        app()->getResponse()->body($content);
         return $this;
     }
 

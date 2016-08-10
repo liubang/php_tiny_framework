@@ -39,18 +39,11 @@ class Response
      */
     private $sent = false;
 
-
-    /**
-     * @var Config|null
-     */
-    private $config = null;
-
     /**
      * Response constructor.
      */
     public function __construct()
     {
-        $this->config = App::factory("Linger\\Core\\Config");
     }
 
 

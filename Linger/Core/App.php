@@ -67,7 +67,7 @@ class App
     public function __construct($config)
     {
         self::$start = microtime(TRUE);
-        $this->config = self::factory("Linger\\Core\\Config", [$config]);
+        $this->config = self::factory("Linger\\Core\\Config", $config);
         $this->exception = self::factory("Linger\\Core\\Exception");
         $this->registry = self::factory("Linger\\Core\\Registry");
         $this->request = self::factory("Linger\\Core\\Request");
@@ -76,6 +76,65 @@ class App
         $this->response = self::factory("Linger\\Core\\Response");
     }
 
+    /**
+     * get config
+     *
+     * @return mixed
+     */
+    public function getConfig()
+    {
+        return $this->config;
+    }
+
+    /**
+     * get request
+     *
+     * @return Request|mixed
+     */
+    public function getRequest()
+    {
+        return $this->request;
+    }
+
+    /**
+     * get response
+     *
+     * @return Response|mixed
+     */
+    public function getResponse()
+    {
+        return $this->response;
+    }
+
+    /**
+     * get dispatcher
+     *
+     * @return Dispatcher|mixed
+     */
+    public function getDispatcher()
+    {
+        return $this->dispatcher;
+    }
+
+    /**
+     * get router
+     *
+     * @return Router|mixed
+     */
+    public function getRouter()
+    {
+        return $this->router;
+    }
+
+    /**
+     * get registry
+     *
+     * @return Registry|mixed|null
+     */
+    public function getRegistry()
+    {
+        return $this->registry;
+    }
 
     /**
      * @param string $class
@@ -84,7 +143,7 @@ class App
      * @return mixed
      * @throws \Exception
      */
-    public static function factory($class, $args = [])
+    public static function factory($class, $args = NULL)
     {
         $key = md5($class);
         if (isset(static::$_ins[$key]) && !empty(static::$_ins[$key])) {
@@ -92,9 +151,9 @@ class App
         }
 
         if (\class_exists($class)) {
-            $c = new \ReflectionClass($class);
-            static::$_ins[$key] = $c->newInstanceArgs($args);
-            return static::$_ins[$key];
+            self::$_ins[$key] = new $class($args);
+            return self::$_ins[$key];
+
         } else {
             throw new \Exception("{$class}不存在");
             exit;
@@ -133,13 +192,16 @@ class App
      */
     public function run()
     {
-        // capture requests
+        //capture requests
         $this->request->capture();
 
-        // dispatch request
+        //init user route rules.
+        $this->router->iniRoute();
+
+        //dispatch request
         $this->dispatcher->dispatch();
 
-        //send response
+        //send response to client
         $this->response->send();
     }
 }
