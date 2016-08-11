@@ -15,6 +15,10 @@ use Linger\Core\Controller;
 
 class IndexController extends Controller
 {
+    public function _init()
+    {
+        parent::_init();
+    }
 
     public function indexAction()
     {

@@ -70,8 +70,8 @@ class Dispatcher
         if (!method_exists($controllerObj, ACTION)) {
             _404(SHOW_404_PAGE);
         }
-
-        call_user_func_array(array($controllerObj, ACTION), array());
+        $action = ACTION;
+        $controllerObj->$action();
 
         /**
          * call dispatchShutdown plugins
