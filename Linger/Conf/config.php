@@ -44,7 +44,6 @@ return [
 
     //---router config---//
     'ROUTE'               => [],
-    'URL_HTML_SUFFIX'     => '.html',
     'PLUGIN_PATH'         => APP_ROOT . '/plugin/',
     //'VIEW_DRIVER'        => 'simple',
     'VIEW_DRIVER'         => 'linger',
