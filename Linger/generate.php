@@ -1,7 +1,6 @@
 #!/usr/bin/env php
 <?php
 
-
 function parseParams($arr)
 {
     $res = [];
@@ -90,7 +89,7 @@ PHP;
 $home_controller_indexcontroller_php = <<<PHP
 <?php
 namespace home\controller;
-use Linger\Core\Controller;
+use Linger\Kernel\Controller;
 
 class IndexController extends Controller
 {
@@ -110,7 +109,7 @@ $model_indexmodel_php = <<<PHP
 <?php
 namespace model;
 
-use Linger\Core\Model;
+use Linger\Kernel\Model;
 
 class IndexModel extends Model
 {
@@ -128,7 +127,7 @@ namespace {$params['app_name']};
 
 class Bootstrap
 {
-    public function _initSession(\Linger\Core\Dispatcher \$dispatcher)
+    public function _initSession(\Linger\Kernel\Dispatcher \$dispatcher)
     {
         session_start();
     }

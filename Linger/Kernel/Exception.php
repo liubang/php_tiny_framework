@@ -10,7 +10,7 @@
  |------------------------------------------------------------------
  */
 
-namespace Linger\Core;
+namespace Linger\Kernel;
 
 class Exception
 {
@@ -93,7 +93,7 @@ class Exception
                 break;
             case E_WARNING:
             case E_COMPILE_WARNING:
-            case E_CORE_WARNING:
+            case E_Kernel_WARNING:
                 self::error($message, [], 'System Warning');
                 break;
             case E_USER_WARNING:
@@ -104,7 +104,7 @@ class Exception
                 break;
             case E_ERROR:
             case E_COMPILE_ERROR:
-            case E_CORE_ERROR:
+            case E_Kernel_ERROR:
             default :
                 self::error($message, [], 'System Error');
                 break;

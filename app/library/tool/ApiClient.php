@@ -21,9 +21,11 @@ class ApiClient
         $this->server = $server;
     }
 
+
     /**
-     * 取得签名
-     * @param  $params 接口调用时的参数
+     * @param $params
+     *
+     * @return string
      */
     protected function getSign($params)
     {

@@ -11,7 +11,7 @@
  */
 
 namespace home\controller;
-use Linger\Core\Controller;
+use Linger\Kernel\Controller;
 
 class IndexController extends Controller
 {

@@ -238,7 +238,7 @@ abstract class DbDriver
         }
         $this->PDOStatement = $this->links[$this->linkId]->prepare($sql);
         if (FALSE === $this->PDOStatement) {
-            \Linger\Core\Exception::error($this->PDOStatement->errorInfo(), []);
+            \Linger\Kernel\Exception::error($this->PDOStatement->errorInfo(), []);
             return FALSE;
         }
         foreach ($this->bind as $key => $value) {
@@ -253,13 +253,13 @@ abstract class DbDriver
             $result = $this->PDOStatement->execute();
             $this->resetOpt();
             if (FALSE === $result) {
-                \Linger\Core\Exception::error($this->PDOStatement->errorInfo(), []);
+                \Linger\Kernel\Exception::error($this->PDOStatement->errorInfo(), []);
                 return FALSE;
             } else {
                 return $this->getResult();
             }
         } catch (\PDOException $e) {
-            \Linger\Core\Exception::error($e->getMessage(), $e->getTrace());
+            \Linger\Kernel\Exception::error($e->getMessage(), $e->getTrace());
             return FALSE;
         }
     }
@@ -287,7 +287,7 @@ abstract class DbDriver
         }
         $this->PDOStatement = $this->links[$this->linkId]->prepare($sql);
         if (FALSE === $this->PDOStatement) {
-            \Linger\Core\Exception::error($this->PDOStatement->errorInfo(), []);
+            \Linger\Kernel\Exception::error($this->PDOStatement->errorInfo(), []);
             return FALSE;
         }
         foreach ($this->bind as $key => $value) {
@@ -302,7 +302,7 @@ abstract class DbDriver
             $result = $this->PDOStatement->execute();
             $this->resetOpt();
             if (FALSE === $result) {
-                \Linger\Core\Exception::error($this->PDOStatement->errorInfo(), []);
+                \Linger\Kernel\Exception::error($this->PDOStatement->errorInfo(), []);
                 return FALSE;
             } else {
                 $this->affectedRows = $this->PDOStatement->rowCount();
@@ -313,7 +313,7 @@ abstract class DbDriver
                 return $this->affectedRows;
             }
         } catch (\PDOException $e) {
-            \Linger\Core\Exception::error($e->getMessage(), $e->getTrace());
+            \Linger\Kernel\Exception::error($e->getMessage(), $e->getTrace());
             return FALSE;
         }
     }
@@ -346,7 +346,7 @@ abstract class DbDriver
             try {
                 $this->links[$this->linkId]->commit();
             } catch (\Exception $e) {
-                \Linger\Core\Exception::error($e->getMessage(), $e->getTrace());
+                \Linger\Kernel\Exception::error($e->getMessage(), $e->getTrace());
             }
             $this->trans[$this->linkId] = 0;
         }
@@ -364,7 +364,7 @@ abstract class DbDriver
             try {
                 $this->links[$this->linkId]->rollBack();
             } catch (\Exception $e) {
-                \Linger\Core\Exception::error($e->getMessage(), $e->getTrace());
+                \Linger\Kernel\Exception::error($e->getMessage(), $e->getTrace());
             }
             $this->trans[$this->linkId] = 0;
         }
@@ -527,7 +527,7 @@ abstract class DbDriver
             $this->where($where);
         }
         if (stripos($this->opt['fields'], ',')) {
-            \Linger\Core\Exception::error('This method can only query a field, but a number of fields are presented.', []);
+            \Linger\Kernel\Exception::error('This method can only query a field, but a number of fields are presented.', []);
             return FALSE;
         }
         $this->opt['limit'] = ' LIMIT 1 ';
