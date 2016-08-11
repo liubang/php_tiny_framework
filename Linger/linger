@@ -254,6 +254,9 @@ PHP;
 
             echo PHP_EOL;
             echo "\e[32m项目初始化完成！\e[0m", PHP_EOL, PHP_EOL;
+        } else {
+            echo PHP_EOL;
+            echo "\e[31m$appPath目录没有写权限！\e[0m", PHP_EOL;
         }
     }
 }
