@@ -1,18 +1,5 @@
 #!/usr/bin/env php
 <?php
-
-$res = [];
-if (is_array($argv)) {
-    foreach($argv as $v) {
-        if (preg_match('/^\-\-([a-zA-Z_]+?)=(.*?)$/', $v, $info)) {
-            $res[$info[1]] = $info[2];
-        }
-    }
-}
-
-extract($res);
-
-
 /*
 ```
      _
@@ -24,8 +11,20 @@ extract($res);
 ```
 */
 
+
+$res = [];
+if (is_array($argv)) {
+    foreach ($argv as $v) {
+        if (preg_match('/^\-\-([a-zA-Z_]+?)=(.*?)$/', $v, $info)) {
+            $res[$info[1]] = $info[2];
+        }
+    }
+}
+
+extract($res);
+
 $d_f = [
-    'dirs' => [
+    'dirs'  => [
         $app_name . '/conf',
         $app_name . '/library/tool',
         $app_name . '/library/data',
@@ -38,13 +37,13 @@ $d_f = [
         'public/images',
     ],
     'files' => [
-        $app_name . '/Bootstrap.php' => 'bootstrap_php',
-        $app_name . '/conf/config.php' => 'config_php',
-        $app_name . '/plugin/UserPlugin.php' => 'userplugin_php',
-        $app_name . '/model/IndexModel.php' => 'indexmodel_php',
+        $app_name . '/Bootstrap.php'                              => 'bootstrap_php',
+        $app_name . '/conf/config.php'                            => 'config_php',
+        $app_name . '/plugin/UserPlugin.php'                      => 'userplugin_php',
+        $app_name . '/model/IndexModel.php'                       => 'indexmodel_php',
         $app_name . '/module/home/controller/IndexController.php' => 'indexcontroller_php',
-        $app_name . '/module/home/view/index.html' => 'index_html',
-        'public/test.php' => 'index_php',
+        $app_name . '/module/home/view/index.html'                => 'index_html',
+        'public/test.php'                                         => 'index_php',
     ]
 ];
 
@@ -231,7 +230,7 @@ if (!isset($argv[0]) || $argv[0] == '--help' || $argv[0] == '-h') {
             foreach ($d_f['dirs'] as $v) {
                 $dir = $appPath . '/' . $v;
                 echo '正在创建目录', $dir, '......', PHP_EOL;
-                if (mkdir($dir, 0777, true)) {
+                if (mkdir($dir, 0777, TRUE)) {
                     echo '创建目录', $dir, '成功！', PHP_EOL;
                 } else {
                     echo '创建目录', $dir, '失败！', PHP_EOL;
@@ -241,7 +240,7 @@ if (!isset($argv[0]) || $argv[0] == '--help' || $argv[0] == '-h') {
             foreach ($d_f['files'] as $key => $v) {
                 $file = $appPath . '/' . $key;
                 echo '正在创建文件', $file, '......', PHP_EOL;
-                if (false !== file_put_contents($file, $$v)) {
+                if (FALSE !== file_put_contents($file, $$v)) {
                     echo '创建文件', $file, '成功！', PHP_EOL;
                 } else {
                     echo '创建文件', $file, '失败！', PHP_EOL;
