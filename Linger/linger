@@ -229,26 +229,26 @@ if (!isset($argv[0]) || $argv[0] == '--help' || $argv[0] == '-h') {
         if (is_writeable($appPath)) {
             foreach ($d_f['dirs'] as $v) {
                 $dir = $appPath . '/' . $v;
-                echo '正在创建目录', $dir, '......', PHP_EOL;
+                echo "\033[34m正在创建目录\033[0m", $dir, '......', PHP_EOL;
                 if (mkdir($dir, 0777, TRUE)) {
-                    echo '创建目录', $dir, '成功！', PHP_EOL;
+                    echo "\033[34m创建目录 \033[0m", $dir, "\033[32m 成功！\033[0m", PHP_EOL;
                 } else {
-                    echo '创建目录', $dir, '失败！', PHP_EOL;
+                    echo "\033[34m创建目录 \033[0m", $dir, "\033[31m 失败！\033[0m", PHP_EOL;
                 }
             }
 
             foreach ($d_f['files'] as $key => $v) {
                 $file = $appPath . '/' . $key;
-                echo '正在创建文件', $file, '......', PHP_EOL;
+                echo "\e[34m正在创建文件\033[0m", $file, '......', PHP_EOL;
                 if (FALSE !== file_put_contents($file, $$v)) {
-                    echo '创建文件', $file, '成功！', PHP_EOL;
+                    echo "\033[34m创建文件 \033[0m", $file, "\033[32m 成功！\033[0m", PHP_EOL;
                 } else {
-                    echo '创建文件', $file, '失败！', PHP_EOL;
+                    echo "\033[34m创建文件 \033[0m", $file, "\033[31m 失败！\033[0m", PHP_EOL;
                 }
             }
 
             echo PHP_EOL;
-            echo '项目初始化完成！', PHP_EOL;
+            echo "\e[32m项目初始化完成！\e[0m", PHP_EOL, PHP_EOL;
         }
     }
 }
