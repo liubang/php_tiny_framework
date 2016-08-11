@@ -11,8 +11,6 @@
  */
 
 
-error_reporting(E_ALL);
-
 define('APP_ROOT', realpath(dirname(__FILE__) . '/../'));
 
 define('APP_NAME', 'app');

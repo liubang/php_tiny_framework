@@ -12,6 +12,8 @@
 
 namespace Linger\Kernel;
 
+use Linger\Util\Log;
+
 class Exception
 {
 
@@ -42,7 +44,13 @@ class Exception
             include $config->get('TMPL_ACTION_ERROR');
             exit;
         } else {
-            exit($message);
+            $m = $message . PHP_EOL . '----------------------' . PHP_EOL;
+            if (!empty($trace)) {
+                foreach ($trace as $val) {
+                    $m .= (isset($val['line']) ? ('[' . $val['line'] . '] ') : '') . (isset($val['file']) ? $val['file'] : '') . "\t" . (isset($val['class']) ? $val['class'] : '') . ':' . (isset($val['function']) ? $val['function'] : '') . PHP_EOL;
+                }
+            }
+            Log::writeLog('exception.log',$m, 3);
         }
     }
 

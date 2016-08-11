@@ -48,16 +48,7 @@ $dirs = [
 
 function initDirAndFiles($basedir, $arr)
 {
-    $file = $basedir;
-    foreach($arr as $val) {
-        $file .= '/' . $val;
-        if (is_string($val)) {
-            if (false !== strpos($val, '.')) {
-                mkdir(realpath(dirname($file)), 0777, true);
 
-            }
-        }
-    }
 }
 
 $config_php = <<<PHP
