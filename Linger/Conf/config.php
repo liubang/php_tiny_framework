@@ -26,6 +26,8 @@ return [
     //---system config---//
     'LINGER_ENVIRON'      => 'product',
     'DEBUG'               => 0,
+    'LOG_PATH'            => '/data/logs/scripts/',
+    'LOG_ARCHIVE_TYPE'    => 'Y/md/',
     'DEFAULT_MODULE'      => 'index',
     'DEFAULT_CONTROLLER'  => 'index',
     'DEFAULT_ACTION'      => 'index',

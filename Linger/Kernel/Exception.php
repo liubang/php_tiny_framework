@@ -10,7 +10,9 @@
  |------------------------------------------------------------------
  */
 
-namespace Linger\Core;
+namespace Linger\Kernel;
+
+use Linger\Util\Log;
 
 class Exception
 {
@@ -42,7 +44,13 @@ class Exception
             include $config->get('TMPL_ACTION_ERROR');
             exit;
         } else {
-            exit($message);
+            $m = $message . PHP_EOL . '----------------------' . PHP_EOL;
+            if (!empty($trace)) {
+                foreach ($trace as $val) {
+                    $m .= (isset($val['file']) ? $val['file'] : '') . (isset($val['line']) ? ('[' . $val['line'] . '] ') : '') . "\t" . (isset($val['class']) ? $val['class'] : '') . ':' . (isset($val['function']) ? $val['function'] : '') . PHP_EOL;
+                }
+            }
+            Log::writeLog('exception.log',$m, 3);
         }
     }
 
@@ -93,7 +101,7 @@ class Exception
                 break;
             case E_WARNING:
             case E_COMPILE_WARNING:
-            case E_CORE_WARNING:
+            case E_Kernel_WARNING:
                 self::error($message, [], 'System Warning');
                 break;
             case E_USER_WARNING:
@@ -104,7 +112,7 @@ class Exception
                 break;
             case E_ERROR:
             case E_COMPILE_ERROR:
-            case E_CORE_ERROR:
+            case E_Kernel_ERROR:
             default :
                 self::error($message, [], 'System Error');
                 break;

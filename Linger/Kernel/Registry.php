@@ -10,7 +10,7 @@
  |------------------------------------------------------------------
  */
 
-namespace Linger\Core;
+namespace Linger\Kernel;
 
 class Registry
 {

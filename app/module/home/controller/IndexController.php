@@ -11,7 +11,7 @@
  */
 
 namespace home\controller;
-use Linger\Core\Controller;
+use Linger\Kernel\Controller;
 
 class IndexController extends Controller
 {
@@ -31,6 +31,7 @@ class IndexController extends Controller
 //        throw new \Exception('这是一个测试异常，就是要抛出去一个异常');die;
 
 
+        //\Linger\Util\Log::writeLog('test.log', 'test', 3);die;
         new \PDO('127.0.0.1', 'liubang', 'liubang');
         $this->assign('title', 'template test');
         $this->assign('aaa', 'hello world');

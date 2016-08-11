@@ -1,7 +1,6 @@
 #!/usr/bin/env php
 <?php
 
-
 function parseParams($arr)
 {
     $res = [];
@@ -49,16 +48,7 @@ $dirs = [
 
 function initDirAndFiles($basedir, $arr)
 {
-    $file = $basedir;
-    foreach($arr as $val) {
-        $file .= '/' . $val;
-        if (is_string($val)) {
-            if (false !== strpos($val, '.')) {
-                mkdir(realpath(dirname($file)), 0777, true);
 
-            }
-        }
-    }
 }
 
 $config_php = <<<PHP
@@ -90,7 +80,7 @@ PHP;
 $home_controller_indexcontroller_php = <<<PHP
 <?php
 namespace home\controller;
-use Linger\Core\Controller;
+use Linger\Kernel\Controller;
 
 class IndexController extends Controller
 {
@@ -110,7 +100,7 @@ $model_indexmodel_php = <<<PHP
 <?php
 namespace model;
 
-use Linger\Core\Model;
+use Linger\Kernel\Model;
 
 class IndexModel extends Model
 {
@@ -128,7 +118,7 @@ namespace {$params['app_name']};
 
 class Bootstrap
 {
-    public function _initSession(\Linger\Core\Dispatcher \$dispatcher)
+    public function _initSession(\Linger\Kernel\Dispatcher \$dispatcher)
     {
         session_start();
     }

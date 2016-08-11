@@ -10,7 +10,7 @@
  |------------------------------------------------------------------
  */
 
-namespace Linger\Core;
+namespace Linger\Kernel;
 
 class Dispatcher
 {
@@ -80,11 +80,11 @@ class Dispatcher
     }
 
     /**
-     * @param \Linger\Core\Plugin $plugin
+     * @param \Linger\Kernel\Plugin $plugin
      */
     public function registerPlugin($plugin)
     {
-        if (is_subclass_of($plugin, '\\Linger\\Core\\Plugin')) {
+        if (is_subclass_of($plugin, '\\Linger\\Kernel\\Plugin')) {
             app()->getRegistry()->set('plugins', $plugin, Registry::REGIST_ARR);
         }
     }

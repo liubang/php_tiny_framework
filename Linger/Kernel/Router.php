@@ -10,7 +10,7 @@
  |------------------------------------------------------------------
  */
 
-namespace Linger\Core;
+namespace Linger\Kernel;
 
 class Router
 {
@@ -95,7 +95,7 @@ class Router
                 }
             }
         } elseif (1 === $model) {
-            $request = App::factory('Linger\\Core\\Request');
+            $request = App::factory('Linger\\Kernel\\Request');
             $req = $request->get();
             $m = C('URL_VAR_MODULE');
             $c = C('URL_VAR_CONTROLLER');

@@ -11,7 +11,7 @@
  */
 
 use Linger\Driver\Db\MySql;
-use Linger\Core\App;
+use Linger\Kernel\App;
 
 
 defined('SHOW_404_PAGE') || define('SHOW_404_PAGE', 1);
@@ -22,11 +22,11 @@ if (!function_exists('app')) {
     /**
      * @param null $config
      *
-     * @return \Linger\Core\App|null
+     * @return \Linger\Kernel\App|null
      */
     function app($config = NULL)
     {
-        return App::factory('Linger\\Core\\App', $config);
+        return App::factory('Linger\\Kernel\\App', $config);
     }
 }
 
@@ -100,7 +100,7 @@ if (!function_exists('C')) {
     function C($key = NULL, $val = NULL)
     {
         /**
-         * @var \Linger\Core\Router
+         * @var \Linger\Kernel\Router
          */
         $config = app()->getConfig();
 

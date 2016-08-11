@@ -10,12 +10,12 @@
  |------------------------------------------------------------------
  */
 
-namespace Linger\Core;
+namespace Linger\Kernel;
 
 abstract class Controller
 {
     /**
-     * @var \Linger\Core\View
+     * @var \Linger\Kernel\View
      */
     protected $view = null;
 

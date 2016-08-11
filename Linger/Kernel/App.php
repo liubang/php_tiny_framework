@@ -10,7 +10,7 @@
  |------------------------------------------------------------------
  */
 
-namespace Linger\Core;
+namespace Linger\Kernel;
 
 class App
 {
@@ -20,7 +20,7 @@ class App
     public static $start;
 
     /**
-     * @var \Linger\Core\*[]
+     * @var \Linger\Kernel\*[]
      */
     private static $_ins = [];
 
@@ -40,17 +40,17 @@ class App
     private $bootstrap = NULL;
 
     /**
-     * @var \Linger\Core\Request
+     * @var \Linger\Kernel\Request
      */
     private $request = NULL;
 
     /**
-     * @var \Linger\Core\Response
+     * @var \Linger\Kernel\Response
      */
     private $response = NULL;
 
     /**
-     * @var \Linger\Core\Dispatcher
+     * @var \Linger\Kernel\Dispatcher
      */
     private $dispatcher = NULL;
 
@@ -68,13 +68,13 @@ class App
     {
         //record the start time
         self::$start = microtime(TRUE);
-        $this->config = self::factory("Linger\\Core\\Config", $config);
-        $this->exception = self::factory("Linger\\Core\\Exception");
-        $this->registry = self::factory("Linger\\Core\\Registry");
-        $this->request = self::factory("Linger\\Core\\Request");
-        $this->router = self::factory("Linger\\Core\\Router");
-        $this->dispatcher = self::factory("Linger\\Core\\Dispatcher");
-        $this->response = self::factory("Linger\\Core\\Response");
+        $this->config = self::factory("Linger\\Kernel\\Config", $config);
+        $this->exception = self::factory("Linger\\Kernel\\Exception");
+        $this->registry = self::factory("Linger\\Kernel\\Registry");
+        $this->request = self::factory("Linger\\Kernel\\Request");
+        $this->router = self::factory("Linger\\Kernel\\Router");
+        $this->dispatcher = self::factory("Linger\\Kernel\\Dispatcher");
+        $this->response = self::factory("Linger\\Kernel\\Response");
     }
 
     /**

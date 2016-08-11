@@ -16,7 +16,7 @@ namespace app;
 
 class Bootstrap
 {
-    public function _initSession(\Linger\Core\Dispatcher $dispatcher)
+    public function _initSession(\Linger\Kernel\Dispatcher $dispatcher)
     {
         session_start();
     }

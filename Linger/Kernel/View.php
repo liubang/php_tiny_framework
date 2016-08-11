@@ -10,7 +10,7 @@
  |------------------------------------------------------------------
  */
 
-namespace Linger\Core;
+namespace Linger\Kernel;
 
 use Linger\Driver\View\LingerView;
 use Linger\Driver\View\LingerViewSimple;
