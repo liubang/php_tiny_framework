@@ -57,6 +57,8 @@ if (!isset($argv[0]) || $argv[0] == '--help' || $argv[0] == '-h') {
                 'public/js',
                 'public/css',
                 'public/images',
+                'public/tmp/compile',
+                'public/tmp/cache',
             ],
             'files' => [
                 $app_name . '/Bootstrap.php'                              => 'bootstrap_php',
