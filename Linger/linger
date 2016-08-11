@@ -65,7 +65,7 @@ if (!isset($argv[0]) || $argv[0] == '--help' || $argv[0] == '-h') {
                 $app_name . '/model/IndexModel.php'                       => 'indexmodel_php',
                 $app_name . '/module/home/controller/IndexController.php' => 'indexcontroller_php',
                 $app_name . '/module/home/view/index.html'                => 'index_html',
-                'public/test.php'                                         => 'index_php',
+                'public/index.php'                                         => 'index_php',
             ]
         ];
 
@@ -139,9 +139,9 @@ return array(
     'DB'                 => [
         'TEST_MASTER' => [
             'DB_HOST'   => '127.0.0.1',
-            'DB_USER'   => 'root',
-            'DB_PWD'    => 'fendou2011',
-            'DB_NAME'   => 'test',
+            'DB_USER'   => '',
+            'DB_PWD'    => '',
+            'DB_NAME'   => '',
             'DB_PREFIX' => '',
         ]
     ],
