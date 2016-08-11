@@ -23,7 +23,54 @@ if (is_array($argv)) {
 
 extract($res);
 
-$userplugin_php = <<<PHP
+
+array_shift($argv);
+
+if (!isset($argv[0]) || $argv[0] == '--help' || $argv[0] == '-h') {
+    echo '     _', PHP_EOL;
+    echo ' ___/__) ,', PHP_EOL;
+    echo '(, /      __   _    _  __', PHP_EOL;
+    echo '  /    _(_/ (_(_/__(/_/ (_', PHP_EOL;
+    echo ' (_____      .-/', PHP_EOL;
+    echo '        )   (_/', PHP_EOL, PHP_EOL;
+
+    echo 'Usage:', PHP_EOL;
+    echo '  --help, -h                for help', PHP_EOL;
+    echo '  --app_name=<name>         set app name', PHP_EOL;
+    echo '  --version, -v             show linger frame\'s version', PHP_EOL;
+    echo PHP_EOL;
+} elseif ($argv[0] == '-v' || $argv[0] == '--version') {
+    echo 'v1.0.1', PHP_EOL;
+    echo PHP_EOL;
+} else {
+    if (isset($app_name) && !empty($app_name)) {
+        //project structure.
+        $d_f = [
+            'dirs'  => [
+                $app_name . '/conf',
+                $app_name . '/library/tool',
+                $app_name . '/library/data',
+                $app_name . '/model',
+                $app_name . '/module/home/controller',
+                $app_name . '/module/home/view',
+                $app_name . '/plugin',
+                'public/js',
+                'public/css',
+                'public/images',
+            ],
+            'files' => [
+                $app_name . '/Bootstrap.php'                              => 'bootstrap_php',
+                $app_name . '/conf/config.php'                            => 'config_php',
+                $app_name . '/plugin/UserPlugin.php'                      => 'userplugin_php',
+                $app_name . '/model/IndexModel.php'                       => 'indexmodel_php',
+                $app_name . '/module/home/controller/IndexController.php' => 'indexcontroller_php',
+                $app_name . '/module/home/view/index.html'                => 'index_html',
+                'public/test.php'                                         => 'index_php',
+            ]
+        ];
+
+//=================default file contents.=================/
+        $userplugin_php = <<<PHP
 <?php
 
 namespace plugin;
@@ -57,7 +104,7 @@ class UserPlugin extends Plugin
 }
 PHP;
 
-$bootstrap_php = <<<PHP
+        $bootstrap_php = <<<PHP
 <?php
 
 namespace $app_name;
@@ -79,7 +126,7 @@ class Bootstrap
 }
 PHP;
 
-$config_php = <<<PHP
+        $config_php = <<<PHP
 <?php
 
 return array(
@@ -112,7 +159,7 @@ return array(
 );
 PHP;
 
-$indexmodel_php = <<<PHP
+        $indexmodel_php = <<<PHP
 <?php
 
 namespace model;
@@ -130,7 +177,7 @@ class IndexModel extends Model
 }
 PHP;
 
-$indexcontroller_php = <<<PHP
+        $indexcontroller_php = <<<PHP
 <?php
 
 namespace home\controller;
@@ -151,7 +198,7 @@ class IndexController extends Controller
 }
 PHP;
 
-$index_html = <<<PHP
+        $index_html = <<<PHP
 <!DOCTYPE html>
 <html>
 <head>
@@ -167,7 +214,7 @@ $index_html = <<<PHP
 PHP;
 
 
-$index_php = <<<PHP
+        $index_php = <<<PHP
 <?php
 
 define('APP_ROOT', realpath(dirname(__FILE__) . '/../'));
@@ -180,52 +227,9 @@ app(APP_ROOT . '/$app_name/conf/config.php')->bootstrap()->run();
 
 PHP;
 
+//=================default file contents.=================/
 
-array_shift($argv);
-
-if (!isset($argv[0]) || $argv[0] == '--help' || $argv[0] == '-h') {
-    echo '     _', PHP_EOL;
-    echo ' ___/__) ,', PHP_EOL;
-    echo '(, /      __   _    _  __', PHP_EOL;
-    echo '  /    _(_/ (_(_/__(/_/ (_', PHP_EOL;
-    echo ' (_____      .-/', PHP_EOL;
-    echo '        )   (_/', PHP_EOL, PHP_EOL;
-
-    echo 'Usage:', PHP_EOL;
-    echo '  --help, -h                for help', PHP_EOL;
-    echo '  --app_name=<name>         set app name', PHP_EOL;
-    echo '  --version, -v             show linger frame\'s version', PHP_EOL;
-    echo PHP_EOL;
-} elseif ($argv[0] == '-v' || $argv[0] == '--version') {
-    echo 'v1.0.1', PHP_EOL;
-    echo PHP_EOL;
-} else {
-    if (isset($app_name) && !empty($app_name)) {
-
-        $d_f = [
-            'dirs'  => [
-                $app_name . '/conf',
-                $app_name . '/library/tool',
-                $app_name . '/library/data',
-                $app_name . '/model',
-                $app_name . '/module/home/controller',
-                $app_name . '/module/home/view',
-                $app_name . '/plugin',
-                'public/js',
-                'public/css',
-                'public/images',
-            ],
-            'files' => [
-                $app_name . '/Bootstrap.php'                              => 'bootstrap_php',
-                $app_name . '/conf/config.php'                            => 'config_php',
-                $app_name . '/plugin/UserPlugin.php'                      => 'userplugin_php',
-                $app_name . '/model/IndexModel.php'                       => 'indexmodel_php',
-                $app_name . '/module/home/controller/IndexController.php' => 'indexcontroller_php',
-                $app_name . '/module/home/view/index.html'                => 'index_html',
-                'public/test.php'                                         => 'index_php',
-            ]
-        ];
-
+        //app base path.
         $appPath = realpath(dirname(__FILE__) . '/../');
         if (is_writeable($appPath)) {
             foreach ($d_f['dirs'] as $v) {
