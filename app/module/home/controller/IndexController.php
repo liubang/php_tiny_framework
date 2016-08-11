@@ -32,7 +32,9 @@ class IndexController extends Controller
 
 
         //\Linger\Util\Log::writeLog('test.log', 'test', 3);die;
-        new \PDO('127.0.0.1', 'liubang', 'liubang');
+        //new \PDO('127.0.0.1', 'liubang', 'liubang');
+        //$d = \D('test_master.complaints');
+
         $this->assign('title', 'template test');
         $this->assign('aaa', 'hello world');
         $this->assign('arr', $arr);
@@ -40,8 +42,8 @@ class IndexController extends Controller
         $this->assign('time', time());
         //$this->getResponse()->code('500');
         //$this->getResponse()->header('liubang', 'hh');
-        $this->getResponse()->json($arr);
-        $this->getResponse()->json($arr, 'callback');
+        //$this->getResponse()->json($arr);
+        //$this->getResponse()->json($arr, 'callback');
         $this->display();
     }
 }

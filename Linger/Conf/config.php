@@ -12,16 +12,22 @@
 
 return [
     //---db config---//
-    'DB_HOST'             => '127.0.0.1',
-    'DB_USER'             => '',
-    'DB_PWD'              => '',
-    'DB_NAME'             => '',
-    'DB_PORT'             => '3306',
-    'DB_CHAR'             => 'utf8',
-    'DB_PREFIX'           => '',
-    'DB_SOCKET'           => '',
-    'DB_PARAMS'           => [],
-    'DB_DSN'              => '',
+    'DB'                  => [
+        'TEST_MASTER' => [
+            'DB_HOST'   => '127.0.0.1',
+            'DB_USER'   => '',
+            'DB_PWD'    => '',
+            'DB_NAME'   => '',
+            'DB_PORT'   => '3306',
+            'DB_CHAR'   => 'utf8',
+            'DB_PREFIX' => '',
+            'DB_SOCKET' => '',
+            'DB_PARAMS' => [],
+            'DB_DSN'    => '',
+        ],
+        //more database config
+    ],
+
 
     //---system config---//
     'LINGER_ENVIRON'      => 'product',
@@ -57,7 +63,7 @@ return [
     //---cookie---//
     'COOKIE_NAME'         => 'LINGER_FRAME_COOKIE',
     'COOKIE_PATH'         => '/',
-    'COOKIE_DOMAIN'       => null,
-    'COOKIE_SECURE'       => false,
-    'COOKIE_HTTP_ONLY'    => false,
+    'COOKIE_DOMAIN'       => NULL,
+    'COOKIE_SECURE'       => FALSE,
+    'COOKIE_HTTP_ONLY'    => FALSE,
 ];

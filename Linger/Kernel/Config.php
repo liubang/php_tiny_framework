@@ -22,7 +22,6 @@ class Config
     private $g_config = array();
 
 
-
     public function __construct($config = NULL)
     {
         if (NULL !== $config) {

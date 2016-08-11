@@ -114,7 +114,7 @@ if (!function_exists('C')) {
     }
 }
 
-if (!function_exists('M')) {
+if (!function_exists('D')) {
 
     /**
      * fast instantiates a Model object.
@@ -123,7 +123,7 @@ if (!function_exists('M')) {
      *
      * @return \Linger\Driver\Db\DbDriver
      */
-    function M($table)
+    function D($table)
     {
         /**
          * var \Linger\Driver\Db\DbDriver[]
@@ -131,19 +131,22 @@ if (!function_exists('M')) {
         static $g_model = [];
         // if the model of the table was not instantiated
         if (!isset($g_model[$table]) || empty($g_model[$table])) {
-            // get the config of the db
-            $config['db_host'] = C('DB_HOST');
-            $config['db_user'] = C('DB_USER');
-            $config['db_pwd'] = C('DB_PWD');
-            $config['db_name'] = C('DB_NAME');
-            $config['db_port'] = C('DB_PORT');
-            $config['db_char'] = C('DB_CHAR');
-            $config['db_prefix'] = C('DB_PREFIX');
-            $config['db_socket'] = C('DB_SOCKET');
-            $config['db_params'] = C('DB_PARAMS');
-            $config['db_dsn'] = C('DB_DSN');
-            $db = new MySql($config);
-            $g_model[$table] = $db->connect()->forTable($table);
+            $t = explode('.', $table);
+            if (isset($t[1])) {
+                // get the config of the db
+                $config['db_host'] = C('DB.' . $t[0] . '.DB_HOST');
+                $config['db_user'] = C('DB.' . $t[0] . '.DB_USER');
+                $config['db_pwd'] = C('DB.' . $t[0] . '.DB_PWD');
+                $config['db_name'] = C('DB.' . $t[0] . '.DB_NAME');
+                $config['db_port'] = C('DB.' . $t[0] . '.DB_PORT');
+                $config['db_char'] = C('DB.' . $t[0] . '.DB_CHAR');
+                $config['db_prefix'] = C('DB.' . $t[0] . '.DB_PREFIX');
+                $config['db_socket'] = C('DB.' . $t[0] . '.DB_SOCKET');
+                $config['db_params'] = C('DB.' . $t[0] . '.DB_PARAMS');
+                $config['db_dsn'] = C('DB.' . $t[0] . '.DB_DSN');
+                $db = new MySql($config);
+                $g_model[$table] = $db->connect()->forTable($t[1]);
+            }
         }
         return $g_model[$table];
     }
