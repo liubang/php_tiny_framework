@@ -53,24 +53,25 @@ class Dispatcher
             _404(SHOW_404_PAGE);
         }
 
-        $class = MODULE . '\\controller\\' . CONTROLLER;
-
-        if (!class_exists($class)) {
-            _404(SHOW_404_PAGE);
-        }
-
         $allowModule = C('MODULE_ALLOW_LIST');
 
         if (!in_array(MODULE, $allowModule)) {
             _403(SHOW_403_PAGE);
         }
 
+        $class = MODULE . '\\controller\\' . CONTROLLER;
+
+        if (!\class_exists($class)) {
+            _404(SHOW_404_PAGE);
+        }
+
         $controllerObj = new $class();
 
-        if (!method_exists($controllerObj, ACTION)) {
+        if (!\method_exists($controllerObj, ACTION)) {
             _404(SHOW_404_PAGE);
         }
         $action = ACTION;
+
         $controllerObj->$action();
 
         /**

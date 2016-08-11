@@ -13,7 +13,7 @@
 return array(
     //debug and log config. If debug is enabled, the error message and exception will not
     //be written to the file, otherwise it will.
-    'DEBUG'              => 0,
+    'DEBUG'              => 1,
     'LOG_PATH'           => '/data/logs/scripts/linger.iliubang.cn/',
     'LOG_ARCHIVE_TYPE'   => 'Y/md/',
     //database config
