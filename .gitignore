@@ -9,3 +9,4 @@ public/buyer/node_modules/
 public/tmp/
 app/conf/config.dev.php
 app/
+public/
