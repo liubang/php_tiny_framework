@@ -95,7 +95,7 @@ if (!function_exists('C')) {
      * @param null|string       $key the config key you want to set or get, if is null, will return you all configs
      * @param null|string|array $val the config key value you want to set, if is null, will return you the config
      *
-     * @return array|void
+     * @return array|void|string
      */
     function C($key = NULL, $val = NULL)
     {
