@@ -89,8 +89,8 @@ class Router
                 if (count($req) % 2 !== 0) {
                     _404(SHOW_404_PAGE);
                 } else {
-                    foreach ($req as $key => $val) {
-                        app()->getRequest()->add('get', $key, $val);
+                    for ($i = 0; $i < count($req); $i += 2) {
+                        \app()->getRequest()->add('get', $req[$i], $req[$i+1]);
                     }
                 }
             }

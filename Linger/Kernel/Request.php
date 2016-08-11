@@ -107,11 +107,18 @@ class Request
      */
     public function add($type, $key, $val = '')
     {
-        $arr = '_' . $type;
         if (is_array($key)) {
-            $this->$arr = array_merge($this->$arr, $key);
+            if ('post' === $type) {
+                $this->_post = \array_merge($this->_post, $key);
+            } elseif ('get' === $type) {
+                $this->_get = \array_merge($this->_get, $key);
+            }
         } elseif (is_string($key)) {
-            $this->$arr[$key] = $val;
+            if ('post' === $type) {
+                $this->_post[$key] = $val;
+            } elseif ('get' === $type) {
+                $this->_get[$key] = $val;
+            }
         }
     }
 
@@ -126,9 +133,9 @@ class Request
         if ('' === $key) {
             return array_map($callable, $this->_get);
         }
-        if (key_exists($key, $this->_get)) {
-            if (is_array($this->_get[$key])) {
-                return array_map($callable, $this->_get[$key]);
+        if (\key_exists($key, $this->_get)) {
+            if (\is_array($this->_get[$key])) {
+                return \array_map($callable, $this->_get[$key]);
             }
             return $callable($this->_get[$key]);
         }
