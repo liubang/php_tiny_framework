@@ -15,19 +15,16 @@ namespace Linger\Kernel;
 class Config
 {
     /**
-     * 全局配置项
+     * Global configuration
      *
      * @var array
      */
     private $g_config = array();
 
 
-
-    public function __construct($config = NULL)
+    public function __construct($config)
     {
-        if (NULL !== $config) {
-            $this->loadConfig($config);
-        }
+        $this->loadConfig($config);
     }
 
     /**
@@ -108,7 +105,7 @@ class Config
         if (\is_array($config)) {
             $this->g_config = \array_merge(require LINGER_ROOT . '/Conf/config.php', $config);
         } else {
-            exit('请传入正确的配置文件或配置数组');
+            die('Requires a file or an array as a parameter');
         }
 
         $this->g_config = self::changeArrayKeyCase($this->g_config);
@@ -117,7 +114,7 @@ class Config
     }
 
     /**
-     * 获取配置项目
+     * get config
      *
      * @param string $key
      * @return array
@@ -144,7 +141,7 @@ class Config
     }
 
     /**
-     * 设置配置项
+     * set config
      *
      * @param string $key
      * @param string $val

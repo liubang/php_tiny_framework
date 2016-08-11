@@ -80,7 +80,7 @@ class App
     /**
      * get config
      *
-     * @return mixed
+     * @return mixed|Config
      */
     public function getConfig()
     {

@@ -30,8 +30,5 @@ spl_autoload_register(function ($class) {
 
     if (file_exists($classPath)) {
         _include($classPath);
-    } else {
-        throw new Exception('file ' . $classPath . ' dose not exists!');
     }
-
 });
