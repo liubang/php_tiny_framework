@@ -142,8 +142,6 @@ PHP;
 
 
 
-
-
 array_shift($argv);
 if (!isset($argv[0]) || $argv[0] == '--help' || $argv[0] == '-h') {
     echo '     _', PHP_EOL;
