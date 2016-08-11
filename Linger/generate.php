@@ -43,7 +43,7 @@ $d_f = [
         $app_name . '/model/IndexModel.php' => 'indexmodel_php',
         $app_name . '/module/home/controller/IndexController.php' => 'indexcontroller_php',
         $app_name . '/module/home/view/index.html' => 'index_html',
-        'public/index.php' => 'index_php',
+        'public/test.php' => 'index_php',
     ]
 ];
 
@@ -114,7 +114,7 @@ class IndexModel extends Model
     /**
      * @var string
      */
-    protected $database = 'TEST_MASTER';
+    protected \$database = 'TEST_MASTER';
 
    
 }
@@ -199,7 +199,7 @@ if (!isset($argv[0]) || $argv[0] == '--help' || $argv[0] == '-h') {
             foreach ($d_f['dirs'] as $v) {
                 $dir = $appPath . '/' . $v;
                 echo '正在创建目录', $dir, '......', PHP_EOL;
-                if (mkdir($dir, 0777)) {
+                if (mkdir($dir, 0777, true)) {
                     echo '创建目录', $dir, '成功！', PHP_EOL;
                 } else {
                     echo '创建目录', $dir, '失败！', PHP_EOL;
