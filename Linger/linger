@@ -213,10 +213,20 @@ PHP;
 </html>
 PHP;
 
-
+$date = date('Y-m-d H:i:s', time());
         $index_php = <<<PHP
 <?php
-
+/*
+ |------------------------------------------------------------------
+ | linger.iliubang.cn
+ |------------------------------------------------------------------
+ | @author    : liubang 
+ | @date      : $date
+ | @copyright : (c) iliubang.cn
+ | @license   : MIT (http://opensource.org/licenses/MIT)
+ |------------------------------------------------------------------
+ */
+ 
 define('APP_ROOT', realpath(dirname(__FILE__) . '/../'));
 
 define('APP_NAME', '$app_name');

@@ -24,15 +24,6 @@ abstract class Model
      */
     protected $table = '';
 
-    /**
-     * @var array
-     */
-    protected $_validate = [];
-
-    /**
-     * @var array
-     */
-    protected $_auto = [];
 
     /**
      * @var \Linger\Driver\Db\DbDriver|null
