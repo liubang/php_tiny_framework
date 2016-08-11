@@ -17,10 +17,20 @@ use Linger\Kernel\Model;
 
 class UserModel extends Model
 {
-    public function __construct()
+    /**
+     * @var string
+     */
+    protected $database = 'TEST_MASTER';
+
+
+    public function addUser($userInfo)
     {
-        //new ApiClient('http://xinyu.kongfz.com');
-        parent::__construct();
+        return $this->db->add($userInfo);
+    }
+
+    public function getUserInfo()
+    {
+        return $this->db->getAll('*');
     }
     
 }

@@ -17,6 +17,11 @@ abstract class Model
     /**
      * @var string
      */
+    protected $database = '';
+
+    /**
+     * @var string
+     */
     protected $table = '';
 
     /**
@@ -30,18 +35,28 @@ abstract class Model
     protected $_auto = [];
 
     /**
+     * @var \Linger\Driver\Db\DbDriver|null
+     */
+    protected $db = null;
+
+    /**
      * Model constructor.
      *
      * @param string $table
+     * @param string $database
      */
-    public function __construct($table = '')
+    public function __construct($table = '', $database = '')
     {
-        if (empty($table)) {
+        if (!empty($table)) {
             $this->table = $table;
         } else {
             $this->table = strtolower(str_replace('Model', '', ltrim(strrchr(get_called_class(), '\\'), '\\')));
         }
 
+        if (!empty($database)) {
+            $this->database = $database;
+        }
 
+        $this->db = \D($this->database . '.' . $this->table);
     }
 }

@@ -12,6 +12,7 @@
 
 namespace home\controller;
 use Linger\Kernel\Controller;
+use model\UserModel;
 
 class IndexController extends Controller
 {
@@ -26,6 +27,12 @@ class IndexController extends Controller
             ['userId' => 1034285, 'userName' => 'zhanghai'],
             ['userId' => 201502, 'userName' => '张海']
         ];
+
+        $userModel = new UserModel();
+
+        var_dump($userModel->addUser(array('name' => 'liubang', 'age' => '23')));
+        \p($userModel->getUserInfo());
+        die;
 
 //        trigger_error("这是一个错误！", E_USER_ERROR);
 //        throw new \Exception('这是一个测试异常，就是要抛出去一个异常');die;
