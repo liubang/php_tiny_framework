@@ -73,7 +73,6 @@ class View
     {
         $content = $this->viewObj->display($tplFile, $cacheTime, $cachePath, $contentType, $show);
         app()->getResponse()->header('Content-Type', $contentType);
-        //app()->getResponse()->code('200');
         app()->getResponse()->body($content);
         return $this;
     }
