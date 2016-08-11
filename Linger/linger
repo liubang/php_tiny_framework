@@ -23,30 +23,6 @@ if (is_array($argv)) {
 
 extract($res);
 
-$d_f = [
-    'dirs'  => [
-        $app_name . '/conf',
-        $app_name . '/library/tool',
-        $app_name . '/library/data',
-        $app_name . '/model',
-        $app_name . '/module/home/controller',
-        $app_name . '/module/home/view',
-        $app_name . '/plugin',
-        'public/js',
-        'public/css',
-        'public/images',
-    ],
-    'files' => [
-        $app_name . '/Bootstrap.php'                              => 'bootstrap_php',
-        $app_name . '/conf/config.php'                            => 'config_php',
-        $app_name . '/plugin/UserPlugin.php'                      => 'userplugin_php',
-        $app_name . '/model/IndexModel.php'                       => 'indexmodel_php',
-        $app_name . '/module/home/controller/IndexController.php' => 'indexcontroller_php',
-        $app_name . '/module/home/view/index.html'                => 'index_html',
-        'public/test.php'                                         => 'index_php',
-    ]
-];
-
 $userplugin_php = <<<PHP
 <?php
 
@@ -225,6 +201,31 @@ if (!isset($argv[0]) || $argv[0] == '--help' || $argv[0] == '-h') {
     echo PHP_EOL;
 } else {
     if (isset($app_name) && !empty($app_name)) {
+
+        $d_f = [
+            'dirs'  => [
+                $app_name . '/conf',
+                $app_name . '/library/tool',
+                $app_name . '/library/data',
+                $app_name . '/model',
+                $app_name . '/module/home/controller',
+                $app_name . '/module/home/view',
+                $app_name . '/plugin',
+                'public/js',
+                'public/css',
+                'public/images',
+            ],
+            'files' => [
+                $app_name . '/Bootstrap.php'                              => 'bootstrap_php',
+                $app_name . '/conf/config.php'                            => 'config_php',
+                $app_name . '/plugin/UserPlugin.php'                      => 'userplugin_php',
+                $app_name . '/model/IndexModel.php'                       => 'indexmodel_php',
+                $app_name . '/module/home/controller/IndexController.php' => 'indexcontroller_php',
+                $app_name . '/module/home/view/index.html'                => 'index_html',
+                'public/test.php'                                         => 'index_php',
+            ]
+        ];
+
         $appPath = realpath(dirname(__FILE__) . '/../');
         if (is_writeable($appPath)) {
             foreach ($d_f['dirs'] as $v) {
