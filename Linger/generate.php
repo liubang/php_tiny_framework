@@ -40,12 +40,47 @@ $d_f = [
     'files' => [
         $app_name . '/Bootstrap.php' => 'bootstrap_php',
         $app_name . '/conf/config.php' => 'config_php',
+        $app_name . '/plugin/UserPlugin.php' => 'userplugin_php',
         $app_name . '/model/IndexModel.php' => 'indexmodel_php',
         $app_name . '/module/home/controller/IndexController.php' => 'indexcontroller_php',
         $app_name . '/module/home/view/index.html' => 'index_html',
         'public/test.php' => 'index_php',
     ]
 ];
+
+$userplugin_php = <<<PHP
+<?php
+
+namespace plugin;
+
+use Linger\Kernel\Plugin;
+use Linger\Kernel\Request;
+use Linger\Kernel\Response;
+
+class UserPlugin extends Plugin
+{
+    function routerStartup(Request \$request, Response \$response)
+    {
+        // TODO: Implement routerStartup() method.
+    }
+
+    function routerShutdown(Request \$request, Response \$response)
+    {
+        // TODO: Implement routerShutdown() method.
+    }
+
+    function dispatchStartup(Request \$request, Response \$response)
+    {
+        // TODO: Implement dispatchStartup() method.
+    }
+
+    function dispatchShutdown(Request \$request, Response \$response)
+    {
+        // TODO: Implement dispatchShutdown() method.
+    }
+
+}
+PHP;
 
 $bootstrap_php = <<<PHP
 <?php
@@ -171,9 +206,6 @@ app(APP_ROOT . '/$app_name/conf/config.php')->bootstrap()->run();
 PHP;
 
 
-
-
-
 array_shift($argv);
 
 if (!isset($argv[0]) || $argv[0] == '--help' || $argv[0] == '-h') {
@@ -215,6 +247,9 @@ if (!isset($argv[0]) || $argv[0] == '--help' || $argv[0] == '-h') {
                     echo '创建文件', $file, '失败！', PHP_EOL;
                 }
             }
+
+            echo PHP_EOL;
+            echo '项目初始化完成！', PHP_EOL;
         }
     }
 }
