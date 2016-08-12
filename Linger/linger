@@ -120,7 +120,7 @@ class Bootstrap
         session_start();
     }
 
-//    public function _initPlugin(\Linger\Core\Dispatcher \$dispatcher)
+//    public function _initPlugin(\Linger\Kernel\Dispatcher \$dispatcher)
 //    {
 //        \$user = new UserPlugin();
 //        \$dispatcher->registerPlugin(\$user);
@@ -154,7 +154,7 @@ return array(
     'MODULE_ALLOW_LIST'  => ['index', 'admin', 'home'],
     'ROUTE'              => array(
         'home.html'        => 'home/index/index',
-        'list/(\d+)\.html' => 'home/index/list/id/\1',
+        'list/(\d+)\.html' => 'home/index/list/id/\\1',
     ),
     'TPL_CACHE_TIME'     => 1000,
     'URL_MODEL'          => 2,
