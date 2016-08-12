@@ -56,6 +56,10 @@ class Router
         if (2 === $model) {
 
             $this->uri = trim(str_replace('index.php', '', $_SERVER['REQUEST_URI']), '/');
+            $pos = strpos($this->uri, '?');
+            if (FALSE !== $pos) {
+                $this->uri = substr($this->uri, 0, $pos);
+            }
 
             if (!empty($this->roules)) {
                 foreach ($this->roules as $key => $value) {
