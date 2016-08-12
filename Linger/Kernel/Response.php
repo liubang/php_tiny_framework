@@ -40,14 +40,6 @@ class Response
     private $sent = false;
 
     /**
-     * Response constructor.
-     */
-    public function __construct()
-    {
-    }
-
-
-    /**
      * send the response
      *
      * @param bool $override

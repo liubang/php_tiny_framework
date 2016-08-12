@@ -30,8 +30,8 @@ class View
      */
     public function __construct($tmplPath = '', $viewClass = null)
     {
-        if (is_null($viewClass)) {
-            $viewDriver = C('VIEW_DRIVER');
+        if (\is_null($viewClass)) {
+            $viewDriver = \C('VIEW_DRIVER');
             if ('simple' === $viewDriver) {
                 $this->viewObj = new LingerViewSimple();
             }
@@ -39,7 +39,7 @@ class View
                 $this->viewObj = new LingerView();
             }
         } else {
-            if (is_subclass_of($viewClass, '\\Linger\\Driver\\View\\LingerViewAbstract')) {
+            if (\is_subclass_of($viewClass, '\\Linger\\Driver\\View\\LingerViewAbstract')) {
                 $this->viewObj = new $viewClass;
             } else {
                 return false;
@@ -72,8 +72,8 @@ class View
     public function display($tplFile, $cacheTime = -1, $cachePath = null, $contentType = 'text/html', $show = false)
     {
         $content = $this->viewObj->display($tplFile, $cacheTime, $cachePath, $contentType, $show);
-        app()->getResponse()->header('Content-Type', $contentType);
-        app()->getResponse()->body($content);
+        \app()->getResponse()->header('Content-Type', $contentType);
+        \app()->getResponse()->body($content);
         return $this;
     }
 

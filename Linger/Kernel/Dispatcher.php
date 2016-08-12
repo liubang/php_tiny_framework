@@ -16,15 +16,6 @@ class Dispatcher
 {
 
     /**
-     * Dispatcher constructor.
-     */
-    public function __construct()
-    {
-
-    }
-
-
-    /**
      * 分发请求
      */
     public function dispatch()
@@ -37,7 +28,7 @@ class Dispatcher
         /**
          * parse request uri and route
          */
-        app()->getRouter()->parseUri();
+        \app()->getRouter()->parseUri();
 
         /**
          * call routerShutdown plugins
@@ -49,26 +40,26 @@ class Dispatcher
          */
         $this->callPlugins('dispatchStartup');
 
-        if (strpos(MODULE, '.')) {
-            _404(SHOW_404_PAGE);
+        if (\strpos(MODULE, '.')) {
+            \_404(SHOW_404_PAGE);
         }
 
         $allowModule = C('MODULE_ALLOW_LIST');
 
-        if (!in_array(MODULE, $allowModule)) {
-            _403(SHOW_403_PAGE);
+        if (!\in_array(MODULE, $allowModule)) {
+            \_403(SHOW_403_PAGE);
         }
 
         $class = MODULE . '\\controller\\' . CONTROLLER;
 
         if (!\class_exists($class)) {
-            _404(SHOW_404_PAGE);
+            \_404(SHOW_404_PAGE);
         }
 
         $controllerObj = new $class();
 
         if (!\method_exists($controllerObj, ACTION)) {
-            _404(SHOW_404_PAGE);
+            \_404(SHOW_404_PAGE);
         }
         $action = ACTION;
 
@@ -85,8 +76,8 @@ class Dispatcher
      */
     public function registerPlugin($plugin)
     {
-        if (is_subclass_of($plugin, '\\Linger\\Kernel\\Plugin')) {
-            app()->getRegistry()->set('plugins', $plugin, Registry::REGIST_ARR);
+        if (\is_subclass_of($plugin, '\\Linger\\Kernel\\Plugin')) {
+            \app()->getRegistry()->set('plugins', $plugin, Registry::REGIST_ARR);
         }
     }
 
@@ -100,16 +91,16 @@ class Dispatcher
      */
     private function callPlugins($level, $plugin = NULL)
     {
-        $plugins = app()->getRegistry()->get('plugins');
+        $plugins = \app()->getRegistry()->get('plugins');
 
         if (!empty($plugins)) {
             if (!empty($plugin)) {
                 if (isset($plugins[$plugin])) {
-                    $plugins[$plugin]->$level(app()->getRequest(), app()->getResponse());
+                    $plugins[$plugin]->$level(\app()->getRequest(), \app()->getResponse());
                 }
             } else {
                 foreach ($plugins as $plugin) {
-                    $plugin->$level(app()->getRequest(), app()->getResponse());
+                    $plugin->$level(\app()->getRequest(), \app()->getResponse());
                 }
             }
         }

@@ -41,7 +41,7 @@ abstract class Model
         if (!empty($table)) {
             $this->table = $table;
         } else {
-            $this->table = strtolower(str_replace('Model', '', ltrim(strrchr(get_called_class(), '\\'), '\\')));
+            $this->table = \strtolower(str_replace('Model', '', \ltrim(strrchr(get_called_class(), '\\'), '\\')));
         }
 
         if (!empty($database)) {

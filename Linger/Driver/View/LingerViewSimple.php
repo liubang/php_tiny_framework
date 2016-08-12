@@ -29,9 +29,9 @@ class LingerViewSimple extends LingerViewAbstract
      */
     public function display($tplFile, $cacheTime = -1, $cachePath = null, $contentType = 'text/html', $show = true)
     {
-        extract($this->vars, EXTR_OVERWRITE);
+        \extract($this->vars, EXTR_OVERWRITE);
         $filePath = $this->tmplPath . '/' . $tplFile;
-        if (file_exists($filePath)) {
+        if (\file_exists($filePath)) {
             include $filePath;
         } else {
             die('模板文件' . $filePath . '不存在');
@@ -47,10 +47,10 @@ class LingerViewSimple extends LingerViewAbstract
      */
     public function render($tplFile, $cacheTime = -1, $cachePath = null, $contentType = 'text/html')
     {
-        ob_start();
+        \ob_start();
         $this->display($tplFile, $cacheTime, $cachePath, $contentType, false);
-        $html = ob_get_contents();
-        ob_clean();
+        $html = \ob_get_contents();
+        \ob_clean();
         return $html;
     }
 }

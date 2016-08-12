@@ -22,14 +22,6 @@ class Registry
     protected $registry = [];
 
     /**
-     * Registry constructor.
-     */
-    public function __construct()
-    {
-
-    }
-
-    /**
      * 向注册表中注册一个变量
      *
      * @param string $key

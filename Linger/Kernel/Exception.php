@@ -23,10 +23,10 @@ class Exception
     public function __construct()
     {
         // set custom exception handler
-        set_exception_handler(array($this, 'appException'));
+        \set_exception_handler(array($this, 'appException'));
 
         // set custom error handler
-        set_error_handler(array($this, 'appError'), E_ALL);
+        \set_error_handler(array($this, 'appError'), E_ALL);
     }
 
     /**
@@ -40,7 +40,7 @@ class Exception
     {
         $config = \app()->getConfig();
         if ($config->get('DEBUG')) {
-            $time = microtime(TRUE) - App::$start;
+            $time = \microtime(TRUE) - App::$start;
             include $config->get('TMPL_ACTION_ERROR');
             exit;
         } else {
