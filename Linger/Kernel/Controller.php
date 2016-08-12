@@ -24,7 +24,7 @@ abstract class Controller
      */
     public function __construct()
     {
-        if (method_exists($this, '_init')) {
+        if (\method_exists($this, '_init')) {
             $this->_init();
         }
     }
@@ -56,19 +56,19 @@ abstract class Controller
     public function display($tmpl = '', $cacheTime = null, $cachePath = '', $contentType = 'text/html', $show = false)
     {
         if (empty($cacheTime)) {
-            $cacheTime = C('TPL_CACHE_TIME');
+            $cacheTime = \C('TPL_CACHE_TIME');
         }
         if (! empty($cachePath)) {
-            if (! is_dir(dirname($cachePath))) {
-                $cachePath = C('TPL_CACHE_PATH') . '/' . $cachePath;
+            if (! \is_dir(dirname($cachePath))) {
+                $cachePath = \C('TPL_CACHE_PATH') . '/' . $cachePath;
             }
         } else {
-            $cachePath = rtrim(C('TPL_CACHE_PATH'),
-                    '/') . '/' . MODULE . '_' . CONTROLLER . '_' . ACTION . '_' . substr(md5($_SERVER['REQUEST_URI']),
+            $cachePath = \rtrim(\C('TPL_CACHE_PATH'),
+                    '/') . '/' . MODULE . '_' . CONTROLLER . '_' . ACTION . '_' . \substr(\md5($_SERVER['REQUEST_URI']),
                     0, 8) . '.html';
         }
         if ('' === $tmpl) {
-            $tmpl = strtolower(CURRTMPL) . '.html';
+            $tmpl = \strtolower(CURRTMPL) . '.html';
         }
         $this->view->display($tmpl, $cacheTime, $cachePath, $contentType, $show);
     }
@@ -83,7 +83,7 @@ abstract class Controller
     public function render($tmpl = '', $cacheTime = null, $cachePath = '', $contentType = 'text/html')
     {
         if ('' === $tmpl) {
-            $tmpl = strtolower(CURRTMPL) . '.html';
+            $tmpl = \strtolower(CURRTMPL) . '.html';
         }
         $this->view->render($tmpl, $cacheTime, $cachePath, $contentType);
     }
@@ -93,7 +93,7 @@ abstract class Controller
      */
     public function getRequest()
     {
-        return app()->getRequest();
+        return \app()->getRequest();
     }
 
     /**
@@ -101,7 +101,7 @@ abstract class Controller
      */
     public function getResponse()
     {
-        return app()->getResponse();
+        return \app()->getResponse();
     }
 
     /**
@@ -112,7 +112,7 @@ abstract class Controller
      */
     public function get($key = '', $callable = 'htmlspecialchars', $default = null)
     {
-        return app()->getRequest()->get($key, $callable, $default);
+        return \app()->getRequest()->get($key, $callable, $default);
     }
 
     /**
@@ -123,7 +123,7 @@ abstract class Controller
      */
     public function post($key = '', $callable = 'htmlspecialchars', $default = null)
     {
-        return app()->getRequest()->post($key, $callable, $default);
+        return \app()->getRequest()->post($key, $callable, $default);
     }
 
     /**
@@ -134,7 +134,7 @@ abstract class Controller
      */
     public function request($key = '', $callable = 'htmlspecialchars', $default = null)
     {
-        return app()->getRequest()->request($key, $callable, $default);
+        return \app()->getRequest()->request($key, $callable, $default);
     }
 
 }

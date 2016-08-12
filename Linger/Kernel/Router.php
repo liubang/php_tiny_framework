@@ -32,7 +32,7 @@ class Router
      */
     public function iniRoute()
     {
-        $this->roules = C('ROUTE');
+        $this->roules = \C('ROUTE');
     }
 
     /**
@@ -46,7 +46,7 @@ class Router
         $model = \C('URL_MODEL');
 
         if (2 === $model) {
-            $this->uri = \trim(str_replace('index.php', '', $_SERVER['REQUEST_URI']), '/');
+            $this->uri = \trim(\str_replace('index.php', '', $_SERVER['REQUEST_URI']), '/');
             $pos = \strpos($this->uri, '?');
             if (FALSE !== $pos) {
                 $this->uri = \substr($this->uri, 0, $pos);
@@ -71,11 +71,11 @@ class Router
                 $req = [];
             }
             $module = isset($req[0]) ?
-                \strtolower(array_shift($req)) : C('DEFAULT_MODULE');
+                \strtolower(\array_shift($req)) : C('DEFAULT_MODULE');
             $controller = isset($req[0]) ?
-                \ucfirst(array_shift($req)) : C('DEFAULT_CONTROLLER');
+                \ucfirst(\array_shift($req)) : C('DEFAULT_CONTROLLER');
             $action = isset($req[0]) ?
-                \lcfirst(array_shift($req)) : C('DEFAULT_ACTION');
+                \lcfirst(\array_shift($req)) : C('DEFAULT_ACTION');
             \define('MODULE', $module);
             \define('CONTROLLER', \ucfirst($controller) . 'Controller');
             \define('ACTION', $action . 'Action');

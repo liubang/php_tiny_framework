@@ -167,14 +167,14 @@ class Response
         $this->noCache();
 
         if (null === $filename) {
-            $filename = basename($path);
+            $filename = \basename($path);
         }
         if (null === $mimetype) {
-            $mimetype = finfo_file(finfo_open(FILEINFO_MIME_TYPE), $path);
+            $mimetype = \finfo_file(finfo_open(FILEINFO_MIME_TYPE), $path);
         }
 
         $this->header('Content-Type', $mimetype);
-        $this->header('Content-length', filesize($path));
+        $this->header('Content-length', \filesize($path));
         $this->header('Content-Disposition', 'attachment; filename="' . $filename . '"');
 
         $this->send();

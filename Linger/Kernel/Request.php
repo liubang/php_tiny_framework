@@ -67,7 +67,7 @@ class Request
      */
     private function getWitchRequest()
     {
-        if ('cli' === php_sapi_name()) {
+        if ('cli' === \php_sapi_name()) {
             \define('IS_CLI', true);
             return;
         }

@@ -56,7 +56,7 @@ class Config
                         $subs = $value;
                         unset($data[$sectionKey][$key]);
                     } else {
-                        $newKey = trim($key, $escapeChar);
+                        $newKey = \trim($key, $escapeChar);
                         $data[$sectionKey][$newKey] = $value;
                         unset($data[$sectionKey][$key]);
                     }
@@ -77,8 +77,8 @@ class Config
     {
         $arr = [];
         foreach ($config as $key => $val) {
-            $key = strtolower($key);
-            $arr[$key] = is_array($val) ? self::changeArrayKeyCase($val) : $val;
+            $key = \strtolower($key);
+            $arr[$key] = \is_array($val) ? self::changeArrayKeyCase($val) : $val;
         }
         return $arr;
     }
@@ -91,7 +91,7 @@ class Config
     {
         if (\is_string($config)) {
             if (\is_file($config)) {
-                $ext = \substr($config, strlen($config) - 4);
+                $ext = \substr($config, \strlen($config) - 4);
                 if ($ext === '.ini') {
                     $config = self::parseIniFile($config);
                 }
