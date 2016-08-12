@@ -70,6 +70,10 @@ return [
 ];
 ```
 
+### Bootstrap
+
+这是定义应用启动需要执行的逻辑的地方, 通常可以在这里配置session，注册插件.该文件位于app/Bootstrap.php，所有方法必须以`_init`开头, 方法中自动注入`$dispatcher`参数
+
 ### 路由
 
 主要有两种路由模式，一个是基于request_uri，一个是基于get传参,分别对应配置中的 `URL_MODEL=2`, `URL_MODEL=1`
@@ -144,6 +148,55 @@ class UserModel extends Model
     {
         parent::__construct('user', 'TEST_MASTER');
     }
+}
+```
+
+### 插件
+提供了简单的插件机制，只有4种
+
+`routerStartup`, 'routerShutdown', `dispatchStartup`, `dispatchShutdown`
+
+定义一个插件在app/plugin/目录新建一个UserPlugin.php
+
+```
+<?php
+namespace plugin;
+
+use Linger\Kernel\Plugin;
+use Linger\Kernel\Request;
+use Linger\Kernel\Response;
+
+class UserPlugin extends Plugin
+{
+    function routerStartup(Request $request, Response $response)
+    {
+        // TODO: Implement routerStartup() method.
+    }
+
+    function routerShutdown(Request $request, Response $response)
+    {
+        // TODO: Implement routerShutdown() method.
+    }
+
+    function dispatchStartup(Request $request, Response $response)
+    {
+        // TODO: Implement dispatchStartup() method.
+    }
+
+    function dispatchShutdown(Request $request, Response $response)
+    {
+        // TODO: Implement dispatchShutdown() method.
+    }
+
+}
+```
+
+然后将插件注册到应用中，在Bootstrap.php文件中注册
+```
+public function _initPlugin(\Linger\Kernel\Dispatcher $dispatcher)
+{
+    $user = new UserPlugin();
+    $dispatcher->registerPlugin($user);
 }
 ```
 
