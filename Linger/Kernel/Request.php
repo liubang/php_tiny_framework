@@ -46,15 +46,6 @@ class Request
      */
     private $_content = null;
 
-
-    /**
-     * Request constructor.
-     */
-    public function __construct()
-    {
-
-    }
-
     /**
      * capture the custom request
      */
@@ -77,26 +68,26 @@ class Request
     private function getWitchRequest()
     {
         if ('cli' === php_sapi_name()) {
-            define('IS_CLI', true);
+            \define('IS_CLI', true);
             return;
         }
 
-        $reqMethod = strtolower($_SERVER['REQUEST_METHOD']);
+        $reqMethod = \strtolower($_SERVER['REQUEST_METHOD']);
 
         if ('post' === $reqMethod) {
-            define('IS_POST', true);
-            define('IS_GET', false);
+            \define('IS_POST', true);
+            \define('IS_GET', false);
         } else {
             if ('get' === $reqMethod) {
-                define('IS_POST', false);
-                define('IS_GET', true);
+                \define('IS_POST', false);
+                \define('IS_GET', true);
             }
         }
 
-        if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && 'xmlhttprequest' == strtolower($_SERVER['HTTP_X_REQUESTED_WITH'])) {
-            define('IS_AJAX', true);
+        if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && 'xmlhttprequest' == \strtolower($_SERVER['HTTP_X_REQUESTED_WITH'])) {
+            \define('IS_AJAX', true);
         } else {
-            define('IS_AJAX', false);
+            \define('IS_AJAX', false);
         }
     }
 
@@ -107,11 +98,18 @@ class Request
      */
     public function add($type, $key, $val = '')
     {
-        $arr = '_' . $type;
-        if (is_array($key)) {
-            $this->$arr = array_merge($this->$arr, $key);
-        } elseif (is_string($key)) {
-            $this->$arr[$key] = $val;
+        if (\is_array($key)) {
+            if ('post' === $type) {
+                $this->_post = \array_merge($this->_post, $key);
+            } elseif ('get' === $type) {
+                $this->_get = \array_merge($this->_get, $key);
+            }
+        } elseif (\is_string($key)) {
+            if ('post' === $type) {
+                $this->_post[$key] = $val;
+            } elseif ('get' === $type) {
+                $this->_get[$key] = $val;
+            }
         }
     }
 
@@ -124,11 +122,11 @@ class Request
     public function get($key = '', $callable = 'htmlspecialchars', $default = null)
     {
         if ('' === $key) {
-            return array_map($callable, $this->_get);
+            return \array_map($callable, $this->_get);
         }
-        if (key_exists($key, $this->_get)) {
-            if (is_array($this->_get[$key])) {
-                return array_map($callable, $this->_get[$key]);
+        if (\key_exists($key, $this->_get)) {
+            if (\is_array($this->_get[$key])) {
+                return \array_map($callable, $this->_get[$key]);
             }
             return $callable($this->_get[$key]);
         }
@@ -147,11 +145,11 @@ class Request
     public function request($key = '', $callable = 'htmlspecialchars', $default = null)
     {
         if (empty($key)) {
-            return array_map($callable, $this->_request);
+            return \array_map($callable, $this->_request);
         }
-        if (key_exists($key, $this->_request)) {
-            if (is_array($this->_request[$key])) {
-                return array_map($callable, $this->_request[$key]);
+        if (\key_exists($key, $this->_request)) {
+            if (\is_array($this->_request[$key])) {
+                return \array_map($callable, $this->_request[$key]);
             }
             return $callable($this->_request[$key]);
         }
@@ -170,11 +168,11 @@ class Request
     public function post($key = '', $callable = 'htmlspecialchars', $default = null)
     {
         if ('' === $key) {
-            return array_map($callable, $this->_post);
+            return \array_map($callable, $this->_post);
         }
-        if (key_exists($key, $this->_post)) {
-            if (is_array($this->_post[$key])) {
-                return array_map($callable, $this->_post[$key]);
+        if (\key_exists($key, $this->_post)) {
+            if (\is_array($this->_post[$key])) {
+                return \array_map($callable, $this->_post[$key]);
             }
             return $callable($this->_post[$key]);
         }
@@ -195,7 +193,7 @@ class Request
         if ('' === $key) {
             return $this->_file;
         }
-        if (in_array($key, $this->_file)) {
+        if (\in_array($key, $this->_file)) {
             return $this->_file[$key];
         } else {
             return false;
@@ -218,11 +216,11 @@ class Request
         if (true === $asResource) {
             $this->_content = false;
 
-            return fopen('php://input', 'rb');
+            return \fopen('php://input', 'rb');
         }
 
         if (null === $this->_content) {
-            $this->_content = file_get_contents('php://input');
+            $this->_content = \file_get_contents('php://input');
         }
 
         return $this->_content;

@@ -24,15 +24,6 @@ abstract class Model
      */
     protected $table = '';
 
-    /**
-     * @var array
-     */
-    protected $_validate = [];
-
-    /**
-     * @var array
-     */
-    protected $_auto = [];
 
     /**
      * @var \Linger\Driver\Db\DbDriver|null
@@ -50,7 +41,7 @@ abstract class Model
         if (!empty($table)) {
             $this->table = $table;
         } else {
-            $this->table = strtolower(str_replace('Model', '', ltrim(strrchr(get_called_class(), '\\'), '\\')));
+            $this->table = \strtolower(str_replace('Model', '', \ltrim(strrchr(get_called_class(), '\\'), '\\')));
         }
 
         if (!empty($database)) {

@@ -45,7 +45,7 @@ class Config
             foreach ($section as $key => $value) {
                 if (\strpos($key, $explodeStr)) {
                     if (\substr($key, 0, 1) !== $escapeChar) {
-                        $subKeys = explode($explodeStr, $key);
+                        $subKeys = \explode($explodeStr, $key);
                         $subs = &$data[$sectionKey];
                         foreach ($subKeys as $subKey) {
                             if (! isset($subs[$subKey])) {

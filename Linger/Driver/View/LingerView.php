@@ -37,20 +37,20 @@ class LingerView extends LingerViewAbstract
         }
         $content = null;
         if (is_file($tplFile)) {
-            $this->tmplPath = dirname($tplFile);
+            $this->tmplPath = \dirname($tplFile);
             $this->tmplFile = $tplFile;
         } else {
             $this->tmplFile = $this->tmplPath . '/' . $tplFile;
         }
         if ($cacheTime > 0) {
-            if (is_file($cachePath)) {
-                if (time() - filemtime($cachePath) <= $cacheTime) {
-                    $content = file_get_contents($cachePath);
+            if (\is_file($cachePath)) {
+                if (\time() - \filemtime($cachePath) <= $cacheTime) {
+                    $content = \file_get_contents($cachePath);
                 }
             }
         }
         if (! $content) {
-            $this->compileFile = C('TPL_COMP_PATH') . MODULE . '_' . CONTROLLER . '_' . ACTION . '_' . substr(md5($this->tmplFile),
+            $this->compileFile = \C('TPL_COMP_PATH') . MODULE . '_' . CONTROLLER . '_' . ACTION . '_' . \substr(md5($this->tmplFile),
                     0, 8) . '.php';
             $this->compile();
             if (! empty($this->vars)) {
@@ -60,13 +60,13 @@ class LingerView extends LingerViewAbstract
             include $this->compileFile;
             $content = ob_get_clean();
             if ($cacheTime > 0) {
-                file_put_contents($cachePath, $content);
+                \file_put_contents($cachePath, $content);
             }
         }
         if ($show) {
             $charset = C('TPL_CHARSET') ? C('TPL_CHARSET') : 'UTF-8';
-            if (! headers_sent()) {
-                header("Content-Type: {$contentType}; charset={$charset}");
+            if (! \headers_sent()) {
+                \header("Content-Type: {$contentType}; charset={$charset}");
             }
             echo $content;
         } else {
@@ -92,7 +92,7 @@ class LingerView extends LingerViewAbstract
      */
     public function assign($name, $value)
     {
-        if (is_array($name)) {
+        if (\is_array($name)) {
             foreach ($name as $key => $val) {
                 $this->vars[$key] = $val;
             }
