@@ -120,7 +120,7 @@ class Bootstrap
         session_start();
     }
 
-//    public function _initPlugin(\Linger\Core\Dispatcher \$dispatcher)
+//    public function _initPlugin(\Linger\Kernel\Dispatcher \$dispatcher)
 //    {
 //        \$user = new UserPlugin();
 //        \$dispatcher->registerPlugin(\$user);
