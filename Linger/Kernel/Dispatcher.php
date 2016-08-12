@@ -58,11 +58,15 @@ class Dispatcher
 
         $controllerObj = new $class();
 
+        if (!\is_subclass_of($controllerObj, 'Linger\\Kernel\\Controller')) {
+            \_404(SHOW_404_PAGE);
+        }
+
         if (!\method_exists($controllerObj, ACTION)) {
             \_404(SHOW_404_PAGE);
         }
-        $action = ACTION;
 
+        $action = ACTION;
         $controllerObj->$action();
 
         /**
