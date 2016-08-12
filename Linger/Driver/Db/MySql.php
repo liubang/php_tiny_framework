@@ -51,7 +51,7 @@ class MySql extends DbDriver
         if ($result) {
             $fields = '';
             foreach ($result as $val) {
-                $fields .= '`' . $val['field'] . '`' . ',';
+                $fields .= '`' . $val['Field'] . '`' . ',';
             }
             $fields = rtrim($fields, ',');
             $this->opt['fields'] = $fields;
