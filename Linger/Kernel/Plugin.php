@@ -12,33 +12,33 @@
 
 namespace Linger\Kernel;
 
-abstract class Plugin
+interface Plugin
 {
     /**
      * @param Request  $request
      * @param Response $response
      * @return mixed
      */
-    abstract function routerStartup(Request $request, Response $response);
+    public function routerStartup(Request $request, Response $response);
 
     /**
      * @param Request  $request
      * @param Response $response
      * @return mixed
      */
-    abstract function routerShutdown(Request $request, Response $response);
+    public function routerShutdown(Request $request, Response $response);
 
     /**
      * @param Request  $request
      * @param Response $response
      * @return mixed
      */
-    abstract function dispatchStartup(Request $request, Response $response);
+    public function dispatchStartup(Request $request, Response $response);
 
     /**
      * @param Request  $request
      * @param Response $response
      * @return mixed
      */
-    abstract function dispatchShutdown(Request $request, Response $response);
+    public function dispatchShutdown(Request $request, Response $response);
 }
