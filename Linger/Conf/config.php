@@ -26,6 +26,7 @@ return [
             'DB_DSN'    => '',
         ],
         //more database config
+
     ],
 
 
