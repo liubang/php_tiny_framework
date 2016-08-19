@@ -3,7 +3,7 @@
  |------------------------------------------------------------------
  | 注册表类
  |------------------------------------------------------------------
- | @author    : liubang 
+ | @author    : liubang
  | @date      : 2016/3/31 14:59
  | @copyright : (c) iliubang.cn
  | @license   : MIT (http://opensource.org/licenses/MIT)
@@ -14,44 +14,44 @@ namespace Linger\Kernel;
 
 class Registry
 {
-    const REGIST_ARR = true;
+	const REGIST_ARR = true;
 
-    /**
-     * @var mixed[]
-     */
-    protected $registry = [];
+	/**
+	 * @var mixed[]
+	 */
+	protected $registry = [];
 
-    /**
-     * 向注册表中注册一个变量
-     *
-     * @param string $key
-     * @param mixed  $val
-     * @param bool   $isArr
-     */
-    public function set($key, $val, $isArr = false)
-    {
-        if ($isArr) {
-            $this->registry[$key][] = $val;
-        } else {
-            $this->registry[$key] = $val;
-        }
-    }
+	/**
+	 * 向注册表中注册一个变量
+	 *
+	 * @param string $key
+	 * @param mixed  $val
+	 * @param bool   $isArr
+	 */
+	public function set($key, $val, $isArr = false)
+	{
+		if ($isArr) {
+			$this->registry[$key][] = $val;
+		} else {
+			$this->registry[$key] = $val;
+		}
+	}
 
-    /**
-     * 获取注册表
-     *
-     * @param null|string $key
-     * @return mixed|\mixed[]|null
-     */
-    public function get($key = null)
-    {
-        if (null === $key) {
-            return $this->registry;
-        }
-        if (isset($this->registry[$key])) {
-            return $this->registry[$key];
-        }
-        return null;
-    }
+	/**
+	 * 获取注册表
+	 *
+	 * @param null|string $key
+	 * @return mixed|\mixed[]|null
+	 */
+	public function get($key = null)
+	{
+		if (null === $key) {
+			return $this->registry;
+		}
+		if (isset($this->registry[$key])) {
+			return $this->registry[$key];
+		}
+		return null;
+	}
 
 }
