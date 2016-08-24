@@ -154,7 +154,7 @@ class UserModel extends Model
 ### 插件
 提供了简单的插件机制，只有4种
 
-`routerStartup`, 'routerShutdown', `dispatchStartup`, `dispatchShutdown`
+`routerStartup`, `routerShutdown`, `dispatchStartup`, `dispatchShutdown`
 
 定义一个插件在app/plugin/目录新建一个UserPlugin.php
 
