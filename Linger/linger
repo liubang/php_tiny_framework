@@ -190,12 +190,12 @@ class IndexController extends Controller
 {
     public function _init()
     {
-	parent::_init();
+	    parent::_init();
     }
 
     public function indexAction()
     {
-	\$this->display();
+	    \$this->display();
     }
 }
 PHP;

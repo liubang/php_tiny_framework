@@ -67,6 +67,11 @@ abstract class Controller
 				'/') . '/' . MODULE . '_' . CONTROLLER . '_' . ACTION . '_' . \substr(\md5($_SERVER['REQUEST_URI']),
 				0, 8) . '.html';
 		}
+
+	    $cacheDir = dirname($cachePath);
+        if (!\is_dir($cacheDir)) {
+            mkdir($cacheDir, 0777, true);
+        }
 		if ('' === $tmpl) {
 			$tmpl = \strtolower(CURRTMPL) . '.html';
 		}
