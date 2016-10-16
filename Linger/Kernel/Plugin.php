@@ -14,31 +14,31 @@ namespace Linger\Kernel;
 
 interface Plugin
 {
-	/**
-	 * @param Request  $request
-	 * @param Response $response
-	 * @return mixed
-	 */
-	public function routerStartup(Request $request, Response $response);
-
-	/**
-	 * @param Request  $request
-	 * @param Response $response
-	 * @return mixed
-	 */
-	public function routerShutdown(Request $request, Response $response);
-
-	/**
-	 * @param Request  $request
-	 * @param Response $response
-	 * @return mixed
-	 */
-	public function dispatchStartup(Request $request, Response $response);
-
-	/**
-	 * @param Request  $request
-	 * @param Response $response
-	 * @return mixed
-	 */
-	public function dispatchShutdown(Request $request, Response $response);
+        /**
+         * @param Request  $request
+         * @param Response $response
+         * @return mixed
+         */
+        public function routerStartup(Request $request, Response $response);
+        
+        /**
+         * @param Request  $request
+         * @param Response $response
+         * @return mixed
+         */
+        public function routerShutdown(Request $request, Response $response);
+        
+        /**
+         * @param Request  $request
+         * @param Response $response
+         * @return mixed
+         */
+        public function dispatchStartup(Request $request, Response $response);
+        
+        /**
+         * @param Request  $request
+         * @param Response $response
+         * @return mixed
+         */
+        public function dispatchShutdown(Request $request, Response $response);
 }

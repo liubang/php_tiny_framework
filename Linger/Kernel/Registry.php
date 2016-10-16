@@ -14,44 +14,44 @@ namespace Linger\Kernel;
 
 class Registry
 {
-	const REGIST_ARR = true;
-
-	/**
-	 * @var mixed[]
-	 */
-	protected $registry = [];
-
-	/**
-	 * 向注册表中注册一个变量
-	 *
-	 * @param string $key
-	 * @param mixed  $val
-	 * @param bool   $isArr
-	 */
-	public function set($key, $val, $isArr = false)
-	{
-		if ($isArr) {
-			$this->registry[$key][] = $val;
-		} else {
-			$this->registry[$key] = $val;
-		}
-	}
-
-	/**
-	 * 获取注册表
-	 *
-	 * @param null|string $key
-	 * @return mixed|\mixed[]|null
-	 */
-	public function get($key = null)
-	{
-		if (null === $key) {
-			return $this->registry;
-		}
-		if (isset($this->registry[$key])) {
-			return $this->registry[$key];
-		}
-		return null;
-	}
-
+        const REGIST_ARR = true;
+        
+        /**
+         * @var mixed[]
+         */
+        protected $registry = [];
+        
+        /**
+         * 向注册表中注册一个变量
+         *
+         * @param string $key
+         * @param mixed  $val
+         * @param bool   $isArr
+         */
+        public function set($key, $val, $isArr = false)
+        {
+                if ($isArr) {
+                        $this->registry[$key][] = $val;
+                } else {
+                        $this->registry[$key] = $val;
+                }
+        }
+        
+        /**
+         * 获取注册表
+         *
+         * @param null|string $key
+         * @return mixed|\mixed[]|null
+         */
+        public function get($key = null)
+        {
+                if (null === $key) {
+                        return $this->registry;
+                }
+                if (isset($this->registry[$key])) {
+                        return $this->registry[$key];
+                }
+                return null;
+        }
+        
 }
