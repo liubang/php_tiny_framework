@@ -68,9 +68,9 @@ abstract class Controller
 				0, 8) . '.html';
 		}
 
-		$cacheDir = dirname($cachePath);
+		$cacheDir = \dirname($cachePath);
 		if (!\is_dir($cacheDir)) {
-			mkdir($cacheDir, 0777, true);
+			\mkdir($cacheDir, 0777, true);
 		}
 		if ('' === $tmpl) {
 			$tmpl = \strtolower(CURRTMPL) . '.html';
