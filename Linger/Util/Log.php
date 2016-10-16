@@ -24,20 +24,20 @@ class Log
         public static function writeLog($file, $message, $level)
         {
                 $state = false;
-                $file = \app()->getConfig()->get('LOG_PATH') . '/' . date(\app()->getConfig()->get('LOG_ARCHIVE_TYPE')) . '/' . $file;
+                $file = \app()->getConfig()->get('LOG_PATH') . '/' . \date(\app()->getConfig()->get('LOG_ARCHIVE_TYPE')) . '/' . $file;
                 if (\is_string($file) && \is_string($message) && \is_numeric($level)) {
-                        if (is_file($file)) {
-                                $path = realpath(dirname($file));
+                        if (\is_file($file)) {
+                                $path = \realpath(dirname($file));
                         } else {
-                                $path = dirname($file);
+                                $path = \dirname($file);
                         }
                         
                         if (!is_dir($path)) {
                                 \mkdir($path, 0777, true);
                         }
                         list($usec, $sec) = \explode(' ', microtime());
-                        $dateTime = date("Y-m-d H:i:s" . " {$usec}");
-                        $hostName = gethostname();
+                        $dateTime = \date("Y-m-d H:i:s" . " {$usec}");
+                        $hostName = \gethostname();
                         $message = "[{$dateTime}]  {$hostName}  level:{$level}  " . $message . "\r\n";
                         $state = \error_log($message, 3, $file);
                 }
