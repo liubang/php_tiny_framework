@@ -14,33 +14,33 @@ namespace Linger\Util;
 
 class Log
 {
-	/**
-	 * @param string $file
-	 * @param string $message
-	 * @param int    $level
-	 *
-	 * @return bool
-	 */
-	public static function writeLog($file, $message, $level)
-	{
-		$state = FALSE;
-		$file = \app()->getConfig()->get('LOG_PATH') . '/' . date(\app()->getConfig()->get('LOG_ARCHIVE_TYPE')) . '/' . $file;
-		if (\is_string($file) && \is_string($message) && \is_numeric($level)) {
-			if (is_file($file)) {
-				$path = realpath(dirname($file));
-			} else {
-				$path = dirname($file);
-			}
-
-			if (!is_dir($path)) {
-				\mkdir($path, 0777, TRUE);
-			}
-			list($usec, $sec) = \explode(' ', microtime());
-			$dateTime = date("Y-m-d H:i:s" . " {$usec}");
-			$hostName = gethostname();
-			$message = "[{$dateTime}]  {$hostName}  level:{$level}  " . $message . "\r\n";
-			$state = \error_log($message, 3, $file);
-		}
-		return $state;
-	}
+        /**
+         * @param string $file
+         * @param string $message
+         * @param int    $level
+         *
+         * @return bool
+         */
+        public static function writeLog($file, $message, $level)
+        {
+                $state = false;
+                $file = \app()->getConfig()->get('LOG_PATH') . '/' . date(\app()->getConfig()->get('LOG_ARCHIVE_TYPE')) . '/' . $file;
+                if (\is_string($file) && \is_string($message) && \is_numeric($level)) {
+                        if (is_file($file)) {
+                                $path = realpath(dirname($file));
+                        } else {
+                                $path = dirname($file);
+                        }
+                        
+                        if (!is_dir($path)) {
+                                \mkdir($path, 0777, true);
+                        }
+                        list($usec, $sec) = \explode(' ', microtime());
+                        $dateTime = date("Y-m-d H:i:s" . " {$usec}");
+                        $hostName = gethostname();
+                        $message = "[{$dateTime}]  {$hostName}  level:{$level}  " . $message . "\r\n";
+                        $state = \error_log($message, 3, $file);
+                }
+                return $state;
+        }
 }
