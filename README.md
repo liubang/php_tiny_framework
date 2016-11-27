@@ -24,6 +24,7 @@
 
 ```
 cd Linger
+chmod a+x linger
 ./linger --app_name=app
 
 ```

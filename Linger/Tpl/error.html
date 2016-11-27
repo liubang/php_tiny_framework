@@ -4,32 +4,564 @@
     <meta charset="UTF-8">
     <title>Linger</title>
     <style>
-        a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,caption,center,cite,code,dd,del,details,dfn,div,dl,dt,em,embed,fieldset,figcaption,figure,footer,form,h1,h2,h3,h4,h5,h6,header,html,i,iframe,img,input,ins,kbd,label,legend,li,mark,menu,nav,object,ol,output,p,pre,q,ruby,s,samp,section,small,span,strike,strong,sub,summary,sup,table,tbody,td,tfoot,th,thead,time,tr,tt,u,ul,var,video{margin:0;padding:0;border:0;font:inherit;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,menu,nav,section{display:block}body,button,fieldset,form,input,label,legend,option,select,textarea{font-family:Verdana,"Lantinghei SC","Hiragino Sans GB","Microsoft Yahei",Helvetica,arial,sans-serif;line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:after,blockquote:before,q:after,q:before{content:none}a{color:#069;text-decoration:none}table{border-collapse:collapse;border-spacing:0}.lg-clearfix:after{content:".";display:block;height:0;clear:both;visibility:hidden}.lg-btn,.lg-form select{display:inline-block;cursor:pointer}.lg-clear{clear:both}.lg-fl{float:left}.lg-fr{float:right}.lg-mt10{margin-top:10px}.lg-mt15{margin-top:15px}.lg-mt20{margin-top:20px}.lg-ml10{margin-left:10px}.lg-ml15{margin-left:15px}.lg-ml20{margin-left:20px}.lg-mr10{margin-right:10px}.lg-mr15{margin-right:15px}.lg-mr20{margin-right:20px}.lg-mb10{margin-bottom:10px}.lg-mb15{margin-bottom:15px}.lg-mb20{margin-bottom:20px}.lg-pt10{padding-top:10px}.lg-pt15{padding-top:15px}.lg-pt20{padding-top:20px}.lg-pl10{padding-left:10px}.lg-pl15{padding-left:15px}.lg-pl20{padding-left:20px}.lg-pr10{padding-right:10px}.lg-pr15{padding-right:15px}.lg-pr20{padding-right:20px}.lg-pb10{padding-bottom:10px}.lg-pb15{padding-bottom:15px}.lg-pb20{padding-bottom:20px}.lg-container{width:85%;margin:0 auto}.lg-text-center{text-align:center}.lg-text-right{text-align:right}.lg-text-left{text-align:left}.lg-btn{font-family:"Microsoft YaHei",SimSun,Arial,serif;margin:5px 10px 10px 0;font-size:14px;padding:6px 12px;line-height:1.4em;background-image:linear-gradient(to bottom,#fff,#e6e6e6);border-radius:4px;border:1px solid rgba(0,0,0,.1);border-bottom-color:#b3b3b3;box-shadow:0 1px 1px rgba(255,255,255,.75);color:#333;text-align:center;text-shadow:0 1px 1px rgba(255,255,255,.75);vertical-align:middle}.lg-btn:hover{opacity:.9;cursor:pointer}.lg-btn:active{background-image:linear-gradient(to bottom,#fff,#a6a6a6);cursor:pointer}.lg-btn-large{font-size:18px;padding:10px 16px;line-height:1.33em}.lg-btn-small{font-size:12px;border-radius:3px;padding:3px 6px;line-height:1.5em}.lg-btn-danger,.lg-btn-primary,.lg-btn-success{border:1px solid transparent;color:#fff;opacity:1;text-shadow:1px 1px 1px rgba(100,100,100,.75)}.lg-btn-primary{background:#3071a9}.lg-btn-primary:active{background-image:linear-gradient(to bottom,#3071a9,#07449e);cursor:pointer}.lg-btn-danger{background:#f35f5d}.lg-btn-danger:active{background-image:linear-gradient(to bottom,#f35f5d,#f31e17);cursor:pointer}.lg-btn-success{background:#35b558}.lg-btn-success:active{background-image:linear-gradient(to bottom,#35b558,#026120);cursor:pointer}.lg-table{margin:0;padding:0;width:100%;color:#666;text-align:left}.lg-table-list{font-size:12px}.lg-table-list thead tr td,.lg-table-list thead tr th{background:#e6e6e6;border-top:1px solid #cecece;border-bottom:1px solid #cecece;color:#666;padding:7px 9px}.lg-table-list tbody tr td,.lg-table-list tbody tr th{border-bottom:1px solid #ddd;padding:5px 8px;vertical-align:middle}.lg-table-list tbody tr td{color:#555;border-bottom:solid 1px #ddd}.lg-table-list tbody tr:hover{background:#eee}.lg-table-form{font-size:12px}.lg-table-form thead tr td,.lg-table-form thead tr th{background:#ECECEC;border-top:1px solid #cecece;border-bottom:1px solid #cecece;color:#666;padding:7px 9px}.lg-table-form tbody tr td,.lg-table-form tbody tr th{border-bottom:1px solid #E5E5E5;padding:3px 8px;vertical-align:middle}.lg-table-form tbody tr th{text-align:right;background:#f8f8f8;border-right:1px solid #e5e5e5;color:#666;font-weight:400}input,label,option,select,textarea{font-size:12px;vertical-align:middle}.lg-form label{margin-right:10px;color:#656e73;line-height:normal}.lg-form input[type=password],.lg-form input[type=text],.lg-form textarea{line-height:1.6em;border:1px solid #d0d6d9;box-shadow:2px 2px 2px #f0f0f0 inset!important;color:#555;font-size:12px;outline:0;padding:2px 7px}.lg-form textarea{height:50px;padding:5px}.lg-form input[type=password]:focus,.lg-form input[type=text]:focus,.lg-form textarea:focus{transition:border linear .2s,box-shadow linear .5s;-moz-transition:border linear .2s,-moz-box-shadow linear .5s;-webkit-transition:border linear .2s,-webkit-box-shadow linear .5s;outline:0;border-color:rgba(93,149,242,.75);box-shadow:0 0 8px rgba(93,149,242,.105);-moz-box-shadow:0 0 8px rgba(93,149,242,.5);-webkit-box-shadow:0 0 8px rgba(93,149,242,3)}.lg-form select{margin:0;background-color:#FFF;border:1px solid #CCC;color:#555;line-height:30px;padding:3px 7px}.lg-page{text-align:right;padding:10px 15px;height:auto;overflow:hidden;font-family:"Helvetica Neue",STHeiti,"Microsoft YaHei",Helvetica,Arial,sans-serif;font-size:14px;color:#036cb4}.lg-page a,.lg-page span{padding:5px 12px;text-align:center;margin:3px 0;vertical-align:middle}.lg-page a{border:1px solid #e6e6e6;color:#999}.lg-page a:hover{border:1px solid #2a6496;background:#eee}.lg-page input,.lg-page select{border:1px solid #e6e6e6;vertical-align:middle}.lg-page select{height:30px}.lg-page input{height:28px;width:50px;text-align:center}.lg-page .page-jump{padding:4px 12px;background:#499ef3;height:30px;text-align:center;border:none;color:#fff;cursor:pointer}.lg-page .current,.lg-page .current:hover{border:1px solid #499EF3;background:#499EF3;color:#fff;font-weight:700;cursor:default}.lg-page .disable,.lg-page .disable:hover{border:1px solid #EEE;color:#ccc;cursor:default}.lg-page .disable:hover{background:#fff}.lg-tab{font-size:12px;position:relative;margin-bottom:10px;height:auto;overflow:hidden}.lg-tab ul.lg-tab-menu{height:28px;overflow:hidden;border-bottom:2px solid #3071a9}.lg-tab ul.lg-tab-menu li{padding:0 10px;height:28px;line-height:2.3em;float:left;color:#036cb4;cursor:pointer;background:#fff}.lg-tab ul.lg-tab-menu li.active{background:#3071a9;color:#FFF;font-weight:700}.lg-tab .lg-tab-content .lg-tab-content-area{height:auto;overflow:hidden;padding-top:6px}.lg-tab .lg-tab-content .lg-tab-content-area:first-child{display:block}.lg-modal-bg{position:fixed;height:100%;width:100%;background:#000;background:rgba(0,0,0,.8);z-index:100;display:none;top:0;left:0}.lg-modal{display:none;height:300px;top:0;left:50%;margin-left:-300px;width:520px;position:absolute;z-index:102;padding:30px 40px 34px;-moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;-moz-box-shadow:0 0 10px rgba(0,0,0,.4);-webkit-box-shadow:0 0 10px rgba(0,0,0,.4);-box-shadow:0 0 10px rgba(0,0,0,.4)}.lg-modal .lg-modal-close{font-size:22px;line-height:.5;position:absolute;top:8px;right:11px;color:#ccc;text-shadow:0 -1px 1px rgba(0,0,0,.6);font-weight:700;cursor:pointer}
-        .container {width: 98%; margin: 10px auto;}
-        .bt2 {color:#fff; padding: 10px; margin-top: 15px; background: darkred; border: 1px solid #000; }
-        .bt3 {font-weight: bold; margin-top: 10px; line-height: 150%;
-            margin-bottom: 20px; border-bottom: 2px solid #a6a6a6; padding-bottom: 10px;}
-        .fb {font-weight: bold;}
+        a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, body, canvas, caption, center, cite, code, dd, del, details, dfn, div, dl, dt, em, embed, fieldset, figcaption, figure, footer, form, h1, h2, h3, h4, h5, h6, header, html, i, iframe, img, input, ins, kbd, label, legend, li, mark, menu, nav, object, ol, output, p, pre, q, ruby, s, samp, section, small, span, strike, strong, sub, summary, sup, table, tbody, td, tfoot, th, thead, time, tr, tt, u, ul, var, video {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            font: inherit;
+            vertical-align: baseline
+        }
+
+        article, aside, details, figcaption, figure, footer, header, menu, nav, section {
+            display: block
+        }
+
+        body, button, fieldset, form, input, label, legend, option, select, textarea {
+            font-family: Verdana, "Lantinghei SC", "Hiragino Sans GB", "Microsoft Yahei", Helvetica, arial, sans-serif;
+            line-height: 1
+        }
+
+        ol, ul {
+            list-style: none
+        }
+
+        blockquote, q {
+            quotes: none
+        }
+
+        blockquote:after, blockquote:before, q:after, q:before {
+            content: none
+        }
+
+        a {
+            color: #069;
+            text-decoration: none
+        }
+
+        table {
+            border-collapse: collapse;
+            border-spacing: 0
+        }
+
+        .lg-clearfix:after {
+            content: ".";
+            display: block;
+            height: 0;
+            clear: both;
+            visibility: hidden
+        }
+
+        .lg-btn, .lg-form select {
+            display: inline-block;
+            cursor: pointer
+        }
+
+        .lg-clear {
+            clear: both
+        }
+
+        .lg-fl {
+            float: left
+        }
+
+        .lg-fr {
+            float: right
+        }
+
+        .lg-mt10 {
+            margin-top: 10px
+        }
+
+        .lg-mt15 {
+            margin-top: 15px
+        }
+
+        .lg-mt20 {
+            margin-top: 20px
+        }
+
+        .lg-ml10 {
+            margin-left: 10px
+        }
+
+        .lg-ml15 {
+            margin-left: 15px
+        }
+
+        .lg-ml20 {
+            margin-left: 20px
+        }
+
+        .lg-mr10 {
+            margin-right: 10px
+        }
+
+        .lg-mr15 {
+            margin-right: 15px
+        }
+
+        .lg-mr20 {
+            margin-right: 20px
+        }
+
+        .lg-mb10 {
+            margin-bottom: 10px
+        }
+
+        .lg-mb15 {
+            margin-bottom: 15px
+        }
+
+        .lg-mb20 {
+            margin-bottom: 20px
+        }
+
+        .lg-pt10 {
+            padding-top: 10px
+        }
+
+        .lg-pt15 {
+            padding-top: 15px
+        }
+
+        .lg-pt20 {
+            padding-top: 20px
+        }
+
+        .lg-pl10 {
+            padding-left: 10px
+        }
+
+        .lg-pl15 {
+            padding-left: 15px
+        }
+
+        .lg-pl20 {
+            padding-left: 20px
+        }
+
+        .lg-pr10 {
+            padding-right: 10px
+        }
+
+        .lg-pr15 {
+            padding-right: 15px
+        }
+
+        .lg-pr20 {
+            padding-right: 20px
+        }
+
+        .lg-pb10 {
+            padding-bottom: 10px
+        }
+
+        .lg-pb15 {
+            padding-bottom: 15px
+        }
+
+        .lg-pb20 {
+            padding-bottom: 20px
+        }
+
+        .lg-container {
+            width: 85%;
+            margin: 0 auto
+        }
+
+        .lg-text-center {
+            text-align: center
+        }
+
+        .lg-text-right {
+            text-align: right
+        }
+
+        .lg-text-left {
+            text-align: left
+        }
+
+        .lg-btn {
+            font-family: "Microsoft YaHei", SimSun, Arial, serif;
+            margin: 5px 10px 10px 0;
+            font-size: 14px;
+            padding: 6px 12px;
+            line-height: 1.4em;
+            background-image: linear-gradient(to bottom, #fff, #e6e6e6);
+            border-radius: 4px;
+            border: 1px solid rgba(0, 0, 0, .1);
+            border-bottom-color: #b3b3b3;
+            box-shadow: 0 1px 1px rgba(255, 255, 255, .75);
+            color: #333;
+            text-align: center;
+            text-shadow: 0 1px 1px rgba(255, 255, 255, .75);
+            vertical-align: middle
+        }
+
+        .lg-btn:hover {
+            opacity: .9;
+            cursor: pointer
+        }
+
+        .lg-btn:active {
+            background-image: linear-gradient(to bottom, #fff, #a6a6a6);
+            cursor: pointer
+        }
+
+        .lg-btn-large {
+            font-size: 18px;
+            padding: 10px 16px;
+            line-height: 1.33em
+        }
+
+        .lg-btn-small {
+            font-size: 12px;
+            border-radius: 3px;
+            padding: 3px 6px;
+            line-height: 1.5em
+        }
+
+        .lg-btn-danger, .lg-btn-primary, .lg-btn-success {
+            border: 1px solid transparent;
+            color: #fff;
+            opacity: 1;
+            text-shadow: 1px 1px 1px rgba(100, 100, 100, .75)
+        }
+
+        .lg-btn-primary {
+            background: #3071a9
+        }
+
+        .lg-btn-primary:active {
+            background-image: linear-gradient(to bottom, #3071a9, #07449e);
+            cursor: pointer
+        }
+
+        .lg-btn-danger {
+            background: #f35f5d
+        }
+
+        .lg-btn-danger:active {
+            background-image: linear-gradient(to bottom, #f35f5d, #f31e17);
+            cursor: pointer
+        }
+
+        .lg-btn-success {
+            background: #35b558
+        }
+
+        .lg-btn-success:active {
+            background-image: linear-gradient(to bottom, #35b558, #026120);
+            cursor: pointer
+        }
+
+        .lg-table {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            color: #666;
+            text-align: left
+        }
+
+        .lg-table-list {
+            font-size: 12px
+        }
+
+        .lg-table-list thead tr td, .lg-table-list thead tr th {
+            background: #e6e6e6;
+            border-top: 1px solid #cecece;
+            border-bottom: 1px solid #cecece;
+            color: #666;
+            padding: 7px 9px
+        }
+
+        .lg-table-list tbody tr td, .lg-table-list tbody tr th {
+            border-bottom: 1px solid #ddd;
+            padding: 5px 8px;
+            vertical-align: middle
+        }
+
+        .lg-table-list tbody tr td {
+            color: #555;
+            border-bottom: solid 1px #ddd
+        }
+
+        .lg-table-list tbody tr:hover {
+            background: #eee
+        }
+
+        .lg-table-form {
+            font-size: 12px
+        }
+
+        .lg-table-form thead tr td, .lg-table-form thead tr th {
+            background: #ECECEC;
+            border-top: 1px solid #cecece;
+            border-bottom: 1px solid #cecece;
+            color: #666;
+            padding: 7px 9px
+        }
+
+        .lg-table-form tbody tr td, .lg-table-form tbody tr th {
+            border-bottom: 1px solid #E5E5E5;
+            padding: 3px 8px;
+            vertical-align: middle
+        }
+
+        .lg-table-form tbody tr th {
+            text-align: right;
+            background: #f8f8f8;
+            border-right: 1px solid #e5e5e5;
+            color: #666;
+            font-weight: 400
+        }
+
+        input, label, option, select, textarea {
+            font-size: 12px;
+            vertical-align: middle
+        }
+
+        .lg-form label {
+            margin-right: 10px;
+            color: #656e73;
+            line-height: normal
+        }
+
+        .lg-form input[type=password], .lg-form input[type=text], .lg-form textarea {
+            line-height: 1.6em;
+            border: 1px solid #d0d6d9;
+            box-shadow: 2px 2px 2px #f0f0f0 inset !important;
+            color: #555;
+            font-size: 12px;
+            outline: 0;
+            padding: 2px 7px
+        }
+
+        .lg-form textarea {
+            height: 50px;
+            padding: 5px
+        }
+
+        .lg-form input[type=password]:focus, .lg-form input[type=text]:focus, .lg-form textarea:focus {
+            transition: border linear .2s, box-shadow linear .5s;
+            -moz-transition: border linear .2s, -moz-box-shadow linear .5s;
+            -webkit-transition: border linear .2s, -webkit-box-shadow linear .5s;
+            outline: 0;
+            border-color: rgba(93, 149, 242, .75);
+            box-shadow: 0 0 8px rgba(93, 149, 242, .105);
+            -moz-box-shadow: 0 0 8px rgba(93, 149, 242, .5);
+            -webkit-box-shadow: 0 0 8px rgba(93, 149, 242, 3)
+        }
+
+        .lg-form select {
+            margin: 0;
+            background-color: #FFF;
+            border: 1px solid #CCC;
+            color: #555;
+            line-height: 30px;
+            padding: 3px 7px
+        }
+
+        .lg-page {
+            text-align: right;
+            padding: 10px 15px;
+            height: auto;
+            overflow: hidden;
+            font-family: "Helvetica Neue", STHeiti, "Microsoft YaHei", Helvetica, Arial, sans-serif;
+            font-size: 14px;
+            color: #036cb4
+        }
+
+        .lg-page a, .lg-page span {
+            padding: 5px 12px;
+            text-align: center;
+            margin: 3px 0;
+            vertical-align: middle
+        }
+
+        .lg-page a {
+            border: 1px solid #e6e6e6;
+            color: #999
+        }
+
+        .lg-page a:hover {
+            border: 1px solid #2a6496;
+            background: #eee
+        }
+
+        .lg-page input, .lg-page select {
+            border: 1px solid #e6e6e6;
+            vertical-align: middle
+        }
+
+        .lg-page select {
+            height: 30px
+        }
+
+        .lg-page input {
+            height: 28px;
+            width: 50px;
+            text-align: center
+        }
+
+        .lg-page .page-jump {
+            padding: 4px 12px;
+            background: #499ef3;
+            height: 30px;
+            text-align: center;
+            border: none;
+            color: #fff;
+            cursor: pointer
+        }
+
+        .lg-page .current, .lg-page .current:hover {
+            border: 1px solid #499EF3;
+            background: #499EF3;
+            color: #fff;
+            font-weight: 700;
+            cursor: default
+        }
+
+        .lg-page .disable, .lg-page .disable:hover {
+            border: 1px solid #EEE;
+            color: #ccc;
+            cursor: default
+        }
+
+        .lg-page .disable:hover {
+            background: #fff
+        }
+
+        .lg-tab {
+            font-size: 12px;
+            position: relative;
+            margin-bottom: 10px;
+            height: auto;
+            overflow: hidden
+        }
+
+        .lg-tab ul.lg-tab-menu {
+            height: 28px;
+            overflow: hidden;
+            border-bottom: 2px solid #3071a9
+        }
+
+        .lg-tab ul.lg-tab-menu li {
+            padding: 0 10px;
+            height: 28px;
+            line-height: 2.3em;
+            float: left;
+            color: #036cb4;
+            cursor: pointer;
+            background: #fff
+        }
+
+        .lg-tab ul.lg-tab-menu li.active {
+            background: #3071a9;
+            color: #FFF;
+            font-weight: 700
+        }
+
+        .lg-tab .lg-tab-content .lg-tab-content-area {
+            height: auto;
+            overflow: hidden;
+            padding-top: 6px
+        }
+
+        .lg-tab .lg-tab-content .lg-tab-content-area:first-child {
+            display: block
+        }
+
+        .lg-modal-bg {
+            position: fixed;
+            height: 100%;
+            width: 100%;
+            background: #000;
+            background: rgba(0, 0, 0, .8);
+            z-index: 100;
+            display: none;
+            top: 0;
+            left: 0
+        }
+
+        .lg-modal {
+            display: none;
+            height: 300px;
+            top: 0;
+            left: 50%;
+            margin-left: -300px;
+            width: 520px;
+            position: absolute;
+            z-index: 102;
+            padding: 30px 40px 34px;
+            -moz-border-radius: 5px;
+            -webkit-border-radius: 5px;
+            border-radius: 5px;
+            -moz-box-shadow: 0 0 10px rgba(0, 0, 0, .4);
+            -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, .4);
+            -box-shadow: 0 0 10px rgba(0, 0, 0, .4)
+        }
+
+        .lg-modal .lg-modal-close {
+            font-size: 22px;
+            line-height: .5;
+            position: absolute;
+            top: 8px;
+            right: 11px;
+            color: #ccc;
+            text-shadow: 0 -1px 1px rgba(0, 0, 0, .6);
+            font-weight: 700;
+            cursor: pointer
+        }
+
+        .container {
+            width: 98%;
+            margin: 10px auto;
+        }
+
+        .bt2 {
+            color: #fff;
+            padding: 10px;
+            margin-top: 15px;
+            background: darkred;
+            border: 1px solid #000;
+        }
+
+        .bt3 {
+            font-weight: bold;
+            margin-top: 10px;
+            line-height: 150%;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #a6a6a6;
+            padding-bottom: 10px;
+        }
+
+        .fb {
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
 <div class="container">
     <p class="bt2"><span class="fb"><?=$type?>：</span><?=$message;?></p>
     <?php if (!empty($trace)) :?>
-        <p class="bt3">TRACE</p>
-        <table class="lg-table lg-table-list">
-            <tr>
-                <th>No.</th><th>File</th><th>Line</th><th>Code</th>
-            </tr>
-            <?php foreach ($trace as $key => $val) :?>
-            <tr>
-                <td><?=$key;?></td>
-                <td><?=\_default($val['file']);?></td>
-                <td><?=\_default($val['line'],0);?></td>
-                <td><?=\_default($val['class']);?>::<?=\_default($val['function']);?>()</td>
-            </tr>
-            <?php endforeach; ?>
-        </table>
+    <p class="bt3">TRACE</p>
+    <table class="lg-table lg-table-list">
+        <tr>
+            <th>No.</th>
+            <th>File</th>
+            <th>Line</th>
+            <th>Code</th>
+        </tr>
+        <?php foreach ($trace as $key => $val) :?>
+        <tr>
+            <td><?=$key;?></td>
+            <td><?=\_default($val['file']);?></td>
+            <td><?=\_default($val['line'],0);?></td>
+            <td><?=\_default($val['class']);?>::<?=\_default($val['function']);?>()</td>
+        </tr>
+        <?php endforeach; ?>
+    </table>
     <?php endif;?>
     <p class="bt2">程序运行时间：<?=number_format($time,6);?>(s)</p>
 </div>
