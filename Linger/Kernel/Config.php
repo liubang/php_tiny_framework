@@ -19,27 +19,28 @@ class Config implements \ArrayAccess
          *
          * @var array
          */
-        private $g_config = array();
-        
-        
+        private $g_config = [];
+
+
         public function __construct($config)
         {
                 $this->loadConfig($config);
         }
-        
+
         /**
          * @param string $file
          * @param bool   $processSections
          * @param int    $scannerMode
+         *
          * @return array|mixed
          */
-        private static function parseIniFile($file, $processSections = false, $scannerMode = INI_SCANNER_NORMAL)
+        private static function parseIniFile($file, $processSections = FALSE, $scannerMode = INI_SCANNER_NORMAL)
         {
                 $explodeStr = '.';
                 $escapeChar = "'";
                 $data = \parse_ini_file($file, $processSections, $scannerMode);
                 if (!$processSections) {
-                        $data = array($data);
+                        $data = [$data];
                 }
                 foreach ($data as $sectionKey => $section) {
                         foreach ($section as $key => $value) {
@@ -68,9 +69,10 @@ class Config implements \ArrayAccess
                 }
                 return $data;
         }
-        
+
         /**
          * @param $config
+         *
          * @return array
          */
         private static function changeArrayKeyCase($config)
@@ -82,9 +84,10 @@ class Config implements \ArrayAccess
                 }
                 return $arr;
         }
-        
+
         /**
          * @param $config
+         *
          * @return $this
          */
         public function loadConfig($config)
@@ -107,16 +110,17 @@ class Config implements \ArrayAccess
                 } else {
                         die('Requires a file or an array as a parameter');
                 }
-                
+
                 $this->g_config = self::changeArrayKeyCase($this->g_config);
-                
+
                 return $this;
         }
-        
+
         /**
          * get config
          *
          * @param string $key
+         *
          * @return array
          */
         public function get($key = '')
@@ -132,14 +136,14 @@ class Config implements \ArrayAccess
                                 if (isset($val[$key])) {
                                         $val = $val[$key];
                                 } else {
-                                        return false;
+                                        return FALSE;
                                 }
                         }
                         return $val;
                 }
                 return $this->g_config[$key];
         }
-        
+
         /**
          * set config
          *
@@ -155,31 +159,33 @@ class Config implements \ArrayAccess
                         $this->g_config[$key] = $val;
                 }
         }
-        
+
         /**
          * $config = App::factory('Linger\\Kernel\\Config');
          * isset($config['key'])
          *
          * @param mixed $offset
+         *
          * @return bool
          */
         public function offsetExists($offset)
         {
                 return isset($this->g_config[$offset]);
         }
-        
+
         /**
          * $config = App::factory('Linger\\Kernel\\Config');
          * $val = $config['key'];
          *
          * @param mixed $offset
+         *
          * @return mixed
          */
         public function offsetGet($offset)
         {
                 return $this->g_config[$offset];
         }
-        
+
         /**
          * $config = App::factory('Linger\\Kernel\\Config');
          * $config['key'] = $val;
@@ -191,7 +197,7 @@ class Config implements \ArrayAccess
         {
                 $this->g_config[$offset] = $value;
         }
-        
+
         /**
          * $config = App::factory('Linger\\Kernel\\Config');
          * unset($config['key']);
@@ -202,5 +208,5 @@ class Config implements \ArrayAccess
         {
                 unset($this->g_config[$offset]);
         }
-        
+
 }

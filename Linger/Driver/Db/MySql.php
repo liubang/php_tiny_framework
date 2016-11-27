@@ -14,7 +14,7 @@ namespace Linger\Driver\Db;
 
 class MySql extends DbDriver
 {
-        
+
         /**
          * @return string
          */
@@ -33,14 +33,14 @@ class MySql extends DbDriver
                 }
                 return $dsn;
         }
-        
+
         /**
          * @return $this|bool
          */
         protected function parseTableFields()
         {
                 if (empty($this->table)) {
-                        return false;
+                        return FALSE;
                 }
                 if (isset($this->tableFields[$this->linkId][$this->table]) && !empty($this->tableFields[$this->linkId][$this->table])) {
                         $this->opt['fields'] = $this->tableFields[$this->linkId][$this->table];
@@ -59,5 +59,5 @@ class MySql extends DbDriver
                 }
                 return $this;
         }
-        
+
 }

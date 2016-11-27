@@ -18,20 +18,20 @@ defined('SHOW_404_PAGE') || define('SHOW_404_PAGE', 1);
 defined('SHOW_403_PAGE') || define('SHOW_403_PAGE', 1);
 
 if (!function_exists('app')) {
-        
+
         /**
          * @param null $config
          *
          * @return \Linger\Kernel\App|null
          */
-        function app($config = null)
+        function app($config = NULL)
         {
                 return App::factory('Linger\\Kernel\\App', $config);
         }
 }
 
 if (!function_exists('_include')) {
-        
+
         /**
          * fast include a file, that would include the same file once time.
          *
@@ -42,19 +42,19 @@ if (!function_exists('_include')) {
         function _include($filePath)
         {
                 static $g_include = [];
-                
+
                 if (in_array($filePath, $g_include)) {
-                        return true;
+                        return TRUE;
                 }
-                
+
                 require $filePath;
                 array_push($g_include, $filePath);
-                return true;
+                return TRUE;
         }
 }
 
 if (!function_exists('_default')) {
-        
+
         /**
          * if the variable of name is not empty, it will return the value of name, but return var.
          *
@@ -73,7 +73,7 @@ if (!function_exists('_default')) {
 }
 
 if (!function_exists('p')) {
-        
+
         /**
          * print formated array.
          *
@@ -88,7 +88,7 @@ if (!function_exists('p')) {
 }
 
 if (!function_exists('C')) {
-        
+
         /**
          * get or set config
          *
@@ -97,16 +97,16 @@ if (!function_exists('C')) {
          *
          * @return array|void|string
          */
-        function C($key = null, $val = null)
+        function C($key = NULL, $val = NULL)
         {
                 /**
                  * @var \Linger\Kernel\Router
                  */
                 $config = app()->getConfig();
-                
-                if (null === $key) {
+
+                if (NULL === $key) {
                         return $config->get();
-                } elseif (null === $val) {
+                } elseif (NULL === $val) {
                         return $config->get($key);
                 } else {
                         $config->set($key, $val);
@@ -115,7 +115,7 @@ if (!function_exists('C')) {
 }
 
 if (!function_exists('D')) {
-        
+
         /**
          * fast instantiates a Model object.
          *
@@ -153,7 +153,7 @@ if (!function_exists('D')) {
 }
 
 if (!function_exists('_404')) {
-        
+
         /**
          * fast response 404 status or custom 404 page.
          *
@@ -161,7 +161,7 @@ if (!function_exists('_404')) {
          *
          * @throws \HttpResponseException
          */
-        function _404($showPage = false)
+        function _404($showPage = FALSE)
         {
                 if (!$showPage) {
                         $response = app()->getResponse();
@@ -176,7 +176,7 @@ if (!function_exists('_404')) {
 
 
 if (!function_exists('_403')) {
-        
+
         /**
          * fast response 403 status or custom 403 page.
          *
@@ -184,7 +184,7 @@ if (!function_exists('_403')) {
          *
          * @throws \HttpResponseException
          */
-        function _403($showPage = false)
+        function _403($showPage = FALSE)
         {
                 if (!$showPage) {
                         $response = app()->getResponse();

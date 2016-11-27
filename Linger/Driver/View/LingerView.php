@@ -21,21 +21,22 @@ class LingerView extends LingerViewAbstract
         {
                 parent::__construct();
         }
-        
+
         /**
          * @param string $tplFile
          * @param int    $cacheTime
          * @param string $cachePath
          * @param string $contentType
          * @param bool   $show
+         *
          * @return null
          */
-        public function display($tplFile, $cacheTime = -1, $cachePath = '', $contentType = 'text/html', $show = true)
+        public function display($tplFile, $cacheTime = -1, $cachePath = '', $contentType = 'text/html', $show = TRUE)
         {
                 if ($cacheTime > 0 && empty($cachePath)) {
                         die('请配置缓存目录！');
                 }
-                $content = null;
+                $content = NULL;
                 if (is_file($tplFile)) {
                         $this->tmplPath = \dirname($tplFile);
                         $this->tmplFile = $tplFile;
@@ -52,10 +53,10 @@ class LingerView extends LingerViewAbstract
                 if (!$content) {
                         $this->compileFile = \C('TPL_COMP_PATH') . MODULE . '_' . CONTROLLER . '_' . ACTION . '_' . \substr(md5($this->tmplFile),
                                         0, 8) . '.php';
-                        
+
                         $compilePath = \dirname($this->compileFile);
                         if (!\is_dir($compilePath)) {
-                                \mkdir($compilePath, 0777, true);
+                                \mkdir($compilePath, 0777, TRUE);
                         }
                         $this->compile();
                         if (!empty($this->vars)) {
@@ -78,19 +79,20 @@ class LingerView extends LingerViewAbstract
                         return $content;
                 }
         }
-        
+
         /**
          * @param string $tplFile
          * @param int    $cacheTime
          * @param string $cachePath
          * @param string $contentType
+         *
          * @return null
          */
         public function render($tplFile = '', $cacheTime = -1, $cachePath = '', $contentType = 'text/html')
         {
-                return $this->display($tplFile, $cacheTime, $cachePath, $contentType, false);
+                return $this->display($tplFile, $cacheTime, $cachePath, $contentType, FALSE);
         }
-        
+
         /**
          * @param $name
          * @param $value
@@ -105,25 +107,25 @@ class LingerView extends LingerViewAbstract
                         $this->vars[$name] = $value;
                 }
         }
-        
+
         /**
          * @return bool
          */
         private function compile()
         {
                 if (!$this->compileInvallid()) {
-                        return false;
+                        return FALSE;
                 }
                 $compiler = new LingerCompiler();
                 $compiler->run($this);
         }
-        
+
         /**
          * @return bool
          */
         private function compileInvallid()
         {
                 //TODO ...
-                return true;
+                return TRUE;
         }
 }

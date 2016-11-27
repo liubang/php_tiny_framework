@@ -26,10 +26,10 @@ return [
                         'DB_DSN'    => '',
                 ],
                 //more database config
-        
+
         ],
-        
-        
+
+
         //---system config---//
         'LINGER_ENVIRON'     => 'product',
         'DEBUG'              => 0,
@@ -47,7 +47,7 @@ return [
         'URL_VAR_MODULE'     => 'm', //当使用get传参路由形式的时候module参数的键名
         'URL_VAR_CONTROLLER' => 'c', //当使用get传参路由形式的时候controller参数的键名
         'URL_VAR_ACTION'     => 'a', //当使用get传参路由形式的时候action参数的键名
-        
+
         //---router config---//
         'ROUTE'              => [],
         'PLUGIN_PATH'        => APP_ROOT . '/plugin/',
@@ -59,11 +59,11 @@ return [
         'TPL_CACHE_PATH'     => APP_ROOT . '/public/tmp/cache/',
         'TPL_COMP_PATH'      => APP_ROOT . '/public/tmp/compile/',
         'TPL_CHARSET'        => 'UTF-8',
-        
+
         //---cookie---//
         'COOKIE_NAME'        => 'LINGER_FRAME_COOKIE',
         'COOKIE_PATH'        => '/',
-        'COOKIE_DOMAIN'      => null,
-        'COOKIE_SECURE'      => false,
-        'COOKIE_HTTP_ONLY'   => false,
+        'COOKIE_DOMAIN'      => NULL,
+        'COOKIE_SECURE'      => FALSE,
+        'COOKIE_HTTP_ONLY'   => FALSE,
 ];

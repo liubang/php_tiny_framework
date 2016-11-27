@@ -13,21 +13,22 @@ namespace Linger\Driver\View;
 
 class LingerViewSimple extends LingerViewAbstract
 {
-        
+
         public function __construct()
         {
                 parent::__construct();
         }
-        
+
         /**
          * @param string $tplFile
          * @param int    $cacheTime
          * @param null   $cachePath
          * @param string $contentType
          * @param bool   $show
+         *
          * @return void
          */
-        public function display($tplFile, $cacheTime = -1, $cachePath = null, $contentType = 'text/html', $show = true)
+        public function display($tplFile, $cacheTime = -1, $cachePath = NULL, $contentType = 'text/html', $show = TRUE)
         {
                 \extract($this->vars, EXTR_OVERWRITE);
                 $filePath = $this->tmplPath . '/' . $tplFile;
@@ -37,18 +38,19 @@ class LingerViewSimple extends LingerViewAbstract
                         die('模板文件' . $filePath . '不存在');
                 }
         }
-        
+
         /**
          * @param        $tplFile
          * @param int    $cacheTime
          * @param null   $cachePath
          * @param string $contentType
+         *
          * @return mixed
          */
-        public function render($tplFile, $cacheTime = -1, $cachePath = null, $contentType = 'text/html')
+        public function render($tplFile, $cacheTime = -1, $cachePath = NULL, $contentType = 'text/html')
         {
                 \ob_start();
-                $this->display($tplFile, $cacheTime, $cachePath, $contentType, false);
+                $this->display($tplFile, $cacheTime, $cachePath, $contentType, FALSE);
                 $html = \ob_get_contents();
                 \ob_clean();
                 return $html;

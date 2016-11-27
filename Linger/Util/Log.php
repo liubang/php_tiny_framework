@@ -23,7 +23,7 @@ class Log
          */
         public static function writeLog($file, $message, $level)
         {
-                $state = false;
+                $state = FALSE;
                 $file = \app()->getConfig()->get('LOG_PATH') . '/' . \date(\app()->getConfig()->get('LOG_ARCHIVE_TYPE')) . '/' . $file;
                 if (\is_string($file) && \is_string($message) && \is_numeric($level)) {
                         if (\is_file($file)) {
@@ -33,7 +33,7 @@ class Log
                         }
 
                         if (!is_dir($path)) {
-                                \mkdir($path, 0777, true);
+                                \mkdir($path, 0777, TRUE);
                         }
                         list($usec, $sec) = \explode(' ', microtime());
                         $dateTime = \date("Y-m-d H:i:s" . " {$usec}");

@@ -20,26 +20,26 @@ abstract class LingerViewAbstract
          * @var string
          */
         protected $tmplFile = '';
-        
+
         /**
          * @var string
          */
         protected $tmplPath = '';
-        
+
         /**
          * 编译文件
          *
          * @var string
          */
         protected $compileFile = '';
-        
+
         /**
          * 模板变量
          *
          * @var array
          */
         protected $vars = [];
-        
+
         /**
          * LingerViewAbstract constructor.
          */
@@ -52,7 +52,7 @@ abstract class LingerViewAbstract
                 defined('LINGER') || define('LINGER', 'true');
                 $this->tmplPath = APP_ROOT . '/' . APP_NAME . '/module/' . MODULE . '/view';
         }
-        
+
         /**
          * 模板赋值
          *
@@ -71,7 +71,7 @@ abstract class LingerViewAbstract
                         }
                 }
         }
-        
+
         /**
          * 输出模板
          *
@@ -80,10 +80,11 @@ abstract class LingerViewAbstract
          * @param $cachePath
          * @param $contentType
          * @param $show
+         *
          * @return mixed
          */
         abstract function display($tplFile, $cacheTime, $cachePath, $contentType, $show);
-        
+
         /**
          * 渲染模板，返回渲染后的内容
          *
@@ -91,10 +92,11 @@ abstract class LingerViewAbstract
          * @param $cacheTime
          * @param $cachePath
          * @param $contentType
+         *
          * @return mixed
          */
         abstract function render($tplFile, $cacheTime, $cachePath, $contentType);
-        
+
         /**
          * 获取模板文件
          *
@@ -104,7 +106,7 @@ abstract class LingerViewAbstract
         {
                 return $this->tmplFile;
         }
-        
+
         /**
          * 获取编译后的文件
          *
@@ -114,7 +116,7 @@ abstract class LingerViewAbstract
         {
                 return $this->compileFile;
         }
-        
+
         /**
          * 获取模板路径
          *
@@ -124,7 +126,7 @@ abstract class LingerViewAbstract
         {
                 return $this->tmplPath;
         }
-        
+
         /**
          * 设置模板路径
          *
