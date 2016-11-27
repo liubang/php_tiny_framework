@@ -14,38 +14,38 @@ namespace Linger\Kernel;
 
 class Request
 {
-        
+
         /**
          * 保存get提交的变量
          *
          * @var array
          */
         private $_get = [];
-        
+
         /**
          * 保存post提交的变量
          *
          * @var array
          */
         private $_post = [];
-        
+
         /**
          * 保存表单提交的file
          *
          * @var array
          */
         private $_file = [];
-        
+
         /**
          * @var array
          */
         private $_request = [];
-        
+
         /**
          * @var string|null
          */
-        private $_content = null;
-        
+        private $_content = NULL;
+
         /**
          * capture the custom request
          */
@@ -61,36 +61,36 @@ class Request
                 unset($_FILES);
                 unset($_REQUEST);
         }
-        
+
         /**
          * 获取请求类型,并定义常量
          */
         private function getWitchRequest()
         {
                 if ('cli' === \php_sapi_name()) {
-                        \define('IS_CLI', true);
+                        \define('IS_CLI', TRUE);
                         return;
                 }
-                
+
                 $reqMethod = \strtolower($_SERVER['REQUEST_METHOD']);
-                
+
                 if ('post' === $reqMethod) {
-                        \define('IS_POST', true);
-                        \define('IS_GET', false);
+                        \define('IS_POST', TRUE);
+                        \define('IS_GET', FALSE);
                 } else {
                         if ('get' === $reqMethod) {
-                                \define('IS_POST', false);
-                                \define('IS_GET', true);
+                                \define('IS_POST', FALSE);
+                                \define('IS_GET', TRUE);
                         }
                 }
-                
+
                 if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && 'xmlhttprequest' == \strtolower($_SERVER['HTTP_X_REQUESTED_WITH'])) {
-                        \define('IS_AJAX', true);
+                        \define('IS_AJAX', TRUE);
                 } else {
-                        \define('IS_AJAX', false);
+                        \define('IS_AJAX', FALSE);
                 }
         }
-        
+
         /**
          * @param string $type
          * @param string $key
@@ -112,14 +112,15 @@ class Request
                         }
                 }
         }
-        
+
         /**
          * @param string     $key
          * @param string     $callable
          * @param null|mixed $default
+         *
          * @return array|mixed|null
          */
-        public function get($key = '', $callable = 'htmlspecialchars', $default = null)
+        public function get($key = '', $callable = 'htmlspecialchars', $default = NULL)
         {
                 if ('' === $key) {
                         return \array_map($callable, $this->_get);
@@ -130,19 +131,20 @@ class Request
                         }
                         return $callable($this->_get[$key]);
                 }
-                if (null !== $default) {
+                if (NULL !== $default) {
                         return $default;
                 }
-                return null;
+                return NULL;
         }
-        
+
         /**
          * @param string $key
          * @param string $callable
          * @param mixed  $default
+         *
          * @return null
          */
-        public function request($key = '', $callable = 'htmlspecialchars', $default = null)
+        public function request($key = '', $callable = 'htmlspecialchars', $default = NULL)
         {
                 if (empty($key)) {
                         return \array_map($callable, $this->_request);
@@ -153,19 +155,20 @@ class Request
                         }
                         return $callable($this->_request[$key]);
                 }
-                if (null !== $default) {
+                if (NULL !== $default) {
                         return $default;
                 }
-                return null;
+                return NULL;
         }
-        
+
         /**
          * @param string $key
          * @param string $callable
          * @param mixed  $default
+         *
          * @return null
          */
-        public function post($key = '', $callable = 'htmlspecialchars', $default = null)
+        public function post($key = '', $callable = 'htmlspecialchars', $default = NULL)
         {
                 if ('' === $key) {
                         return \array_map($callable, $this->_post);
@@ -176,16 +179,17 @@ class Request
                         }
                         return $callable($this->_post[$key]);
                 }
-                if (null !== $default) {
+                if (NULL !== $default) {
                         return $default;
                 }
-                return null;
+                return NULL;
         }
-        
+
         /**
          * 获取上传的文件信息
          *
          * @param string $key
+         *
          * @return array|bool
          */
         public function file($key = '')
@@ -196,33 +200,34 @@ class Request
                 if (\in_array($key, $this->_file)) {
                         return $this->_file[$key];
                 } else {
-                        return false;
+                        return FALSE;
                 }
         }
-        
+
         /**
          * get the request body content.
          *
          * @param bool $asResource if true, a resource will be returned
+         *
          * @return resource|string the request body content or a resource to read the body stream.
          * @throws \Exception
          */
-        public function content($asResource = false)
+        public function content($asResource = FALSE)
         {
-                if (false === $this->_content || (true === $asResource && null !== $this->_content)) {
+                if (FALSE === $this->_content || (TRUE === $asResource && NULL !== $this->_content)) {
                         throw new \Exception('content() can only be called once when using the resource return type.');
                 }
-                
-                if (true === $asResource) {
-                        $this->_content = false;
-                        
+
+                if (TRUE === $asResource) {
+                        $this->_content = FALSE;
+
                         return \fopen('php://input', 'rb');
                 }
-                
-                if (null === $this->_content) {
+
+                if (NULL === $this->_content) {
                         $this->_content = \file_get_contents('php://input');
                 }
-                
+
                 return $this->_content;
         }
 }

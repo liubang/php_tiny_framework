@@ -19,14 +19,14 @@ class Router
          *
          * @var array
          */
-        private $roules = array();
-        
+        private $roules = [];
+
         /**
          * @var string
          */
         private $uri = '';
-        
-        
+
+
         /**
          * init route rules.
          */
@@ -34,7 +34,7 @@ class Router
         {
                 $this->roules = \C('ROUTE');
         }
-        
+
         /**
          * parse route.
          *
@@ -44,14 +44,14 @@ class Router
         {
                 // get the route model.
                 $model = \C('URL_MODEL');
-                
+
                 if (2 === $model) {
                         $this->uri = \trim(\str_replace('index.php', '', $_SERVER['REQUEST_URI']), '/');
                         $pos = \strpos($this->uri, '?');
-                        if (false !== $pos) {
+                        if (FALSE !== $pos) {
                                 $this->uri = \substr($this->uri, 0, $pos);
                         }
-                        
+
                         if (!empty($this->roules)) {
                                 foreach ($this->roules as $key => $value) {
                                         if (\preg_match('#' . $key . '#', $this->uri)) {
@@ -59,7 +59,7 @@ class Router
                                         }
                                 }
                         }
-                        
+
                         if (!empty($this->uri)) {
                                 // 404
                                 if (\strpos($this->uri, '.')) {
@@ -90,7 +90,7 @@ class Router
                                 }
                         }
                 } elseif (1 === $model) {
-                        $request = \App::factory('Linger\\Kernel\\Request');
+                        $request = \app()->getRequest();
                         $req = $request->get();
                         $m = \C('URL_VAR_MODULE');
                         $c = \C('URL_VAR_CONTROLLER');
@@ -112,16 +112,16 @@ class Router
                 }
                 return $this;
         }
-        
+
         /**
          * add a route rule.
          *
          * @param array|string $rouls
          * @param string|null  $ref
          */
-        public function addRoute($rouls, $ref = null)
+        public function addRoute($rouls, $ref = NULL)
         {
-                if (null === $ref) {
+                if (NULL === $ref) {
                         if (\is_array($rouls)) {
                                 $this->roules = \array_merge($this->roules, $rouls);
                         }
@@ -131,7 +131,7 @@ class Router
                         }
                 }
         }
-        
+
         /**
          * delete a route roule.
          *
@@ -146,6 +146,6 @@ class Router
                         unset($this->roules[$rouls]);
                         return $ref;
                 }
-                return false;
+                return FALSE;
         }
 }

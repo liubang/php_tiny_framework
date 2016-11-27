@@ -12,6 +12,7 @@
 
 namespace Linger\Driver\Db;
 
+use Linger\Kernel\Exception;
 use PDO;
 
 abstract class DbDriver
@@ -20,47 +21,47 @@ abstract class DbDriver
          * @var \PDO[]
          */
         protected $links = [];
-        
+
         /**
          * @var string
          */
-        protected $linkId = null;
-        
+        protected $linkId = NULL;
+
         /**
          * @var \PDOStatement
          */
-        protected $PDOStatement = null;
-        
+        protected $PDOStatement = NULL;
+
         /**
          * @var int[]
          */
         protected $trans = [];
-        
+
         /**
          * @var string
          */
         protected $table = '';
-        
+
         /**
          * @var string
          */
         protected $sql = '';
-        
+
         /**
          * @var int
          */
-        protected $lastInsertId = null;
-        
+        protected $lastInsertId = NULL;
+
         /**
          * @var int
          */
         protected $affectedRows = 0;
-        
+
         /**
          * @var string
          */
         protected $error = '';
-        
+
         /**
          * @var array
          */
@@ -71,7 +72,7 @@ abstract class DbDriver
                 'order'  => '',
                 'limit'  => '',
         ];
-        
+
         /**
          * @var array
          */
@@ -87,7 +88,7 @@ abstract class DbDriver
                 'db_params' => [],
                 'db_dsn'    => '',
         ];
-        
+
         /**
          * @var array
          */
@@ -95,19 +96,19 @@ abstract class DbDriver
                 PDO::ATTR_CASE              => PDO::CASE_NATURAL,
                 PDO::ATTR_ERRMODE           => PDO::ERRMODE_EXCEPTION,
                 PDO::ATTR_ORACLE_NULLS      => PDO::NULL_NATURAL,
-                PDO::ATTR_STRINGIFY_FETCHES => false,
+                PDO::ATTR_STRINGIFY_FETCHES => FALSE,
         ];
-        
+
         /**
          * @var array
          */
         protected $bind = [];
-        
+
         /**
          * @var string[]
          */
         protected $tableFields = [];
-        
+
         /**
          * DbDriver constructor.
          *
@@ -122,7 +123,7 @@ abstract class DbDriver
                         }
                 }
         }
-        
+
         /**
          * @param array $config
          *
@@ -136,21 +137,21 @@ abstract class DbDriver
                                 $this->options = $this->config['db_params'] + $this->options;
                         }
                 }
-                
+
                 if (empty($this->config['db_dsn'])) {
                         $this->config['db_dsn'] = $this->parseDsn();
                 }
-                
+
                 if (version_compare(PHP_VERSION, '5.3.6', '<=')) {
-                        $this->options[PDO::ATTR_EMULATE_PREPARES] = false;
+                        $this->options[PDO::ATTR_EMULATE_PREPARES] = FALSE;
                 }
-                
+
                 $this->linkId = md5($this->config['db_dsn'] . serialize($this->options));
-                
+
                 if (isset($this->links[$this->linkId]) && $this->links[$this->linkId] instanceof PDO) {
                         return $this;
                 }
-                
+
                 try {
                         $this->links[$this->linkId] = new PDO($this->config['db_dsn'], $this->config['db_user'],
                                 $this->config['db_pwd'], $this->options);
@@ -160,21 +161,21 @@ abstract class DbDriver
                 }
                 return $this;
         }
-        
+
         /**
          * parse dsn
          *
          * @return string
          */
         abstract protected function parseDsn();
-        
+
         /**
          * parse structure of current table.
          *
          * @return self
          */
         abstract protected function parseTableFields();
-        
+
         /**
          * reset query options after every sql was executed or queried,
          * avoid interference between multiple queries.
@@ -192,7 +193,7 @@ abstract class DbDriver
                         $this->opt['fields'] = $this->tableFields[$this->linkId][$this->table];
                 }
         }
-        
+
         /**
          * set witch table to operate.
          *
@@ -206,15 +207,15 @@ abstract class DbDriver
                 $this->parseTableFields();
                 return $this;
         }
-        
+
         /**
          * free PDOStatement resource.
          */
         public function free()
         {
-                $this->PDOStatement = null;
+                $this->PDOStatement = NULL;
         }
-        
+
         /**
          * query sql
          *
@@ -225,7 +226,7 @@ abstract class DbDriver
         public function query($sql)
         {
                 if (!$this->linkId) {
-                        return false;
+                        return FALSE;
                 }
                 $this->sql = $sql;
                 if (!empty($this->bind)) {
@@ -237,9 +238,9 @@ abstract class DbDriver
                         $this->free();
                 }
                 $this->PDOStatement = $this->links[$this->linkId]->prepare($sql);
-                if (false === $this->PDOStatement) {
-                        \Linger\Kernel\Exception::error($this->PDOStatement->errorInfo(), []);
-                        return false;
+                if (FALSE === $this->PDOStatement) {
+                        Exception::error($this->PDOStatement->errorInfo(), []);
+                        return FALSE;
                 }
                 foreach ($this->bind as $key => $value) {
                         if (is_array($value)) {
@@ -248,22 +249,22 @@ abstract class DbDriver
                                 $this->PDOStatement->bindValue($key, $value);
                         }
                 }
-                $this->bind = array();
+                $this->bind = [];
                 try {
                         $result = $this->PDOStatement->execute();
                         $this->resetOpt();
-                        if (false === $result) {
-                                \Linger\Kernel\Exception::error($this->PDOStatement->errorInfo(), []);
-                                return false;
+                        if (FALSE === $result) {
+                                Exception::error($this->PDOStatement->errorInfo(), []);
+                                return FALSE;
                         } else {
                                 return $this->getResult();
                         }
                 } catch (\PDOException $e) {
-                        \Linger\Kernel\Exception::error($e->getMessage(), $e->getTrace());
-                        return false;
+                        Exception::error($e->getMessage(), $e->getTrace());
+                        return FALSE;
                 }
         }
-        
+
         /**
          * execute sql
          *
@@ -274,7 +275,7 @@ abstract class DbDriver
         public function execute($sql)
         {
                 if (!$this->linkId) {
-                        return false;
+                        return FALSE;
                 }
                 $this->sql = $sql;
                 if (!empty($this->bind)) {
@@ -286,9 +287,9 @@ abstract class DbDriver
                         $this->free();
                 }
                 $this->PDOStatement = $this->links[$this->linkId]->prepare($sql);
-                if (false === $this->PDOStatement) {
-                        \Linger\Kernel\Exception::error($this->PDOStatement->errorInfo(), []);
-                        return false;
+                if (FALSE === $this->PDOStatement) {
+                        Exception::error($this->PDOStatement->errorInfo(), []);
+                        return FALSE;
                 }
                 foreach ($this->bind as $key => $value) {
                         if (is_array($value)) {
@@ -297,13 +298,13 @@ abstract class DbDriver
                                 $this->PDOStatement->bindValue($key, $value);
                         }
                 }
-                $this->bind = array();
+                $this->bind = [];
                 try {
                         $result = $this->PDOStatement->execute();
                         $this->resetOpt();
-                        if (false === $result) {
-                                \Linger\Kernel\Exception::error($this->PDOStatement->errorInfo(), []);
-                                return false;
+                        if (FALSE === $result) {
+                                Exception::error($this->PDOStatement->errorInfo(), []);
+                                return FALSE;
                         } else {
                                 $this->affectedRows = $this->PDOStatement->rowCount();
                                 if (preg_match('/^\s*(INSERT\s+INTO|REPLACE\s+INTO)\s+/i', $sql)) {
@@ -313,11 +314,11 @@ abstract class DbDriver
                                 return $this->affectedRows;
                         }
                 } catch (\PDOException $e) {
-                        \Linger\Kernel\Exception::error($e->getMessage(), $e->getTrace());
-                        return false;
+                        Exception::error($e->getMessage(), $e->getTrace());
+                        return FALSE;
                 }
         }
-        
+
         /**
          * start transaction
          *
@@ -326,15 +327,15 @@ abstract class DbDriver
         public function startTrans()
         {
                 if (!$this->linkId) {
-                        return false;
+                        return FALSE;
                 }
                 if (0 === $this->trans[$this->linkId]) {
                         $this->links[$this->linkId]->beginTransaction();
                 }
                 $this->trans[$this->linkId] = 1;
-                return true;
+                return TRUE;
         }
-        
+
         /**
          * commit transaction
          *
@@ -346,13 +347,13 @@ abstract class DbDriver
                         try {
                                 $this->links[$this->linkId]->commit();
                         } catch (\Exception $e) {
-                                \Linger\Kernel\Exception::error($e->getMessage(), $e->getTrace());
+                                Exception::error($e->getMessage(), $e->getTrace());
                         }
                         $this->trans[$this->linkId] = 0;
                 }
-                return true;
+                return TRUE;
         }
-        
+
         /**
          * rollback transaction
          *
@@ -364,13 +365,13 @@ abstract class DbDriver
                         try {
                                 $this->links[$this->linkId]->rollBack();
                         } catch (\Exception $e) {
-                                \Linger\Kernel\Exception::error($e->getMessage(), $e->getTrace());
+                                Exception::error($e->getMessage(), $e->getTrace());
                         }
                         $this->trans[$this->linkId] = 0;
                 }
-                return true;
+                return TRUE;
         }
-        
+
         /**
          * get query set
          *
@@ -381,16 +382,16 @@ abstract class DbDriver
                 $result = $this->PDOStatement->fetchAll(PDO::FETCH_ASSOC);
                 return $result;
         }
-        
+
         /**
          * close db link.
          */
         public function close()
         {
-                $this->links[$this->linkId] = null;
-                $this->linkId = null;
+                $this->links[$this->linkId] = NULL;
+                $this->linkId = NULL;
         }
-        
+
         /**
          * binding preprocessing variables.
          *
@@ -401,7 +402,7 @@ abstract class DbDriver
         {
                 $this->bind[':' . $key] = $val;
         }
-        
+
         /**
          * add data to table
          *
@@ -409,13 +410,13 @@ abstract class DbDriver
          *
          * @return bool|int|string
          */
-        public function add($data = array())
+        public function add($data = [])
         {
                 $keys = '';
                 $values = '';
                 if (empty($data)) {
                         if (empty($this->bind)) {
-                                return false;
+                                return FALSE;
                         }
                         $values = implode(',', array_keys($this->bind));
                         $keys = preg_replace("/:/", '', $values);
@@ -425,11 +426,15 @@ abstract class DbDriver
                         $keys .= '`' . $name . '`' . ',';
                         $values .= ':' . $name . ',';
                 }
-                $sql = 'INSERT INTO ' . $this->table . '(' . rtrim($keys, ',') . ') VALUES (' . rtrim($values,
-                                ',') . ')';
+                $sql = 'INSERT INTO '
+                        . $this->table
+                        . '('
+                        . rtrim($keys, ',')
+                        . ') VALUES ('
+                        . rtrim($values, ',') . ')';
                 return $this->execute($sql);
         }
-        
+
         /**
          * update data from table
          *
@@ -437,19 +442,19 @@ abstract class DbDriver
          *
          * @return bool|int|string
          */
-        public function update($data = array())
+        public function update($data = [])
         {
                 $str = '';
                 if (empty($data)) {
                         if (empty($this->bind)) {
-                                return false;
+                                return FALSE;
                         }
                         $keys = array_keys($this->bind);
                         foreach ($keys as $k => $v) {
                                 $str .= '`' . preg_replace('/:/', '', $v) . '`' . '=' . $v . ',';
                         }
                 }
-                
+
                 foreach ($data as $name => $val) {
                         $this->bindParam($name, $val);
                         $str .= '`' . $name . '`' . '=:' . $name . ',';
@@ -459,7 +464,7 @@ abstract class DbDriver
                         . $this->opt['limit'];
                 return $this->execute($sql);
         }
-        
+
         /**
          * delete data from table
          *
@@ -472,12 +477,13 @@ abstract class DbDriver
                 if (!empty($where)) {
                         $this->where($where);
                 }
-                $sql = 'DELETE FROM ' . $this->table
+                $sql = 'DELETE FROM '
+                        . $this->table
                         . $this->opt['where']
                         . $this->opt['limit'];
                 return $this->execute($sql);
         }
-        
+
         /**
          * get a row of data
          *
@@ -495,22 +501,25 @@ abstract class DbDriver
                         $this->where($where);
                 }
                 $this->opt['limit'] = ' LIMIT 1 ';
-                $sql = 'SELECT ' . $this->opt['fields'] . ' FROM `' . $this->table . '`'
+                $sql = 'SELECT '
+                        . $this->opt['fields']
+                        . ' FROM `'
+                        . $this->table . '`'
                         . $this->opt['where']
                         . $this->opt['limit'];
-                
+
                 $result = $this->query($sql);
-                
-                if (false !== $result) {
+
+                if (FALSE !== $result) {
                         if (empty($result)) {
-                                return array();
+                                return [];
                         } else {
                                 return $result[0];
                         }
                 }
-                return false;
+                return FALSE;
         }
-        
+
         /**
          * get a field of data
          *
@@ -528,9 +537,9 @@ abstract class DbDriver
                         $this->where($where);
                 }
                 if (stripos($this->opt['fields'], ',')) {
-                        \Linger\Kernel\Exception::error('This method can only query a field, but a number of fields are presented.',
+                        Exception::error('This method can only query a field, but a number of fields are presented.',
                                 []);
-                        return false;
+                        return FALSE;
                 }
                 $this->opt['limit'] = ' LIMIT 1 ';
                 $sql = 'SELECT ' . $this->opt['fields'] . ' FROM ' . $this->table
@@ -539,16 +548,16 @@ abstract class DbDriver
                         . $this->opt['order']
                         . $this->opt['limit'];
                 $result = $this->query($sql);
-                if (false !== $result) {
+                if (FALSE !== $result) {
                         if (empty($result)) {
-                                return array();
+                                return [];
                         } else {
                                 return $result[0][$this->opt['fields']];
                         }
                 }
-                return false;
+                return FALSE;
         }
-        
+
         /**
          * get all data that meets the conditions.
          *
@@ -576,7 +585,7 @@ abstract class DbDriver
                         . $this->opt['limit'];
                 return $this->query($sql);
         }
-        
+
         /**
          * set query fields
          *
@@ -603,7 +612,7 @@ abstract class DbDriver
                 $this->opt['fields'] = $field;
                 return $this;
         }
-        
+
         /**
          * set limit condition
          *
@@ -616,11 +625,11 @@ abstract class DbDriver
                 if (is_array($limit)) {
                         $limit = implode(',', $limit);
                 }
-                
+
                 $this->opt['limit'] = ' LIMIT ' . $limit;
                 return $this;
         }
-        
+
         /**
          * set order condition
          *
@@ -634,7 +643,7 @@ abstract class DbDriver
                 if (is_string($order)) {
                         $order = $str . $order;
                 }
-                
+
                 if (is_array($order)) {
                         foreach ($order as $key => $val) {
                                 $str .= '`' . $key . '` ' . $val . ',';
@@ -644,7 +653,7 @@ abstract class DbDriver
                 $this->opt['order'] = $order;
                 return $this;
         }
-        
+
         /**
          * set group by condition
          *
@@ -657,12 +666,12 @@ abstract class DbDriver
                 if (is_array($group)) {
                         $group = ' `' . implode('`,', $group) . '`';
                 }
-                
+
                 $this->opt['group'] = 'GROUP BY ' . $group;
-                
+
                 return $this;
         }
-        
+
         /**
          * set where condition
          *
@@ -672,7 +681,7 @@ abstract class DbDriver
          */
         public function where($where)
         {
-                $tmp = array();
+                $tmp = [];
                 if (is_array($where)) {
                         foreach ($where as $key => $val) {
                                 if (is_array($val)) {
@@ -690,7 +699,7 @@ abstract class DbDriver
                 }
                 return $this;
         }
-        
+
         /**
          * get current linked  PDO resource
          *
@@ -701,9 +710,9 @@ abstract class DbDriver
                 if (!$this->linkId) {
                         return $this->links[$this->linkId];
                 }
-                return null;
+                return NULL;
         }
-        
+
         /**
          * print debug info
          */
@@ -712,8 +721,8 @@ abstract class DbDriver
                 echo '当前操作的表为：' . $this->table . '<br />';
                 echo '执行语句为：' . $this->sql . '<br />';
         }
-        
-        
+
+
         public function __destruct()
         {
                 if (!empty($this->PDOStatement)) {

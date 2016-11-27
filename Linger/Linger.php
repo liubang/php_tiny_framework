@@ -14,11 +14,11 @@ defined('LINGER_ROOT') || define('LINGER_ROOT', realpath(dirname(__FILE__)));
 require LINGER_ROOT . '/Common/helpers.php';
 
 spl_autoload_register(function ($class) {
-        if (false === strpos($class, 'Linger\\Kernel')) {
-                if (false !== strpos($class, 'Controller')) {
+        if (FALSE === strpos($class, 'Linger\\Kernel')) {
+                if (FALSE !== strpos($class, 'Controller')) {
                         $classPath = APP_ROOT . '/' . APP_NAME . '/module/' . str_replace('\\', '/', $class) . '.php';
-                } elseif (false !== strpos($class, 'Model') || false !== strpos($class,
-                                'library') || false !== strpos($class, 'plugin')
+                } elseif (FALSE !== strpos($class, 'Model') || FALSE !== strpos($class,
+                                'library') || FALSE !== strpos($class, 'plugin')
                 ) {
                         $classPath = APP_ROOT . '/' . APP_NAME . '/' . str_replace('\\', '/', $class) . '.php';
                 } else {
@@ -27,7 +27,7 @@ spl_autoload_register(function ($class) {
         } else {
                 $classPath = LINGER_ROOT . str_replace('Linger', '', str_replace('\\', '/', $class)) . '.php';
         }
-        
+
         if (file_exists($classPath)) {
                 _include($classPath);
         }

@@ -16,19 +16,19 @@ use Linger\Util\Log;
 
 class Exception
 {
-        
+
         /**
          * Exception constructor.
          */
         public function __construct()
         {
                 // set custom exception handler
-                \set_exception_handler(array($this, 'appException'));
-                
+                \set_exception_handler([$this, 'appException']);
+
                 // set custom error handler
-                \set_error_handler(array($this, 'appError'), E_ALL);
+                \set_error_handler([$this, 'appError'], E_ALL);
         }
-        
+
         /**
          * handle error
          *
@@ -40,7 +40,7 @@ class Exception
         {
                 $config = \app()->getConfig();
                 if ($config->get('DEBUG')) {
-                        $time = \microtime(true) - App::$start;
+                        $time = \microtime(TRUE) - App::$start;
                         include $config->get('TMPL_ACTION_ERROR');
                         exit;
                 } else {
@@ -53,7 +53,7 @@ class Exception
                         Log::writeLog('exception.log', $m, 3);
                 }
         }
-        
+
         /**
          * auto handle app exception
          *
@@ -62,7 +62,7 @@ class Exception
         public function appException($e)
         {
                 $trace = $e->getTrace();
-                
+
                 $message = $e->getMessage();
                 foreach ($trace as $k => &$v) {
                         if (!isset($v['file'])) {
@@ -80,7 +80,7 @@ class Exception
                 }
                 self::error($message, $trace, 'Exception');
         }
-        
+
         /**
          * auto handle app error
          *

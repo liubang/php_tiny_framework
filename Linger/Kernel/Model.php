@@ -18,18 +18,18 @@ abstract class Model
          * @var string
          */
         protected $database = '';
-        
+
         /**
          * @var string
          */
         protected $table = '';
-        
-        
+
+
         /**
          * @var \Linger\Driver\Db\DbDriver|null
          */
-        protected $db = null;
-        
+        protected $db = NULL;
+
         /**
          * Model constructor.
          *
@@ -44,11 +44,11 @@ abstract class Model
                         $this->table = \strtolower(str_replace('Model', '',
                                 \ltrim(strrchr(get_called_class(), '\\'), '\\')));
                 }
-                
+
                 if (!empty($database)) {
                         $this->database = $database;
                 }
-                
+
                 $this->db = \D($this->database . '.' . $this->table);
         }
 }

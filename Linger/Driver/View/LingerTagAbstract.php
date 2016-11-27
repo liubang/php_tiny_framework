@@ -20,12 +20,12 @@ abstract class LingerTagAbstract
          * @var string
          */
         protected $tagLeft;
-        
+
         /**
          * @var string
          */
         protected $tagRight;
-        
+
         /**
          * @var array
          */
@@ -37,12 +37,12 @@ abstract class LingerTagAbstract
                 'egt' => '>=',
                 'elt' => '<=',
         ];
-        
+
         /**
          * @var array
          */
         protected $tag = [];
-        
+
         /**
          * LingerTagAbstract constructor.
          */
@@ -54,12 +54,13 @@ abstract class LingerTagAbstract
                         $this->__initalize();
                 }
         }
-        
+
         /**
          * 解析模板标签
          *
          * @param $tag
          * @param $viewContent
+         *
          * @return bool
          */
         public function parseTag($tag, &$viewContent)
@@ -80,20 +81,21 @@ abstract class LingerTagAbstract
                                 if (empty($value[2])) {
                                         $value[2] = '';
                                 }
-                                $content = call_user_func_array(array($this, '_' . $tag),
-                                        array($attr, $value[2], $value));
+                                $content = call_user_func_array([$this, '_' . $tag],
+                                        [$attr, $value[2], $value]);
                                 $viewContent = str_replace($value[0], $content, $viewContent);
                         }
-                        return true;
+                        return TRUE;
                 } else {
-                        return false;
+                        return FALSE;
                 }
         }
-        
+
         /**
          * 解析模板标签属性
          *
          * @param $attrStr
+         *
          * @return array|bool
          */
         public function parseTagAttr($attrStr)
@@ -107,14 +109,15 @@ abstract class LingerTagAbstract
                         }
                         return $attr;
                 } else {
-                        return false;
+                        return FALSE;
                 }
         }
-        
+
         /**
          * 解析模板标签属性值
          *
          * @param $attrVal
+         *
          * @return mixed
          */
         public function parseAttrValue($attrVal)
@@ -122,7 +125,7 @@ abstract class LingerTagAbstract
                 foreach ($this->condition as $key => $val) {
                         $attrVal = preg_replace("/\\s+$key\\s+/i", $val, $attrVal);
                 }
-                $const = get_defined_constants(true);
+                $const = get_defined_constants(TRUE);
                 foreach ($const['user'] as $name => $value) {
                         if ('__' === substr($name, 0, 2)) {
                                 $attrVal = str_replace($name, $value, $attrVal);
@@ -146,7 +149,7 @@ abstract class LingerTagAbstract
                 }
                 return $attrVal;
         }
-        
+
         /**
          * 获取自定义标签
          *

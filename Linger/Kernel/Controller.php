@@ -17,8 +17,8 @@ abstract class Controller
         /**
          * @var \Linger\Kernel\View
          */
-        protected $view = null;
-        
+        protected $view = NULL;
+
         /**
          * Controller constructor.
          */
@@ -28,13 +28,13 @@ abstract class Controller
                         $this->_init();
                 }
         }
-        
-        
+
+
         protected function _init()
         {
                 $this->view = new View();
         }
-        
+
         /**
          * 视图变量赋值
          *
@@ -45,7 +45,7 @@ abstract class Controller
         {
                 $this->view->assign($name, $value);
         }
-        
+
         /**
          * @param string $tmpl
          * @param null   $cacheTime
@@ -53,7 +53,7 @@ abstract class Controller
          * @param string $contentType
          * @param bool   $show
          */
-        public function display($tmpl = '', $cacheTime = null, $cachePath = '', $contentType = 'text/html', $show = false)
+        public function display($tmpl = '', $cacheTime = NULL, $cachePath = '', $contentType = 'text/html', $show = FALSE)
         {
                 if (empty($cacheTime)) {
                         $cacheTime = \C('TPL_CACHE_TIME');
@@ -67,32 +67,32 @@ abstract class Controller
                                         '/') . '/' . MODULE . '_' . CONTROLLER . '_' . ACTION . '_' . \substr(\md5($_SERVER['REQUEST_URI']),
                                         0, 8) . '.html';
                 }
-                
+
                 $cacheDir = \dirname($cachePath);
                 if (!\is_dir($cacheDir)) {
-                        \mkdir($cacheDir, 0777, true);
+                        \mkdir($cacheDir, 0777, TRUE);
                 }
                 if ('' === $tmpl) {
                         $tmpl = \strtolower(CURRTMPL) . '.html';
                 }
                 $this->view->display($tmpl, $cacheTime, $cachePath, $contentType, $show);
         }
-        
-        
+
+
         /**
          * @param string $tmpl
          * @param null   $cacheTime
          * @param string $cachePath
          * @param string $contentType
          */
-        public function render($tmpl = '', $cacheTime = null, $cachePath = '', $contentType = 'text/html')
+        public function render($tmpl = '', $cacheTime = NULL, $cachePath = '', $contentType = 'text/html')
         {
                 if ('' === $tmpl) {
                         $tmpl = \strtolower(CURRTMPL) . '.html';
                 }
                 $this->view->render($tmpl, $cacheTime, $cachePath, $contentType);
         }
-        
+
         /**
          * @return Request
          */
@@ -100,7 +100,7 @@ abstract class Controller
         {
                 return \app()->getRequest();
         }
-        
+
         /**
          * @return Response
          */
@@ -108,38 +108,41 @@ abstract class Controller
         {
                 return \app()->getResponse();
         }
-        
+
         /**
          * @param string $key
          * @param string $callable
          * @param null   $default
+         *
          * @return array|mixed|null
          */
-        public function get($key = '', $callable = 'htmlspecialchars', $default = null)
+        public function get($key = '', $callable = 'htmlspecialchars', $default = NULL)
         {
                 return \app()->getRequest()->get($key, $callable, $default);
         }
-        
+
         /**
          * @param string $key
          * @param string $callable
          * @param null   $default
+         *
          * @return null
          */
-        public function post($key = '', $callable = 'htmlspecialchars', $default = null)
+        public function post($key = '', $callable = 'htmlspecialchars', $default = NULL)
         {
                 return \app()->getRequest()->post($key, $callable, $default);
         }
-        
+
         /**
          * @param string $key
          * @param string $callable
          * @param null   $default
+         *
          * @return mixed
          */
-        public function request($key = '', $callable = 'htmlspecialchars', $default = null)
+        public function request($key = '', $callable = 'htmlspecialchars', $default = NULL)
         {
                 return \app()->getRequest()->request($key, $callable, $default);
         }
-        
+
 }

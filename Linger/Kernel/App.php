@@ -18,56 +18,56 @@ class App
          * @var integer
          */
         public static $start;
-        
+
         /**
          * @var \Linger\Kernel\*[]
          */
         private static $_ins = [];
-        
+
         /**
          * @var Exception|null
          */
-        private $exception = null;
-        
+        private $exception = NULL;
+
         /**
          * @var Router
          */
-        private $router = null;
-        
+        private $router = NULL;
+
         /**
          * @var \app\Bootstrap
          */
-        private $bootstrap = null;
-        
+        private $bootstrap = NULL;
+
         /**
          * @var \Linger\Kernel\Request
          */
-        private $request = null;
-        
+        private $request = NULL;
+
         /**
          * @var \Linger\Kernel\Response
          */
-        private $response = null;
-        
+        private $response = NULL;
+
         /**
          * @var \Linger\Kernel\Dispatcher
          */
-        private $dispatcher = null;
-        
+        private $dispatcher = NULL;
+
         /**
          * @var Registry|null
          */
-        private $registry = null;
-        
+        private $registry = NULL;
+
         /**
          * App constructor.
          *
          * @param $config
          */
-        public function __construct($config)
+        private function __construct($config)
         {
                 //record the start time
-                self::$start = \microtime(true);
+                self::$start = \microtime(TRUE);
                 $this->config = self::factory("Linger\\Kernel\\Config", $config);
                 $this->exception = self::factory("Linger\\Kernel\\Exception");
                 $this->registry = self::factory("Linger\\Kernel\\Registry");
@@ -76,7 +76,7 @@ class App
                 $this->dispatcher = self::factory("Linger\\Kernel\\Dispatcher");
                 $this->response = self::factory("Linger\\Kernel\\Response");
         }
-        
+
         /**
          * get config
          *
@@ -86,7 +86,7 @@ class App
         {
                 return $this->config;
         }
-        
+
         /**
          * get request
          *
@@ -96,7 +96,7 @@ class App
         {
                 return $this->request;
         }
-        
+
         /**
          * get response
          *
@@ -106,7 +106,7 @@ class App
         {
                 return $this->response;
         }
-        
+
         /**
          * get dispatcher
          *
@@ -116,7 +116,7 @@ class App
         {
                 return $this->dispatcher;
         }
-        
+
         /**
          * get router
          *
@@ -126,7 +126,7 @@ class App
         {
                 return $this->router;
         }
-        
+
         /**
          * get registry
          *
@@ -136,7 +136,7 @@ class App
         {
                 return $this->registry;
         }
-        
+
         /**
          * @param string $class
          * @param array  $args
@@ -144,23 +144,23 @@ class App
          * @return mixed
          * @throws \Exception
          */
-        public static function factory($class, $args = null)
+        public static function factory($class, $args = NULL)
         {
                 $key = md5($class);
                 if (isset(static::$_ins[$key]) && !empty(static::$_ins[$key])) {
                         return static::$_ins[$key];
                 }
-                
+
                 if (\class_exists($class)) {
                         self::$_ins[$key] = new $class($args);
                         return self::$_ins[$key];
-                        
+
                 } else {
                         throw new \Exception("{$class}不存在");
                         exit;
                 }
         }
-        
+
         /**
          * 程序执行bootstrap
          * 在app的目录下如果定义了app\Bootstrap类,则会在程序分配路由前执行bootstrap中的
@@ -184,7 +184,7 @@ class App
                 }
                 return $this;
         }
-        
+
         /**
          * run program
          */
@@ -192,13 +192,13 @@ class App
         {
                 //capture requests
                 $this->request->capture();
-                
+
                 //init user route rules.
                 $this->router->iniRoute();
-                
+
                 //dispatch request
                 $this->dispatcher->dispatch();
-                
+
                 //send response to client
                 $this->response->send();
         }

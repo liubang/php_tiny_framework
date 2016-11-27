@@ -14,13 +14,13 @@ namespace Linger\Kernel;
 
 class Registry
 {
-        const REGIST_ARR = true;
-        
+        const REGIST_ARR = TRUE;
+
         /**
          * @var mixed[]
          */
         protected $registry = [];
-        
+
         /**
          * 向注册表中注册一个变量
          *
@@ -28,7 +28,7 @@ class Registry
          * @param mixed  $val
          * @param bool   $isArr
          */
-        public function set($key, $val, $isArr = false)
+        public function set($key, $val, $isArr = FALSE)
         {
                 if ($isArr) {
                         $this->registry[$key][] = $val;
@@ -36,22 +36,23 @@ class Registry
                         $this->registry[$key] = $val;
                 }
         }
-        
+
         /**
          * 获取注册表
          *
          * @param null|string $key
+         *
          * @return mixed|\mixed[]|null
          */
-        public function get($key = null)
+        public function get($key = NULL)
         {
-                if (null === $key) {
+                if (NULL === $key) {
                         return $this->registry;
                 }
                 if (isset($this->registry[$key])) {
                         return $this->registry[$key];
                 }
-                return null;
+                return NULL;
         }
-        
+
 }

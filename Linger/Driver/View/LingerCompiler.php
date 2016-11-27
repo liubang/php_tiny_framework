@@ -19,22 +19,23 @@ class LingerCompiler
         /**
          * @var LingerView
          */
-        private $view = null;
-        
+        private $view = NULL;
+
         /**
          * @var string
          */
         private $content = '';
-        
+
         /**
          * @var array
          */
         private $literal = [];
-        
+
         /**
          * \brief start compiler
          *
          * @param \Linger\Driver\View\LingerViewAbstract $view
+         *
          * @throws \Exception
          */
         public function run($view)
@@ -56,7 +57,7 @@ class LingerCompiler
                         throw new \Exception(dirname($this->view->getCompileFile()) . '目录不可写');
                 }
         }
-        
+
         /**
          * \brief gets the contents that dose'nt require parsing, and is stored in an array.
          */
@@ -73,7 +74,7 @@ class LingerCompiler
                         }
                 }
         }
-        
+
         /**
          * \brief revert the contents without parsing.
          */
@@ -83,7 +84,7 @@ class LingerCompiler
                         $this->content = str_replace('###' . $k . '###', $content, $this->content);
                 }
         }
-        
+
         /**
          * \brief parse all custom tags.
          */
@@ -102,7 +103,7 @@ class LingerCompiler
                         }
                 }
         }
-        
+
         /**
          * \brief parse variations.
          *      e.g. {$a}, {$a.b}, {$a|date=y-m-d,###}
@@ -151,7 +152,7 @@ class LingerCompiler
                         }
                 }
         }
-        
+
         /**
          * \brief parse all functions.
          */

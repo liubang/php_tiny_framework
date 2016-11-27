@@ -25,12 +25,12 @@ class LingerTag extends LingerTagAbstract
                 'empty'   => ['block' => 1, 'level' => 5],
                 'nempty'  => ['block' => 1, 'level' => 5],
         ];
-        
+
         public function __initalize()
         {
-                
+
         }
-        
+
         public function _import($attr, $content)
         {
                 if (!isset($attr['type']) || !isset($attr['file'])) {
@@ -44,7 +44,7 @@ class LingerTag extends LingerTagAbstract
                         }
                 }
         }
-        
+
         public function _empty($attr, $content)
         {
                 if (!isset($attr['condition'])) {
@@ -52,7 +52,7 @@ class LingerTag extends LingerTagAbstract
                 }
                 return "<?php if (empty({$attr['condition']})) {?> {$content} <?php }?>";
         }
-        
+
         public function _nempty($attr, $content)
         {
                 if (!isset($attr['condition'])) {
@@ -60,7 +60,7 @@ class LingerTag extends LingerTagAbstract
                 }
                 return "<?php if (!empty({$attr['condition']})) {?> {$content} <?php }?>";
         }
-        
+
         public function _for($attr, $content)
         {
                 $step = isset($attr['step']) ? $attr['step'] : 1;
@@ -72,7 +72,7 @@ class LingerTag extends LingerTagAbstract
                         \trigger_error('模板解析错误，for标签没有正确设置标签属性！', E_USER_ERROR);
                 }
         }
-        
+
         public function _foreach($attr, $content)
         {
                 if (!isset($attr['name']) || !isset($attr['item'])) {
@@ -87,7 +87,7 @@ class LingerTag extends LingerTagAbstract
                 $php .= '<?php } ?>';
                 return $php;
         }
-        
+
         public function _include($attr, $content)
         {
                 if (isset($attr['file'])) {
@@ -96,7 +96,7 @@ class LingerTag extends LingerTagAbstract
                 }
                 return '';
         }
-        
+
         public function _if($attr, $content)
         {
                 if (!isset($attr['condition'])) {
@@ -104,7 +104,7 @@ class LingerTag extends LingerTagAbstract
                 }
                 return "<?php if ({$attr['condition']}) { ?> {$content} <?php }?>";
         }
-        
+
         public function _elseif($attr, $content)
         {
                 if (!isset($attr['condition'])) {
@@ -112,7 +112,7 @@ class LingerTag extends LingerTagAbstract
                 }
                 return "<?php } elseif ({$attr['condition']}) {?> ";
         }
-        
+
         public function _else($attr, $content)
         {
                 return "<?php } else  {?>";

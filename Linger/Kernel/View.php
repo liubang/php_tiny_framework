@@ -20,15 +20,15 @@ class View
         /**
          * @var \Linger\Driver\View\LingerViewAbstract
          */
-        protected $viewObj = null;
-        
+        protected $viewObj = NULL;
+
         /**
          * View constructor.
          *
          * @param null   $viewClass
          * @param string $tmplPath
          */
-        public function __construct($tmplPath = '', $viewClass = null)
+        public function __construct($tmplPath = '', $viewClass = NULL)
         {
                 if (\is_null($viewClass)) {
                         $viewDriver = \C('VIEW_DRIVER');
@@ -42,16 +42,16 @@ class View
                         if (\is_subclass_of($viewClass, '\\Linger\\Driver\\View\\LingerViewAbstract')) {
                                 $this->viewObj = new $viewClass;
                         } else {
-                                return false;
+                                return FALSE;
                         }
                 }
                 if (empty($tmplPath)) {
                         $tmplPath = APP_ROOT . '/' . APP_NAME . '/module/' . MODULE . '/view';
                 }
-                
+
                 $this->viewObj->setTmpPath($tmplPath);
         }
-        
+
         /**
          * @param $name
          * @param $value
@@ -60,31 +60,33 @@ class View
         {
                 $this->viewObj->assign($name, $value);
         }
-        
+
         /**
          * @param string $tplFile
          * @param int    $cacheTime
          * @param null   $cachePath
          * @param string $contentType
          * @param bool   $show
+         *
          * @return mixed
          */
-        public function display($tplFile, $cacheTime = -1, $cachePath = null, $contentType = 'text/html', $show = false)
+        public function display($tplFile, $cacheTime = -1, $cachePath = NULL, $contentType = 'text/html', $show = FALSE)
         {
                 $content = $this->viewObj->display($tplFile, $cacheTime, $cachePath, $contentType, $show);
                 \app()->getResponse()->header('Content-Type', $contentType);
                 \app()->getResponse()->body($content);
                 return $this;
         }
-        
+
         /**
          * @param string $tplFile
          * @param int    $cacheTime
          * @param null   $cachePath
          * @param string $contentType
+         *
          * @return mixed
          */
-        public function render($tplFile, $cacheTime = -1, $cachePath = null, $contentType = 'text/html')
+        public function render($tplFile, $cacheTime = -1, $cachePath = NULL, $contentType = 'text/html')
         {
                 return $this->viewObj->render($tplFile, $cacheTime, $cachePath, $contentType);
         }
