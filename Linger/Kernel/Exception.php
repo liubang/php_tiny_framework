@@ -10,12 +10,21 @@
  |------------------------------------------------------------------
  */
 
-namespace Linger\Kernel;
+namespace linger\kernel;
 
-use Linger\Util\Log;
+use linger\Util\Log;
 
 class Exception
 {
+        use traits\Singleton;
+
+        /**
+         * @return traits\Singleton|null|self
+         */
+        public static function singleton()
+        {
+                return self::getInstance();
+        }
 
         /**
          * Exception constructor.

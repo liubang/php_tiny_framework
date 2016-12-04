@@ -10,7 +10,7 @@
  |------------------------------------------------------------------
  */
 
-namespace Linger\Driver\View;
+namespace linger\driver\view;
 
 abstract class LingerViewAbstract
 {

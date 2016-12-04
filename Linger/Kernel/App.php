@@ -10,7 +10,8 @@
  |------------------------------------------------------------------
  */
 
-namespace Linger\Kernel;
+namespace linger\kernel;
+
 
 class App
 {
@@ -20,9 +21,14 @@ class App
         public static $start;
 
         /**
-         * @var \Linger\Kernel\*[]
+         * @var string
          */
-        private static $_ins = [];
+        private $configFile = '';
+
+        /**
+         * @var \linger\kernel\Config|null
+         */
+        private $config = NULL;
 
         /**
          * @var Exception|null
@@ -30,27 +36,27 @@ class App
         private $exception = NULL;
 
         /**
-         * @var Router
+         * @var \linger\kernel\Router|null
          */
         private $router = NULL;
 
         /**
-         * @var \app\Bootstrap
+         * @var \${APP_NAME}\Bootstrap|null
          */
         private $bootstrap = NULL;
 
         /**
-         * @var \Linger\Kernel\Request
+         * @var \linger\kernel\Request|null
          */
         private $request = NULL;
 
         /**
-         * @var \Linger\Kernel\Response
+         * @var \linger\kernel\Response|null
          */
         private $response = NULL;
 
         /**
-         * @var \Linger\Kernel\Dispatcher
+         * @var \linger\kernel\Dispatcher|null
          */
         private $dispatcher = NULL;
 
@@ -59,22 +65,52 @@ class App
          */
         private $registry = NULL;
 
+        use traits\Singleton;
+
         /**
          * App constructor.
          *
-         * @param $config
          */
-        private function __construct($config)
+        private function __construct()
         {
                 //record the start time
                 self::$start = \microtime(TRUE);
-                $this->config = self::factory("Linger\\Kernel\\Config", $config);
-                $this->exception = self::factory("Linger\\Kernel\\Exception");
-                $this->registry = self::factory("Linger\\Kernel\\Registry");
-                $this->request = self::factory("Linger\\Kernel\\Request");
-                $this->router = self::factory("Linger\\Kernel\\Router");
-                $this->dispatcher = self::factory("Linger\\Kernel\\Dispatcher");
-                $this->response = self::factory("Linger\\Kernel\\Response");
+                $this->config = Config::singleton();
+                $this->exception = Exception::singleton();
+                $this->registry = Registry::singleton();
+                $this->request = Request::singleton();
+                $this->router = Router::singleton();
+                $this->dispatcher = Dispatcher::singleton();
+                $this->response = Response::singleton();
+        }
+
+        /**
+         * @param $config
+         *
+         * @return null|self
+         */
+        public static function singleton($config)
+        {
+                if (!self::$_instance instanceof self) {
+                        self::$_instance = new self();
+                }
+
+                self::$_instance->setConfigFile($config);
+
+                return self::$_instance;
+        }
+
+        /**
+         * set app configuretion file
+         *
+         * @param $configFile
+         *
+         * @return $this
+         */
+        private function setConfigFile($configFile)
+        {
+                $this->configFile = $configFile;
+                return $this;
         }
 
         /**
@@ -137,29 +173,6 @@ class App
                 return $this->registry;
         }
 
-        /**
-         * @param string $class
-         * @param array  $args
-         *
-         * @return mixed
-         * @throws \Exception
-         */
-        public static function factory($class, $args = NULL)
-        {
-                $key = md5($class);
-                if (isset(static::$_ins[$key]) && !empty(static::$_ins[$key])) {
-                        return static::$_ins[$key];
-                }
-
-                if (\class_exists($class)) {
-                        self::$_ins[$key] = new $class($args);
-                        return self::$_ins[$key];
-
-                } else {
-                        throw new \Exception("{$class}不存在");
-                        exit;
-                }
-        }
 
         /**
          * 程序执行bootstrap
@@ -190,16 +203,19 @@ class App
          */
         public function run()
         {
-                //capture requests
+                /* init configuretion */
+                $this->config->loadConfig($this->configFile);
+
+                /* capture requests */
                 $this->request->capture();
 
-                //init user route rules.
+                /* init user route rules. */
                 $this->router->iniRoute();
 
-                //dispatch request
+                /* dispatch request */
                 $this->dispatcher->dispatch();
 
-                //send response to client
+                /* send response to client */
                 $this->response->send();
         }
 }

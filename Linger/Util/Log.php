@@ -10,7 +10,7 @@
  |------------------------------------------------------------------
  */
 
-namespace Linger\Util;
+namespace linger\Util;
 
 class Log
 {

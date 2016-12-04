@@ -10,7 +10,7 @@
  |------------------------------------------------------------------
  */
 
-namespace Linger\Kernel;
+namespace linger\kernel;
 
 class Router
 {
@@ -25,6 +25,16 @@ class Router
          * @var string
          */
         private $uri = '';
+
+        use traits\Singleton;
+
+        /**
+         * @return traits\Singleton|null|self
+         */
+        public static function singleton()
+        {
+                return self::getInstance();
+        }
 
 
         /**

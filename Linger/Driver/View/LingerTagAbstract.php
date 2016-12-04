@@ -10,9 +10,8 @@
  |------------------------------------------------------------------
  */
 
-namespace Linger\Driver\View;
+namespace linger\driver\view;
 
-use Linger\Linger;
 
 abstract class LingerTagAbstract
 {

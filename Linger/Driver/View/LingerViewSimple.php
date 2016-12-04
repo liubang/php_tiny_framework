@@ -9,7 +9,7 @@
  | @license   : MIT (http://opensource.org/licenses/MIT)
  |------------------------------------------------------------------
  */
-namespace Linger\Driver\View;
+namespace linger\driver\view;
 
 class LingerViewSimple extends LingerViewAbstract
 {

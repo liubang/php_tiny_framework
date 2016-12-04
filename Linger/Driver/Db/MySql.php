@@ -10,7 +10,7 @@
  |------------------------------------------------------------------
  */
 
-namespace Linger\Driver\Db;
+namespace linger\driver\db;
 
 class MySql extends DbDriver
 {

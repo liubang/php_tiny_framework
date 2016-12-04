@@ -10,10 +10,12 @@
  |------------------------------------------------------------------
  */
 
-namespace Linger\Kernel;
+namespace linger\kernel;
 
 class Config implements \ArrayAccess
 {
+        use traits\Singleton;
+
         /**
          * Global configuration
          *
@@ -22,10 +24,14 @@ class Config implements \ArrayAccess
         private $g_config = [];
 
 
-        public function __construct($config)
+        /**
+         * @return traits\Singleton|null|self
+         */
+        public static function singleton()
         {
-                $this->loadConfig($config);
+                return self::getInstance();
         }
+
 
         /**
          * @param string $file
@@ -106,7 +112,7 @@ class Config implements \ArrayAccess
                         }
                 }
                 if (\is_array($config)) {
-                        $this->g_config = \array_merge(require LINGER_ROOT . '/Conf/config.php', $config);
+                        $this->g_config = \array_merge(require LINGER_ROOT . '/conf/config.php', $config);
                 } else {
                         die('Requires a file or an array as a parameter');
                 }
@@ -161,7 +167,7 @@ class Config implements \ArrayAccess
         }
 
         /**
-         * $config = App::factory('Linger\\Kernel\\Config');
+         * $config = linger\kernel\Config::singleton();
          * isset($config['key'])
          *
          * @param mixed $offset
@@ -174,7 +180,7 @@ class Config implements \ArrayAccess
         }
 
         /**
-         * $config = App::factory('Linger\\Kernel\\Config');
+         * $config = linger\kernel\Config::singleton();
          * $val = $config['key'];
          *
          * @param mixed $offset
@@ -187,7 +193,7 @@ class Config implements \ArrayAccess
         }
 
         /**
-         * $config = App::factory('Linger\\Kernel\\Config');
+         * $config = linger\kernel\Config::singleton();
          * $config['key'] = $val;
          *
          * @param mixed $offset
@@ -199,7 +205,7 @@ class Config implements \ArrayAccess
         }
 
         /**
-         * $config = App::factory('Linger\\Kernel\\Config');
+         * $config = linger\kernel\Config::singleton();
          * unset($config['key']);
          *
          * @param mixed $offset

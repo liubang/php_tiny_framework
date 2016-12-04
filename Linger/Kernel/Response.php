@@ -10,7 +10,7 @@
  |------------------------------------------------------------------
  */
 
-namespace Linger\Kernel;
+namespace linger\kernel;
 
 class Response
 {
@@ -38,6 +38,16 @@ class Response
          * @var bool
          */
         private $sent = FALSE;
+
+        use traits\Singleton;
+
+        /**
+         * @return traits\Singleton|null|self
+         */
+        public static function singleton()
+        {
+                return self::getInstance();
+        }
 
         /**
          * send the response
@@ -223,7 +233,7 @@ class Response
         public function noCache()
         {
                 $this->header('Pragma', 'no-cache');
-                $this->header('Cache-Control', 'no-store, no-cache');
+                $this->header('cache-Control', 'no-store, no-cache');
                 return $this;
         }
 }

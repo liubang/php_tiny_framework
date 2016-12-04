@@ -39,9 +39,9 @@ return [
         'DEFAULT_CONTROLLER' => 'index',
         'DEFAULT_ACTION'     => 'index',
         'MODULE_ALLOW_LIST'  => ['index'],
-        'TMPL_ACTION_ERROR'  => LINGER_ROOT . '/Tpl/error.html',
-        'TMPL_ACTION_404'    => LINGER_ROOT . '/Tpl/404.html',
-        'TMPL_ACTION_403'    => LINGER_ROOT . '/Tpl/403.html',
+        'TMPL_ACTION_ERROR'  => LINGER_ROOT . '/tpl/error.html',
+        'TMPL_ACTION_404'    => LINGER_ROOT . '/tpl/404.html',
+        'TMPL_ACTION_403'    => LINGER_ROOT . '/tpl/403.html',
         'TMPL_ALIASES_FUNC'  => ['default' => '_default'],
         'URL_MODEL'          => 2,   //路由模式为pathinfo， 1 为$_GET传参的形式，Linger只支持这两个路由形式
         'URL_VAR_MODULE'     => 'm', //当使用get传参路由形式的时候module参数的键名

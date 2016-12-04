@@ -10,16 +10,26 @@
  |------------------------------------------------------------------
  */
 
-namespace Linger\Kernel;
+namespace linger\kernel;
 
 class Registry
 {
+        use traits\Singleton;
+
         const REGIST_ARR = TRUE;
 
         /**
          * @var mixed[]
          */
         protected $registry = [];
+
+        /**
+         * @return traits\Singleton|null|self
+         */
+        public static function singleton()
+        {
+                return self::getInstance();
+        }
 
         /**
          * 向注册表中注册一个变量

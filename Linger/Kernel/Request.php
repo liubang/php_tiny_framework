@@ -10,7 +10,7 @@
  |------------------------------------------------------------------
  */
 
-namespace Linger\Kernel;
+namespace linger\kernel;
 
 class Request
 {
@@ -45,6 +45,16 @@ class Request
          * @var string|null
          */
         private $_content = NULL;
+
+        use traits\Singleton;
+
+        /**
+         * @return traits\Singleton|null|self
+         */
+        public static function singleton()
+        {
+                return self::getInstance();
+        }
 
         /**
          * capture the custom request

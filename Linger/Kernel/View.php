@@ -10,20 +10,20 @@
  |------------------------------------------------------------------
  */
 
-namespace Linger\Kernel;
+namespace linger\kernel;
 
-use Linger\Driver\View\LingerView;
-use Linger\Driver\View\LingerViewSimple;
+use linger\driver\View\LingerView;
+use linger\driver\View\LingerViewSimple;
 
 class View
 {
         /**
-         * @var \Linger\Driver\View\LingerViewAbstract
+         * @var \linger\driver\View\LingerViewAbstract
          */
         protected $viewObj = NULL;
 
         /**
-         * View constructor.
+         * view constructor.
          *
          * @param null   $viewClass
          * @param string $tmplPath
@@ -39,7 +39,7 @@ class View
                                 $this->viewObj = new LingerView();
                         }
                 } else {
-                        if (\is_subclass_of($viewClass, '\\Linger\\Driver\\View\\LingerViewAbstract')) {
+                        if (\is_subclass_of($viewClass, '\\linger\\driver\\View\\LingerViewAbstract')) {
                                 $this->viewObj = new $viewClass;
                         } else {
                                 return FALSE;

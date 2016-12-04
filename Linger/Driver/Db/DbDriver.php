@@ -10,9 +10,9 @@
  |------------------------------------------------------------------
  */
 
-namespace Linger\Driver\Db;
+namespace linger\driver\db;
 
-use Linger\Kernel\Exception;
+use linger\Kernel\Exception;
 use PDO;
 
 abstract class DbDriver

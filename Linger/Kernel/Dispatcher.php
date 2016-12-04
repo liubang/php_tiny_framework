@@ -10,10 +10,19 @@
  |------------------------------------------------------------------
  */
 
-namespace Linger\Kernel;
+namespace linger\kernel;
 
 class Dispatcher
 {
+        use traits\Singleton;
+
+        /**
+         * @return traits\Singleton|null|$this
+         */
+        public static function singleton()
+        {
+                return self::getInstance();
+        }
 
         /**
          * 分发请求
@@ -58,7 +67,7 @@ class Dispatcher
 
                 $controllerObj = new $class();
 
-                if (!\is_subclass_of($controllerObj, 'Linger\\Kernel\\Controller')) {
+                if (!\is_subclass_of($controllerObj, 'linger\\Kernel\\Controller')) {
                         \_404(SHOW_404_PAGE);
                 }
 
@@ -76,11 +85,11 @@ class Dispatcher
         }
 
         /**
-         * @param \Linger\Kernel\Plugin $plugin
+         * @param \linger\kernel\Plugin $plugin
          */
         public function registerPlugin($plugin)
         {
-                if (\is_subclass_of($plugin, '\\Linger\\Kernel\\Plugin')) {
+                if (\is_subclass_of($plugin, '\\linger\\Kernel\\Plugin')) {
                         \app()->getRegistry()->set('plugins', $plugin, Registry::REGIST_ARR);
                 }
         }

@@ -10,7 +10,7 @@
  |------------------------------------------------------------------
  */
 
-namespace Linger\Kernel;
+namespace linger\kernel;
 
 abstract class Model
 {
@@ -26,7 +26,7 @@ abstract class Model
 
 
         /**
-         * @var \Linger\Driver\Db\DbDriver|null
+         * @var \linger\driver\db\DbDriver|null
          */
         protected $db = NULL;
 

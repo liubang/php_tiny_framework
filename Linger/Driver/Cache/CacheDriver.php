@@ -10,7 +10,7 @@
  |------------------------------------------------------------------
  */
 
-namespace Linger\Driver\Cache;
+namespace linger\driver\cache;
 
 class CacheDriver
 {

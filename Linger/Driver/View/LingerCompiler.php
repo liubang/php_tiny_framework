@@ -10,9 +10,7 @@
  |------------------------------------------------------------------
  */
 
-namespace Linger\Driver\View;
-
-use Linger\Linger;
+namespace linger\driver\view;
 
 class LingerCompiler
 {
@@ -34,7 +32,7 @@ class LingerCompiler
         /**
          * \brief start compiler
          *
-         * @param \Linger\Driver\View\LingerViewAbstract $view
+         * @param \linger\driver\view\LingerViewAbstract $view
          *
          * @throws \Exception
          */
