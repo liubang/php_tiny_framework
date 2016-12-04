@@ -17,7 +17,7 @@ class Dispatcher
         use traits\Singleton;
 
         /**
-         * @return traits\Singleton|null|$this
+         * @return traits\Singleton|null|self
          */
         public static function singleton()
         {

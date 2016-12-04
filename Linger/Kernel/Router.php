@@ -26,6 +26,7 @@ class Router
          */
         private $uri = '';
 
+
         use traits\Singleton;
 
         /**

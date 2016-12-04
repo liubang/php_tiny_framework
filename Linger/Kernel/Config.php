@@ -127,7 +127,7 @@ class Config implements \ArrayAccess
          *
          * @param string $key
          *
-         * @return array
+         * @return array|bool
          */
         public function get($key = '')
         {

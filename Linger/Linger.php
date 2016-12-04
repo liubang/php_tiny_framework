@@ -10,6 +10,8 @@
  |------------------------------------------------------------------
  */
 
+defined('APP_NAME') || define('APP_NAME', 'app');
+defined('APP_ROOT') || define('APP_ROOT', realpath(dirname(__FILE__) . '/../'));
 defined('LINGER_ROOT') || define('LINGER_ROOT', realpath(dirname(__FILE__)));
 require LINGER_ROOT . '/common/helpers.php';
 
