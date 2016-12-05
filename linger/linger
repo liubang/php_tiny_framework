@@ -62,7 +62,7 @@ if (!isset($argv[0]) || $argv[0] == '--help' || $argv[0] == '-h') {
                         ],
                         'files' => [
                                 $app_name . '/Bootstrap.php'                              => 'bootstrap_php',
-                                $app_name . '/conf/config.php'                            => 'config_php',
+                                $app_name . '/conf/Config.php'                            => 'config_php',
                                 $app_name . '/plugin/UserPlugin.php'                      => 'userplugin_php',
                                 $app_name . '/model/IndexModel.php'                       => 'indexmodel_php',
                                 $app_name . '/module/home/controller/IndexController.php' => 'indexcontroller_php',
@@ -216,9 +216,9 @@ define('APP_ROOT', realpath(dirname(__FILE__) . '/../'));
 
 define('APP_NAME', '$app_name');
 
-require APP_ROOT . '/linger/linger.php';
+require APP_ROOT . '/linger/Linger.php';
 
-app(APP_ROOT . '/$app_name/conf/config.php')->bootstrap()->run();
+app(APP_ROOT . '/$app_name/conf/Config.php')->bootstrap()->run();
 
 PHP;
 

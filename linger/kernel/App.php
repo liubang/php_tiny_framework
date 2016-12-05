@@ -21,11 +21,6 @@ class App
         public static $start;
 
         /**
-         * @var string
-         */
-        private $configFile = '';
-
-        /**
          * @var \linger\kernel\Config|null
          */
         private $config = NULL;
@@ -65,7 +60,11 @@ class App
          */
         private $registry = NULL;
 
-        use traits\Singleton;
+        /**
+         * @var null|self
+         */
+        private static $app = null;
+
 
         /**
          * App constructor.
@@ -75,43 +74,32 @@ class App
         {
                 //record the start time
                 self::$start = \microtime(TRUE);
-                $this->config = Config::singleton();
-                $this->exception = Exception::singleton();
-                $this->registry = Registry::singleton();
-                $this->request = Request::singleton();
-                $this->router = Router::singleton();
-                $this->dispatcher = Dispatcher::singleton();
-                $this->response = Response::singleton();
+                $this->config = Config::getInstance();
+                $this->exception = Exception::getInstance();
+                $this->registry = Registry::getInstance();
+                $this->request = Request::getInstance();
+                $this->router = Router::getInstance();
+                $this->dispatcher = Dispatcher::getInstance();
+                $this->response = Response::getInstance();
         }
 
         /**
-         * @param $config
-         *
-         * @return null|self
+         * @param string $config
+         * @return App|null
          */
-        public static function singleton($config)
+        public static function getInstance($config = '')
         {
-                if (!self::$_instance instanceof self) {
-                        self::$_instance = new self();
+                if (!self::$app instanceof self) {
+                        self::$app = new self();
                 }
 
-                self::$_instance->setConfigFile($config);
+                if (!empty($config)) {
+                        self::$app->config->prepare($config);
+                }
 
-                return self::$_instance;
+                return self::$app;
         }
 
-        /**
-         * set app configuretion file
-         *
-         * @param $configFile
-         *
-         * @return $this
-         */
-        private function setConfigFile($configFile)
-        {
-                $this->configFile = $configFile;
-                return $this;
-        }
 
         /**
          * get config
@@ -204,7 +192,7 @@ class App
         public function run()
         {
                 /* init configuretion */
-                $this->config->loadConfig($this->configFile);
+                $this->config->loadConfig();
 
                 /* capture requests */
                 $this->request->capture();

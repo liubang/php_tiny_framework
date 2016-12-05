@@ -28,7 +28,7 @@ abstract class Model
         /**
          * @var \linger\driver\db\DbDriver|null
          */
-        protected $db = NULL;
+        public $db = NULL;
 
         /**
          * Model constructor.

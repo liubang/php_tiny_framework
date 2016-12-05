@@ -27,16 +27,27 @@ class Router
         private $uri = '';
 
 
-        use traits\Singleton;
-
         /**
-         * @return traits\Singleton|null|self
+         * @var null|self
          */
-        public static function singleton()
+        private static $instance = null;
+
+
+        private function __construct()
         {
-                return self::getInstance();
         }
 
+        /**
+         * @return Router|null
+         */
+        public static function getInstance()
+        {
+                if (!self::$instance instanceof self) {
+                        self::$instance = new self();
+                }
+
+                return self::$instance;
+        }
 
         /**
          * init route rules.

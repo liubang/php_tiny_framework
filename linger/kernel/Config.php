@@ -14,7 +14,6 @@ namespace linger\kernel;
 
 class Config implements \ArrayAccess
 {
-        use traits\Singleton;
 
         /**
          * Global configuration
@@ -23,13 +22,44 @@ class Config implements \ArrayAccess
          */
         private $g_config = [];
 
+        /**
+         * config file or config array
+         *
+         * @var string
+         */
+        private $prepare = null;
 
         /**
-         * @return traits\Singleton|null|self
+         * @var null|self
          */
-        public static function singleton()
+        private static $instance = null;
+
+
+        private function __construct()
         {
-                return self::getInstance();
+        }
+
+        /**
+         * @return Config|null
+         */
+        public static function getInstance()
+        {
+                if (!self::$instance instanceof self) {
+                        self::$instance = new self();
+                }
+
+                return self::$instance;
+        }
+
+        /**
+         * @param $opt
+         * @return $this
+         */
+        public function prepare($opt)
+        {
+                $this->prepare = $opt;
+
+                return $this;
         }
 
 
@@ -96,8 +126,10 @@ class Config implements \ArrayAccess
          *
          * @return $this
          */
-        public function loadConfig($config)
+        public function loadConfig()
         {
+                $config = $this->prepare;
+
                 if (\is_string($config)) {
                         if (\is_file($config)) {
                                 $ext = \substr($config, \strlen($config) - 4);

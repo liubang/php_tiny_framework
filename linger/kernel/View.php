@@ -12,8 +12,8 @@
 
 namespace linger\kernel;
 
-use linger\driver\View\LingerView;
-use linger\driver\View\LingerViewSimple;
+use linger\driver\view\LingerView;
+use linger\driver\view\LingerViewSimple;
 
 class View
 {
@@ -39,7 +39,7 @@ class View
                                 $this->viewObj = new LingerView();
                         }
                 } else {
-                        if (\is_subclass_of($viewClass, '\\linger\\driver\\View\\LingerViewAbstract')) {
+                        if (\is_subclass_of($viewClass, '\\linger\\driver\\view\\LingerViewAbstract')) {
                                 $this->viewObj = new $viewClass;
                         } else {
                                 return FALSE;

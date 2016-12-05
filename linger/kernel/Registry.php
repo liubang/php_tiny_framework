@@ -14,7 +14,6 @@ namespace linger\kernel;
 
 class Registry
 {
-        use traits\Singleton;
 
         const REGIST_ARR = TRUE;
 
@@ -24,11 +23,24 @@ class Registry
         protected $registry = [];
 
         /**
-         * @return traits\Singleton|null|self
+         * @var null|self
          */
-        public static function singleton()
+        private static $instance = null;
+
+        private function __construct()
         {
-                return self::getInstance();
+        }
+
+        /**
+         * @return Registry|null
+         */
+        public static function getInstance()
+        {
+                if (!self::$instance instanceof self) {
+                        self::$instance = new self();
+                }
+
+                return self::$instance;
         }
 
         /**

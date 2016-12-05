@@ -14,14 +14,25 @@ namespace linger\kernel;
 
 class Dispatcher
 {
-        use traits\Singleton;
+        /**
+         * @var null|self
+         */
+        private static $instance = null;
+
+        private function __construct()
+        {
+        }
 
         /**
-         * @return traits\Singleton|null|self
+         * @return Dispatcher|null
          */
-        public static function singleton()
+        public static function getInstance()
         {
-                return self::getInstance();
+            if (!self::$instance instanceof self) {
+                self::$instance = new self();
+            }
+
+            return self::$instance;
         }
 
         /**
@@ -67,7 +78,8 @@ class Dispatcher
 
                 $controllerObj = new $class();
 
-                if (!\is_subclass_of($controllerObj, 'linger\\Kernel\\Controller')) {
+
+                if (!\is_subclass_of($controllerObj, 'linger\\kernel\\Controller')) {
                         \_404(SHOW_404_PAGE);
                 }
 
@@ -89,7 +101,7 @@ class Dispatcher
          */
         public function registerPlugin($plugin)
         {
-                if (\is_subclass_of($plugin, '\\linger\\Kernel\\Plugin')) {
+                if (\is_subclass_of($plugin, '\\linger\\kernel\\Plugin')) {
                         \app()->getRegistry()->set('plugins', $plugin, Registry::REGIST_ARR);
                 }
         }

@@ -16,26 +16,34 @@ use linger\Util\Log;
 
 class Exception
 {
-        use traits\Singleton;
-
         /**
-         * @return traits\Singleton|null|self
+         * @var null|self
          */
-        public static function singleton()
-        {
-                return self::getInstance();
-        }
+        private static $instance = null;
+
 
         /**
          * Exception constructor.
          */
-        public function __construct()
+        private function __construct()
         {
                 // set custom exception handler
                 \set_exception_handler([$this, 'appException']);
 
                 // set custom error handler
                 \set_error_handler([$this, 'appError'], E_ALL);
+        }
+
+        /**
+         * @return Exception|null
+         */
+        public static function getInstance()
+        {
+                if (!self::$instance instanceof self) {
+                        self::$instance = new self();
+                }
+
+                return self::$instance;
         }
 
         /**

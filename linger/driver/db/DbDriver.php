@@ -229,6 +229,7 @@ abstract class DbDriver
                         return FALSE;
                 }
                 $this->sql = $sql;
+
                 if (!empty($this->bind)) {
                         $this->sql = strtr($this->sql, array_map(function ($val) {
                                 return '\'' . addslashes($val) . '\'';

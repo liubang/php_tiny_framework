@@ -46,14 +46,26 @@ class Request
          */
         private $_content = NULL;
 
-        use traits\Singleton;
+        /**
+         * @var null|self
+         */
+        private static $instance = null;
+
+
+        private function __construct()
+        {
+        }
 
         /**
-         * @return traits\Singleton|null|self
+         * @return Request|null
          */
-        public static function singleton()
+        public static function getInstance()
         {
-                return self::getInstance();
+                if (!self::$instance instanceof self) {
+                        self::$instance = new self();
+                }
+
+                return self::$instance;
         }
 
         /**

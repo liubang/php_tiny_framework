@@ -30,6 +30,7 @@ spl_autoload_register(function ($class) {
                 $classPath = LINGER_ROOT . str_replace('linger', '', str_replace('\\', '/', $class)) . '.php';
         }
 
+//        echo $classPath, '<br>';
         if (file_exists($classPath)) {
                 _include($classPath);
         }

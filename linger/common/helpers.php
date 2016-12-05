@@ -11,7 +11,7 @@
  */
 
 use linger\driver\db\MySql;
-use linger\Kernel\App;
+use linger\kernel\App;
 
 
 defined('SHOW_404_PAGE') || define('SHOW_404_PAGE', 1);
@@ -26,7 +26,7 @@ if (!function_exists('app')) {
          */
         function app($config = NULL)
         {
-                return App::singleton($config);
+                return App::getInstance($config);
         }
 }
 

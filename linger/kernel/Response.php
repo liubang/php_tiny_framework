@@ -39,15 +39,27 @@ class Response
          */
         private $sent = FALSE;
 
-        use traits\Singleton;
+        /**
+         * @var null|self
+         */
+        private static $instance = null;
+
+        private function __construct()
+        {
+        }
 
         /**
-         * @return traits\Singleton|null|self
+         * @return Response|null
          */
-        public static function singleton()
+        public static function getInstance()
         {
-                return self::getInstance();
+                if (!self::$instance instanceof self) {
+                        self::$instance = new self();
+                }
+
+                return self::$instance;
         }
+
 
         /**
          * send the response
