@@ -27,6 +27,9 @@ class Registry
          */
         private static $instance = null;
 
+        /**
+         * Registry constructor.
+         */
         private function __construct()
         {
         }

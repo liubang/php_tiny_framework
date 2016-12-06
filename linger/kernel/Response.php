@@ -44,6 +44,9 @@ class Response
          */
         private static $instance = null;
 
+        /**
+         * Response constructor.
+         */
         private function __construct()
         {
         }

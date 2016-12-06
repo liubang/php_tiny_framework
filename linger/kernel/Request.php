@@ -51,7 +51,9 @@ class Request
          */
         private static $instance = null;
 
-
+        /**
+         * Request constructor.
+         */
         private function __construct()
         {
         }
@@ -67,6 +69,7 @@ class Request
 
                 return self::$instance;
         }
+
 
         /**
          * capture the custom request

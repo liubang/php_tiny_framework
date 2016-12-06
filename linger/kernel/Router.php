@@ -32,7 +32,9 @@ class Router
          */
         private static $instance = null;
 
-
+        /**
+         * Router constructor.
+         */
         private function __construct()
         {
         }
