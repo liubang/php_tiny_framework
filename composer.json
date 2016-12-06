@@ -1,0 +1,12 @@
+{
+    "name": "liubang/linger",
+    "description": "a fast and simple php framework!",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "liubang",
+            "email": "it.liubang@qq.com"
+        }
+    ],
+    "require": {}
+}
