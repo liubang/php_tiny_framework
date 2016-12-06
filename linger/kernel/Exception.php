@@ -12,7 +12,7 @@
 
 namespace linger\kernel;
 
-use linger\Util\Log;
+use linger\util\Log;
 
 class Exception
 {
@@ -59,7 +59,6 @@ class Exception
                 if ($config->get('DEBUG')) {
                         $time = \microtime(TRUE) - App::$start;
                         include $config->get('TMPL_ACTION_ERROR');
-                        exit;
                 } else {
                         $m = $message . PHP_EOL . '----------------------' . PHP_EOL;
                         if (!empty($trace)) {
@@ -69,6 +68,8 @@ class Exception
                         }
                         Log::writeLog('exception.log', $m, 3);
                 }
+
+                exit;
         }
 
         /**

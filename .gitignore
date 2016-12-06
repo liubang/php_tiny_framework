@@ -11,3 +11,5 @@ app/conf/config.dev.php
 app/
 public/
 *.tags
+
+/vendor/
