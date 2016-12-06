@@ -27,15 +27,15 @@ class Log
                 $file = \app()->getConfig()->get('LOG_PATH') . '/' . \date(\app()->getConfig()->get('LOG_ARCHIVE_TYPE')) . '/' . $file;
                 if (\is_string($file) && \is_string($message) && \is_numeric($level)) {
                         if (\is_file($file)) {
-                                $path = \realpath(dirname($file));
+                                $path = \realpath(\dirname($file));
                         } else {
                                 $path = \dirname($file);
                         }
 
-                        if (!is_dir($path)) {
+                        if (!\is_dir($path)) {
                                 \mkdir($path, 0777, TRUE);
                         }
-                        list($usec, $sec) = \explode(' ', microtime());
+                        list($usec, $sec) = \explode(' ', \microtime());
                         $dateTime = \date("Y-m-d H:i:s" . " {$usec}");
                         $hostName = \gethostname();
                         $message = "[{$dateTime}]  {$hostName}  level:{$level}  " . $message . "\r\n";
