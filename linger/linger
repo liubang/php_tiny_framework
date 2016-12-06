@@ -122,11 +122,11 @@ class Bootstrap
                 session_start();
         }
 
-//    public function _initPlugin(\linger\kernel\Dispatcher \$dispatcher)
-//    {
-//        \$user = new UserPlugin();
-//        \$dispatcher->registerPlugin(\$user);
-//    }
+        // public function _initPlugin(\linger\kernel\Dispatcher \$dispatcher)
+        // {
+        //         \$user = new UserPlugin();
+        //         \$dispatcher->registerPlugin(\$user);
+        // }
 }
 PHP;
 
