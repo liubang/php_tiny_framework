@@ -16,6 +16,8 @@ namespace linger\kernel;
 class App
 {
         /**
+         * record the start time.
+         *
          * @var integer
          */
         public static $start;
@@ -26,7 +28,7 @@ class App
         private $config = NULL;
 
         /**
-         * @var Exception|null
+         * @var \linger\kernel\Exception|null
          */
         private $exception = NULL;
 
@@ -56,12 +58,12 @@ class App
         private $dispatcher = NULL;
 
         /**
-         * @var Registry|null
+         * @var \linger\kernel\Registry|null
          */
         private $registry = NULL;
 
         /**
-         * @var null|self
+         * @var \linger\kernel\App|null
          */
         private static $app = null;
 
@@ -72,8 +74,9 @@ class App
          */
         private function __construct()
         {
-                //record the start time
+                /* record the start time */
                 self::$start = \microtime(TRUE);
+                /* initialize linger components */
                 $this->config = Config::getInstance();
                 $this->exception = Exception::getInstance();
                 $this->registry = Registry::getInstance();
