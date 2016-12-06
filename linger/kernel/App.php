@@ -193,16 +193,12 @@ class App
         {
                 /* init configuretion */
                 $this->config->loadConfig();
-
                 /* capture requests */
                 $this->request->capture();
-
                 /* init user route rules. */
                 $this->router->iniRoute();
-
                 /* dispatch request */
                 $this->dispatcher->dispatch();
-
                 /* send response to client */
                 $this->response->send();
         }
