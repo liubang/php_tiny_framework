@@ -96,7 +96,7 @@ class Response
          *
          * @param null|string $code
          *
-         * @return $this
+         * @return $this|int
          */
         public function code($code = NULL)
         {
@@ -104,7 +104,9 @@ class Response
                         $this->statusCode = $code;
                         return $this;
                 }
+
                 return $this->statusCode;
+
         }
 
         /**
