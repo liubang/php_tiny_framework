@@ -76,14 +76,15 @@ class App
         {
                 /* record the start time */
                 self::$start = \microtime(TRUE);
+
                 /* initialize linger components */
-                $this->config = Config::getInstance();
-                $this->exception = Exception::getInstance();
-                $this->registry = Registry::getInstance();
-                $this->request = Request::getInstance();
-                $this->router = Router::getInstance();
+                $this->config     = Config::getInstance();
+                $this->exception  = Exception::getInstance();
+                $this->registry   = Registry::getInstance();
+                $this->request    = Request::getInstance();
+                $this->router     = Router::getInstance();
                 $this->dispatcher = Dispatcher::getInstance();
-                $this->response = Response::getInstance();
+                $this->response   = Response::getInstance();
         }
 
         /**
