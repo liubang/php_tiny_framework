@@ -122,8 +122,6 @@ class Config implements \ArrayAccess
         }
 
         /**
-         * @param $config
-         *
          * @return $this
          */
         public function loadConfig()
