@@ -29,7 +29,9 @@ abstract class Controller
                 }
         }
 
-
+        /**
+         *  init method
+         */
         protected function _init()
         {
                 $this->view = new View();
