@@ -59,6 +59,7 @@ if (!isset($argv[0]) || $argv[0] == '--help' || $argv[0] == '-h') {
                                 'public/images',
                                 'public/tmp/compile',
                                 'public/tmp/cache',
+                                'public/vendor',
                         ],
                         'files' => [
                                 $app_name . '/Bootstrap.php'                              => 'bootstrap_php',
