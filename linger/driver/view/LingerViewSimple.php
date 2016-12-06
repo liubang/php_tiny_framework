@@ -20,12 +20,12 @@ class LingerViewSimple extends LingerViewAbstract
         }
 
         /**
-         * @param string $tplFile
-         * @param int    $cacheTime
-         * @param null   $cachePath
+         * @param $tplFile
+         * @param int $cacheTime
+         * @param null $cachePath
          * @param string $contentType
-         * @param bool   $show
-         *
+         * @param bool $show
+         * @throws \Exception
          * @return void
          */
         public function display($tplFile, $cacheTime = -1, $cachePath = NULL, $contentType = 'text/html', $show = TRUE)
@@ -35,7 +35,7 @@ class LingerViewSimple extends LingerViewAbstract
                 if (\file_exists($filePath)) {
                         include $filePath;
                 } else {
-                        die('模板文件' . $filePath . '不存在');
+                        throw new \Exception('template file ' . $filePath . ' is not exists.');
                 }
         }
 

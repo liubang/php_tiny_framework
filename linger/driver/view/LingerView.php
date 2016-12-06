@@ -51,7 +51,7 @@ class LingerView extends LingerViewAbstract
                         }
                 }
                 if (!$content) {
-                        $this->compileFile = \C('TPL_COMP_PATH') . MODULE . '_' . CONTROLLER . '_' . ACTION . '_' . \substr(md5($this->tmplFile),
+                        $this->compileFile = \C('TPL_COMP_PATH') . MODULE . '_' . CONTROLLER . '_' . ACTION . '_' . \substr(\md5($this->tmplFile),
                                         0, 8) . '.php';
 
                         $compilePath = \dirname($this->compileFile);
