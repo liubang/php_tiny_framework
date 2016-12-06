@@ -23,18 +23,18 @@ class LingerView extends LingerViewAbstract
         }
 
         /**
-         * @param string $tplFile
-         * @param int    $cacheTime
+         * @param $tplFile
+         * @param int $cacheTime
          * @param string $cachePath
          * @param string $contentType
-         * @param bool   $show
-         *
-         * @return null
+         * @param bool $show
+         * @return null|string
+         * @throws \Exception
          */
         public function display($tplFile, $cacheTime = -1, $cachePath = '', $contentType = 'text/html', $show = TRUE)
         {
                 if ($cacheTime > 0 && empty($cachePath)) {
-                        die('请配置缓存目录！');
+                        throw new \Exception('please set cache directory!');
                 }
                 $content = NULL;
                 if (is_file($tplFile)) {
@@ -60,17 +60,17 @@ class LingerView extends LingerViewAbstract
                         }
                         $this->compile();
                         if (!empty($this->vars)) {
-                                extract($this->vars, EXTR_OVERWRITE);
+                                \extract($this->vars, EXTR_OVERWRITE);
                         }
-                        ob_start();
+                        \ob_start();
                         include $this->compileFile;
-                        $content = ob_get_clean();
+                        $content = \ob_get_clean();
                         if ($cacheTime > 0) {
                                 \file_put_contents($cachePath, $content);
                         }
                 }
                 if ($show) {
-                        $charset = C('TPL_CHARSET') ? C('TPL_CHARSET') : 'UTF-8';
+                        $charset = \C('TPL_CHARSET') ? \C('TPL_CHARSET') : 'UTF-8';
                         if (!\headers_sent()) {
                                 \header("Content-Type: {$contentType}; charset={$charset}");
                         }

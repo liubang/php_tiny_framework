@@ -121,8 +121,10 @@ class Config implements \ArrayAccess
                 return $arr;
         }
 
+
         /**
          * @return $this
+         * @throws \Exception
          */
         public function loadConfig()
         {
@@ -138,13 +140,13 @@ class Config implements \ArrayAccess
                                         $config = require $config;
                                 }
                         } else {
-                                exit($config . '文件不存在');
+                                throw new \Exception("File {$config} not exist!");
                         }
                 }
                 if (\is_array($config)) {
                         $this->g_config = \array_merge(require LINGER_ROOT . '/conf/config.php', $config);
                 } else {
-                        die('Requires a file or an array as a parameter');
+                        throw new \Exception('Requires a file or an array as a parameter');
                 }
 
                 $this->g_config = self::changeArrayKeyCase($this->g_config);
