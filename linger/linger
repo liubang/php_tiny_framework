@@ -68,6 +68,7 @@ if (!isset($argv[0]) || $argv[0] == '--help' || $argv[0] == '-h') {
                                 $app_name . '/module/home/controller/IndexController.php' => 'indexcontroller_php',
                                 $app_name . '/module/home/view/index.html'                => 'index_html',
                                 'public/index.php'                                        => 'index_php',
+                                'public/cli.php'                                          => 'cli_php',
                         ]
                 ];
 
@@ -213,11 +214,49 @@ PHP;
  */
 
 define('APP_ROOT', realpath(dirname(__FILE__) . '/../'));
-
 define('APP_NAME', '$app_name');
-
 require APP_ROOT . '/linger/Linger.php';
+app(APP_ROOT . '/$app_name/conf/Config.php')->bootstrap()->run();
 
+PHP;
+
+
+                $cli_php = <<<PHP
+<?php
+/*
+ |------------------------------------------------------------------
+ | linger.iliubang.cn
+ |------------------------------------------------------------------
+ | @author    : liubang
+ | @date      : $date
+ | @copyright : (c) iliubang.cn
+ | @license   : MIT (http://opensource.org/licenses/MIT)
+ |------------------------------------------------------------------
+ */
+ 
+if (php_sapi_name() !== 'cli') {
+        exit('404');
+}
+
+if (\$argc < 2) {
+        exit("Usage:    --request_uri" . PHP_EOL);
+}
+
+\$res = preg_match('#^\-\-request_uri\=([\d\w\.\-_\/]+)$#', \$argv[1], \$info);
+
+if (false === \$res) {
+        exit("Usage:    --request_uri" . PHP_EOL);
+}
+
+if (empty(\$info[1])) {
+        \$info[1] = '/';
+}
+
+\$_SERVER['REQUEST_URI'] = \$info[1];
+
+define('APP_ROOT', realpath(dirname(__FILE__) . '/../'));
+define('APP_NAME', '$app_name');
+require APP_ROOT . '/linger/Linger.php';
 app(APP_ROOT . '/$app_name/conf/Config.php')->bootstrap()->run();
 
 PHP;
