@@ -15,7 +15,7 @@ namespace linger\driver\view;
 abstract class LingerViewAbstract
 {
         /**
-         * 模板文件
+         * template file
          *
          * @var string
          */
