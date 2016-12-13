@@ -70,7 +70,6 @@ if (!isset($argv[0]) || $argv[0] == '--help' || $argv[0] == '-h') {
                                 $app_name . '/module/home/view/index.html'                => 'index_html',
                                 'public/index.php'                                        => 'index_php',
                                 'public/cli.php'                                          => 'cli_php',
-                                ''
                         ]
                 ];
 
