@@ -96,7 +96,7 @@ class Response
          *
          * @param null|string $code
          *
-         * @return $this
+         * @return $this|int
          */
         public function code($code = NULL)
         {
@@ -104,7 +104,9 @@ class Response
                         $this->statusCode = $code;
                         return $this;
                 }
+
                 return $this->statusCode;
+
         }
 
         /**
@@ -200,7 +202,7 @@ class Response
                         $filename = \basename($path);
                 }
                 if (NULL === $mimetype) {
-                        $mimetype = \finfo_file(finfo_open(FILEINFO_MIME_TYPE), $path);
+                        $mimetype = \finfo_file(\finfo_open(FILEINFO_MIME_TYPE), $path);
                 }
 
                 $this->header('Content-Type', $mimetype);

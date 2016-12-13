@@ -93,6 +93,15 @@ class LingerTag extends LingerTagAbstract
                 if (isset($attr['file'])) {
                         $view = new LingerView();
                         return $view->render($attr['file']);
+                } elseif (isset($attr['url'])) {
+                        $url = $attr['url'];
+                        if (!preg_match('/^(http|https)/', $attr['url'])) {
+                                $url = (isset($_SERVER['REQUEST_SCHEME']) && $_SERVER['REQUEST_SCHEME'] == 'https' ?
+                                                'https://' : 'http://')
+                                        . $_SERVER['HTTP_HOST'] . '/'
+                                        . preg_replace('/^(\/+)/', '', $url);
+                        }
+                        return file_get_contents($url);
                 }
                 return '';
         }
