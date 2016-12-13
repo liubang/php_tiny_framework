@@ -263,6 +263,8 @@ return [
 ```
 // include "xxxx";
 <include file="xxxx" />
+// OR 
+<include url="/admin/common/left" />
 ```
 
 `if`
