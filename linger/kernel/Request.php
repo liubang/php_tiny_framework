@@ -222,7 +222,7 @@ class Request
                 if ('' === $key) {
                         return $this->_file;
                 }
-                if (\in_array($key, $this->_file)) {
+                if (\key_exists($key, $this->_file)) {
                         return $this->_file[$key];
                 } else {
                         return FALSE;
