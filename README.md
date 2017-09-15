@@ -1,5 +1,7 @@
 # simple php frame
 
+[![Build Status](https://travis-ci.org/iliubang/php-frame-teach-demo.svg?branch=master)](https://travis-ci.org/iliubang/php-frame-teach-demo)
+
 ```
      _
  ___/__) ,
