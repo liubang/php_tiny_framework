@@ -1,6 +1,6 @@
 # simple php frame
 
-[![Build Status](https://travis-ci.org/iliubang/php-frame-teach-demo.svg?branch=master)](https://travis-ci.org/iliubang/php-frame-teach-demo)
+[![Build Status](https://travis-ci.org/iliubang/php_linger_framework.svg?branch=master)](https://travis-ci.org/iliubang/php_linger_framework)
 
 ```
      _
